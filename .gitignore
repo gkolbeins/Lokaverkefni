@@ -1,0 +1,71 @@
+# -----------------------
+# Node.js
+# -----------------------
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# -----------------------
+# TypeScript build output
+# -----------------------
+dist/
+build/
+
+# -----------------------
+# Environment variables
+# -----------------------
+.env
+.env.local
+.env.*.local
+
+# -----------------------
+# Logs
+# -----------------------
+logs/
+*.log
+*.log.*
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# -----------------------
+# OS files
+# -----------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------
+# Editor files
+# -----------------------
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# -----------------------
+# Test output
+# -----------------------
+coverage/
+*.tap
+*.test.js
+.vitest/
+
+# -----------------------
+# Temporary files
+# -----------------------
+tmp/
+temp/
+*.tmp
+
+# -----------------------
+# Prisma (ef þú notar það síðar)
+# -----------------------
+prisma/dev.db
+prisma/dev.db-journal
+
+# -----------------------
+# Typescript cache
+# -----------------------
+*.tsbuildinfo

@@ -1,10 +1,9 @@
-ATH að þetta yfirlit er unnið af gervigreind og yfirfarið af GH að mestu 29.11.2025!
+ATH að þetta yfirlit er unnið af gervigreind og yfirfarið af GH að mestu 29.11.2025 og fínpússað 2.12.2025!  
 Gervigreindin var beðin að bera saman lokaverkefnið sem lagt er fyrir og mína hugmynd af verkefni til að setja upp kröfur á verkefnið mitt.
-
 
 # Hryssa API
 
-Bakendakerfi fyrir app og vef sem heldur utan um hryssur, graðhesta, girðingar og stöðu þeirra (Hvar hver hryssa er, hjá hvaða hesti, hvort það hafi verið sónað, fyl staðfest, þarf dýralækni). Kerfið styður auðkenningu, leit, flutninga milli girðinga, tengingu við eigendur, leit efitr örmerkjum ofl. og uppfærsu upplýsinga um hryssur
+Bakendakerfi fyrir app og vef sem heldur utan um hryssur, graðhesta, girðingar og stöðu þeirra (hvar hver hryssa er, hjá hvaða hesti, hvort það hafi verið sónað, fyl staðfest, þarf dýralækni). Kerfið styður auðkenningu, leit, flutninga milli girðinga, tengingu við eigendur, leit eftir örmerkjum o.fl. og uppfærslu upplýsinga um hryssur.
 
 ## Yfirlit
 
@@ -12,13 +11,15 @@ Hryssa API er RESTful þjónusta sem sér um:
 - Skrá og sækja hryssur (upplýsingar, örmerki og jafnvel mynd)
 - Skrá og sækja eigendur (nafn, sími, email)
 - Skrá og sækja girðingar (paddock)
-- Skrá og sækja graðhesta (stallions, örkmerki)
-- Skrá stöðutákn: þarf dýralækni, sónað/fyl staðfest
+- Skrá og sækja graðhesta (stallions, örmerki)
+- Skrá stöðutákn: þarf dýralækni, sónað / fyl staðfest
 - Lesa örmerki / Bluetooth ID (chip_id)
 - Flytja hryssu í aðra girðingu / undir annan graðhest
-- Leita að hryssu eftir örmerki, nafni, eiganda, staðsetningu eða valkvæðum reitum (hafa 2 auka valkvæða reiti td fyrir gælunafn eða frostmerki)
+- Leita að hryssu eftir örmerki, nafni, eiganda, staðsetningu eða valkvæðum reitum (hafa t.d. 2 auka valkvæða reiti fyrir gælunafn eða frostmerki)
 - Auðkenningu notenda með JWT
-- Heimildir: aðeins eigandi getur breytt sínum graðhestum, eigandi graðhests/giriðingar og eigandi hryssu geta breytt upplýsingum um hryssu
+- Heimildir:
+  - aðeins eigandi graðhests/girðingar og eigandi hryssu geta breytt upplýsingum um viðkomandi hesta og skráningar
+  - aðrir notendur sjá aðeins sín eigin gögn eða almennan lista (eftir því hvernig API er stillt)
 
 ## Tækni
 
@@ -33,52 +34,52 @@ Hryssa API er RESTful þjónusta sem sér um:
 
 Afritaðu verkefnið og settu upp:
 
-git clone <repo-url>
-cd hryssa-api
+git clone \<repo-url\>  
+cd hryssa-api  
 
-npm install
-npm run dev
+npm install  
+npm run dev  
 
-Build:
-npm run build
-npm start
+Build:  
+npm run build  
+npm start  
 
-Keyra gagnagrunnsmigration:
-npm run db:migrate
-npm run db:seed
+Keyra gagnagrunnsmigration:  
+npm run db:migrate  
+npm run db:seed  
 
-Keyra prófanir:
-npm test
+Keyra prófanir:  
+npm test  
 
 ## Umhverfisbreytur (.env)
 
-Búðu til .env skrá með:
+Búðu til `.env` skrá með:
 
-DATABASE_URL=postgresql://postgres:password@localhost:5432/hryssa
-JWT_SECRET=supersecretsecret
-PORT=3000
+DATABASE_URL=postgresql://postgres:password@localhost:5432/hryssa  
+JWT_SECRET=supersecretsecret  
+PORT=3000  
 
 ## Möppaskipulag (ráðlögð)
 
-src/
-  routes/
-  controllers/
-  services/
-  middleware/
-  repository/
-  utils/
-  config/
-  index.ts
+src/  
+- routes/  
+- controllers/  
+- services/  
+- middleware/  
+- repository/  
+- utils/  
+- config/  
+- index.ts  
 
-tests/
-  auth/
-  horses/
-  stallions/
-  paddock/
-  flags/
-  utils/
+tests/  
+- auth/  
+- horses/  
+- stallions/  
+- paddock/  
+- flags/  
+- utils/  
 
-README.md
+README.md  
 
 ## Gagnagrunnsskema
 
@@ -96,7 +97,7 @@ README.md
 - is_number (IS-nr)
 - chip_id (örmerki)
 - owner_id (FK users)
-- current_pasture_id (FK paddock)
+- current_paddock_id (FK paddock)
 - current_stallion_id (FK stallions)
 - needs_vet (bool)
 - scanned (bool)
@@ -110,7 +111,7 @@ README.md
 ### paddock (girðingar)
 - id
 - name
-- location (Farm name)
+- location (farm name / staðsetning)
 
 ### stallions (graðhestar)
 - id
@@ -121,7 +122,7 @@ README.md
 
 ### optional history
 - horse_id
-- pasture_id
+- paddock_id
 - stallion_id
 - timestamp
 
@@ -163,7 +164,7 @@ POST /horses/:id/flag/pregnancy
 
 ### Flytja hryssu
 POST /horses/:id/move  
-Body: pastureId, stallionId
+Body: paddockId, stallionId  
 
 ## Notkunartilvik (Use Cases)
 
@@ -173,7 +174,7 @@ Body: pastureId, stallionId
 
 ### UC2 – Skoða upplýsingar um hryssu
 - Nafn, IS-nr, chip ID
-- Eigandi og hlekkir: sími og email
+- Eigandi og hlekkir: sími og email (front-end getur gert „click to call / click to email“)
 - Núverandi girðing
 - Graðhestur
 - Stöður: needs_vet, scanned, pregnancy_confirmed
@@ -195,8 +196,8 @@ Body: pastureId, stallionId
 - Nafn, IS-nr, chip, eigandi, girðing, graðhestur
 
 ### UC7 – Flytja hryssu
-- Eigandi verður að vera sá sami
-- Uppfærir current_pasture og current_stallion
+- Eigandi verður að vera sá sami (eigandi hryssu og/eða sá sem hefur réttindi á paddock/graðhesti)
+- Uppfærir current_paddock og current_stallion
 
 ### UC8 – Merkja stöðu
 - needs_vet = true/false
@@ -208,7 +209,7 @@ Body: pastureId, stallionId
 - Email unique
 
 ### UC10 – Eyða reikningi
-- Eyðir notanda og merkir hross hans óvirk eða eyðir þeim
+- Eyðir notanda og merkir hross hans óvirk eða eyðir þeim ( eftir því hvernig viðskiptalógík er skilgreind )
 
 ## Prófanir
 
@@ -253,4 +254,3 @@ Body: pastureId, stallionId
 - Villumeðhöndlun
 - Prófanir með góðri umfjöllun
 - Hreint, skýrt README.md
-
