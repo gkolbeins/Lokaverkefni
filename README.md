@@ -1,7 +1,10 @@
 ATH að þetta yfirlit er unnið af gervigreind og yfirfarið af GH að mestu 29.11.2025 og fínpússað 2.12.2025!  
-Gervigreindin var beðin að bera saman lokaverkefnið sem lagt er fyrir og mína hugmynd af verkefni til að setja upp kröfur á verkefnið mitt.
+Gervigreindin var beðin að bera saman lokaverkefnið sem lagt var fyrir og mína hugmynd af verkefni til að setja réttar kröfur á verkefnið mitt.
+Á Figma, á slóðinni https://www.figma.com/design/nKf9PYlMcwSYV4gmYwXIrD/Hryssa---app---web-2.0?node-id=0-1&t=KTidrjFVxMZ1d2Hv-1 er tillaga að útliti á framenda sem ég er búin að vinna.
 
-# Hryssa API
+ATH mögulegt er að þetta yfirlit taki smávægilegum breytingum til aðlögunar á meðan á vinnu verkefnisins stendur
+
+# Hryssa API - Lokaverkefni á 3. önn
 
 Bakendakerfi fyrir app og vef sem heldur utan um hryssur, graðhesta, girðingar og stöðu þeirra (hvar hver hryssa er, hjá hvaða hesti, hvort það hafi verið sónað, fyl staðfest, þarf dýralækni). Kerfið styður auðkenningu, leit, flutninga milli girðinga, tengingu við eigendur, leit eftir örmerkjum o.fl. og uppfærslu upplýsinga um hryssur.
 
@@ -18,8 +21,9 @@ Hryssa API er RESTful þjónusta sem sér um:
 - Leita að hryssu eftir örmerki, nafni, eiganda, staðsetningu eða valkvæðum reitum (hafa t.d. 2 auka valkvæða reiti fyrir gælunafn eða frostmerki)
 - Auðkenningu notenda með JWT
 - Heimildir:
-  - aðeins eigandi graðhests/girðingar og eigandi hryssu geta breytt upplýsingum um viðkomandi hesta og skráningar
-  - aðrir notendur sjá aðeins sín eigin gögn eða almennan lista (eftir því hvernig API er stillt)
+  - eigandi graðhests/girðingar og eigandi hryssu geta báðir breytt upplýsingum um hryssur
+  - eigandi hryssu getur aðeins breytt upplýsingum um hryssuna
+  - til vara er að kerfið sé eingöngu ætlað eigendum graðhesta/girðinga til utanumhalds!
 
 ## Tækni
 
