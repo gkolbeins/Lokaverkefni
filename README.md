@@ -2,7 +2,8 @@ ATH að þetta yfirlit er unnið af gervigreind og yfirfarið af GH að mestu 29
 Gervigreindin var beðin að bera saman lokaverkefnið sem lagt var fyrir og mína hugmynd af verkefni til að setja réttar kröfur á verkefnið mitt.
 Á Figma, á slóðinni https://www.figma.com/design/nKf9PYlMcwSYV4gmYwXIrD/Hryssa---app---web-2.0?node-id=0-1&t=KTidrjFVxMZ1d2Hv-1 er tillaga að útliti á framenda sem ég er búin að vinna.
 
-ATH mögulegt er að þetta yfirlit taki smávægilegum breytingum til aðlögunar á meðan á vinnu verkefnisins stendur
+ATH mögulegt er að þetta yfirlit taki smávægilegum breytingum til aðlögunar á meðan á vinnu verkefnisins stendur:
+- breyting gerð 9.12.2025
 
 # Hryssa API - Lokaverkefni á 3. önn
 
@@ -176,7 +177,7 @@ Body: paddockId, stallionId
 - Sía eftir girðingu, graðhesti, eiganda, chip_id
 - Raða eftir nafni eða aldri
 
-### UC2 – Skoða upplýsingar um hryssu
+### UC2 – Skoða upplýsingar um mína hryssu/hryssur
 - Nafn, IS-nr, chip ID
 - Eigandi og hlekkir: sími og email (front-end getur gert „click to call / click to email“)
 - Núverandi girðing
@@ -197,11 +198,14 @@ Body: paddockId, stallionId
 - Skilar JWT token
 
 ### UC6 – Skrá nýja hryssu
-- Nafn, IS-nr, chip, eigandi, girðing, graðhestur
+- Nafn, IS-nr, chip, eigandi, girðing, graðhestur, komudagur ( arrival_date )
 
 ### UC7 – Flytja hryssu
 - Eigandi verður að vera sá sami (eigandi hryssu og/eða sá sem hefur réttindi á paddock/graðhesti)
-- Uppfærir current_paddock og current_stallion
+- Uppfærir current_paddock, current_stallion og arrival_date
+- Hætta við dvöl: Skráð dvöl (stay) er merkt sem lokið eða cancelled
+- departure_date er skráð þegar dvöl er hætt
+- Kerfið tryggir að dvöl sem er hætt við sé ekki lengur virk
 
 ### UC8 – Merkja stöðu
 - needs_vet = true/false
@@ -210,10 +214,33 @@ Body: paddockId, stallionId
 
 ### UC9 – Uppfæra prófíl notanda
 - Nafn, sími, email
-- Email unique
+- email unique
 
-### UC10 – Eyða reikningi
+### UC10 – Eyða notandareikningi
 - Eyðir notanda og merkir hross hans óvirk eða eyðir þeim ( eftir því hvernig viðskiptalógík er skilgreind )
+
+### Viðbótarhugmynd: saga og greiðslur - UC11-UC13 mögulegar viðbætur
+
+### UC11 - Búa til rukkun (invoice)
+- Graðhestseigandi býr til rukkun fyrir dvöl eða þjónustu
+- Velur hryssu og tengda dvöl (stay)
+- Slær inn: upphæð, lýsingu, gjalddaga
+- Kerfið býr til rukkun með stöðunni pending
+- Hryssueigandi sér ógreidda rukkun í appinu eða á vefnum
+
+### UC12 - Greiða rukkun
+- Hryssueigandi sér ógreidda rukkun (pending)
+- Ýtir á “Greiða”
+- Kerfið uppfærir rukkun: status → paid
+- Skráir paid_at dagsetningu
+- Rukkanir færast í “greiddar” hjá báðum aðilum
+
+### UC13 - Skoða greiðslusögu
+- Notandi skoðar greiddar og ógreiddar rukkanir
+- Hægt að sía eftir stöðu: pending, paid, cancelled, overdue
+- Hægt að sjá sögu fyrir: Hryssur sem notandi á og Rukkanir sem notandi hefur búið til (ef graðhestseigandi)
+- Niðurstöður birtar með upphæð, lýsingu, dagsetningum og stöðu
+
 
 ## Prófanir
 

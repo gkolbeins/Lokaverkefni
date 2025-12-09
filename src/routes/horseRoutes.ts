@@ -1,9 +1,8 @@
 import { Router } from "express";
+import { getAllHorses } from "../controllers/horseController";
 
 const router = Router();
 
-router.get("/", (requst, response) => {
-  response.json({ message: "Horses endpoint works" });
-});
+router.get("/", getAllHorses);
 
 export default router;
