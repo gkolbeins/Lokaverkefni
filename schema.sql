@@ -7,7 +7,7 @@ CREATE TABLE users (
     phone TEXT,
     email TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMPTZ DEFAULT NOW()
 )
 
 CREATE TABLE paddocks (
@@ -39,5 +39,5 @@ CREATE TABLE horses (
     notes TEXT,
     other_info_1 TEXT,
     other_info_2 TEXT,
-    created_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMPTZ DEFAULT NOW()
 )
