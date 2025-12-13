@@ -1,9 +1,10 @@
 ATH að þetta yfirlit er unnið af gervigreind og yfirfarið af GH að mestu 29.11.2025 og fínpússað 2.12.2025!  
 Gervigreindin var beðin að bera saman lokaverkefnið sem lagt var fyrir og mína hugmynd að verkefni til að setja réttar kröfur á verkefnið mitt.
-Á Figma, á slóðinni https://www.figma.com/design/nKf9PYlMcwSYV4gmYwXIrD/Hryssa---app---web-2.0?node-id=0-1&t=KTidrjFVxMZ1d2Hv-1 er tillaga að útliti á framenda sem ég er búin að vinna ásamt örstuttri verklýsingu.
+
+Á Figma, á slóðinni https://www.figma.com/design/nKf9PYlMcwSYV4gmYwXIrD/Hryssa---app---web-2.0?node-id=0-1&t=KTidrjFVxMZ1d2Hv-1 er tillaga að útliti á framenda sem ég er búin að vinna ásamt styttri verklýsingu.
 
 ATH mögulegt er að þetta yfirlit taki breytingum til aðlögunar á meðan á vinnu verkefnisins stendur:
-- breyting gerð 9.12.2025
+- breyting gerð 9.12.2025 og 13.12.2025
 
 # Hryssa API - Lokaverkefni á 3. önn
 
