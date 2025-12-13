@@ -11,13 +11,29 @@ Hér skrái ég stöðu verkefnisins, hvað er lokið og hvað er næst.
 [x] Búa til gagnagrunn (hryssa)
 [x] Útfæra schema.sql
 [x] Testa PostgreSQL tengingu
+
+### Handvirk próf:
+- [x] Server ræsist án villna
+- [x] Root endpoint (`GET /`) svarar
+- [x] Database tenging prófuð með `GET /db-test`
+- [x] Routing prófað með `GET /horses`
+
 **✓ Fasi 1 lokið: 9.12.2025**
 
 ## Fase 2 – Auðkenning
-[ ] Register endpoint
+[x] Register endpoint
 [ ] Login endpoint
 [ ] JWT middleware
 [ ] Prófanir: register/login/token
+
+### Handvirk próf:
+- [x] POST /auth/register svarar og route tengist rétt
+- [x] POST /auth/register skilar 400 ef vantar name/email/password
+- [x] POST /auth/register tekur við gögnum þegar allt er rétt
+- [x] POST /auth/register vistar nýjan notanda í gagnagrunn
+- [x] POST /auth/register hafnar tvíteknum email
+- [x] Lykilorð eru geymd hash-uð (bcrypt)
+
 
 ## Fase 3 – Horses
 [ ] GET /horses

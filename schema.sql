@@ -41,3 +41,6 @@ CREATE TABLE horses (
     other_info_2 TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW()
 )
+
+-- prófun
+-- SELECT email, password_hash FROM users;
