@@ -65,7 +65,7 @@ DATABASE_URL=postgresql://postgres:password@localhost:5432/hryssa
 JWT_SECRET=supersecretsecret  
 PORT=3000  
 
-## Möppaskipulag (ráðlögð)
+## Möppuskipulag (ráðlagt af gervigreind, tekur mannlegum breytingum)
 
 src/  
 - routes/  
