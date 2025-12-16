@@ -34,7 +34,38 @@ router.post("/register", async (request, response) => {
     return response.status(500).json({ message: "Internal server error" });
 }
 
-    response.status(200).json({ message: "User register success" });
+});
+
+router.post("/login", async (request, response) => {
+    const { email, password } = request.body;
+
+    if (!email || !password) {
+        return response.status(400).json({ message: "email and password are required" });
+    }
+
+    try {
+        const result = await pool.query(
+            "SELECT id, password_hash FROM users WHERE email = $1",
+            [email]
+        );
+
+        if (result.rows.length === 0) {
+            return response.status(401).json({ message: "Invalid email or password" });
+        }
+
+        const user = result.rows[0];
+
+        const passwordMatch = await bcrypt.compare(password, user.password_hash);
+
+        if (!passwordMatch) {
+            return response.status(401).json({ message: "Invalid email or password" });
+        }
+
+        return response.status(200).json({ message: "Login successful"});
+    } catch (error) {
+        console.error(error);
+        return response.status(500).json({ message: "Internal server error" });
+    }
 });
 
 export default router;

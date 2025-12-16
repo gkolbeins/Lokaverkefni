@@ -33,6 +33,10 @@ Hér skrái ég stöðu verkefnisins, hvað er lokið og hvað er næst.
 - [x] POST /auth/register vistar nýjan notanda í gagnagrunn
 - [x] POST /auth/register hafnar tvíteknum email
 - [x] Lykilorð eru geymd hash-uð (bcrypt)
+- [x] POST /auth/login skilar 400 ef vantar email eða password
+- [x] POST /auth/login skilar 401 ef rangt email
+- [x] POST /auth/login skilar 401 ef rangt password
+- [x] POST /auth/login skilar 200 við rétt auðkenni
 
 
 ## Fase 3 – Horses
