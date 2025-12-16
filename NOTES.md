@@ -4,7 +4,7 @@
 Hér skrái ég stöðu verkefnisins, hvað er lokið og hvað er næst.
 Þetta skjal tekur stöðugum breytingum í gegnum verkefnið
 
-## Fase 1 – Setup
+## Skref 1 – Setup
 [x] Búa til project
 [x] Setja upp TypeScript
 [x] Setja upp Express
@@ -20,7 +20,7 @@ Hér skrái ég stöðu verkefnisins, hvað er lokið og hvað er næst.
 
 **✓ Fasi 1 lokið: 9.12.2025**
 
-## Fase 2 – Auðkenning
+## Skref 2 – Auðkenning
 [x] Register endpoint
 [ ] Login endpoint
 [ ] JWT middleware
@@ -39,7 +39,7 @@ Hér skrái ég stöðu verkefnisins, hvað er lokið og hvað er næst.
 - [x] POST /auth/login skilar 200 við rétt auðkenni
 
 
-## Fase 3 – Horses
+## Skref 3 – Horses
 [ ] GET /horses
 [ ] POST /horses
 [ ] Heimildir fyrir update/delete
