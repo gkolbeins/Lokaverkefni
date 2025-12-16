@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import bcrypt from 'bcrypt';
 import { pool } from '../config/db';
+import jwt from 'jsonwebtoken';
 
 const router = Router();
 
@@ -61,7 +62,13 @@ router.post("/login", async (request, response) => {
             return response.status(401).json({ message: "Invalid email or password" });
         }
 
-        return response.status(200).json({ message: "Login successful"});
+        const token = jwt.sign(
+            { userId: user.id },
+            process.env.JWT_SECRET as string,
+            { expiresIn: '1h' }
+        );
+
+        return response.status(200).json({ message: "Login successful", token});
     } catch (error) {
         console.error(error);
         return response.status(500).json({ message: "Internal server error" });
