@@ -1,15 +1,13 @@
 import { Router } from "express";
 import { pool } from "../config/db";
 import { authenticateToken } from "../middleware/authenticateToken";
+import * as horseController from "../controllers/horseController";
 
 const router = Router();
 
-router.get("/", authenticateToken, (request, response) => {
-    if (!request.userId) {
-    return response.status(401).json({ message: "Unauthorized" });
-  }
-  response.json({ message: "Protected horses endpoint", userId: request.userId });
-});
+router.get("/", authenticateToken, horseController.getAllHorses);
+
+router.get("/:id", authenticateToken, horseController.getHorseByIdController);
 
 router.post("/", authenticateToken, async (request, response) => {
   if (!request.userId) {
@@ -36,5 +34,7 @@ router.post("/", authenticateToken, async (request, response) => {
     return response.status(500).json({ message: "Internal server error" });
   }
 });
+
+router.patch("/:id", authenticateToken, horseController.patchHorse);
 
 export default router;

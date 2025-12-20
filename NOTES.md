@@ -3,6 +3,7 @@
 Þetta skjal geymir vinnuferlið mitt, skipulag og áætlun um hvernig ég byggi Hryssa API-ið.  
 Hér skrái ég stöðu verkefnisins, hvað er lokið og hvað er næst - þetta er fyrst og fremst vinnuskjal.
 Þetta skjal tekur stöðugum breytingum í gegnum verkefnið.
+Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 
 ## Skref 1 – Setup
 [x] Búa til project
