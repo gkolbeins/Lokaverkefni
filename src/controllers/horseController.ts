@@ -1,22 +1,6 @@
 import { Request, Response } from "express";
-import { getHorses, getHorseById, updateHorse } from "../services/horseService";
+import { getHorsesByOwner, getHorseById, updateHorse, deleteHorse } from "../services/horseService";
 import { ageFromIsNumber } from "../utils/ageFromIsNumber";
-
-export const getAllHorses = async (request: Request, response: Response) => {
-  try {
-    const horses = await getHorses();
-
-    const horsesWithAge = horses.map((horse) => ({
-      ...horse,
-      age: ageFromIsNumber(horse.is_number),
-    }));
-
-    response.json(horsesWithAge);
-  } catch (error) {
-    console.error("Error fetching horses:", error);
-    response.status(500).json({ error: "Failed to fetch horses" });
-  }
-};
 
 export const patchHorse = async (request: Request, response: Response) => {
   try {
@@ -85,7 +69,8 @@ export const getHorseByIdController = async (request: Request, response: Respons
       return response.status(401).json({ message: "Unauthorized" });
     }
 
-    const horse = await getHorseById(horseId);
+  const horse = await getHorseById(horseId);
+  
 
     if (!horse) {
       return response.status(404).json({ message: "Horse not found" });
@@ -105,4 +90,59 @@ export const getHorseByIdController = async (request: Request, response: Respons
   }
 };
 
+export const getAllHorses = async (request: Request, response: Response) => {
+  try {
+    if (!request.userId) {
+      return response.status(401).json({ message: "Unauthorized" });
+    }
 
+    const horses = await getHorsesByOwner(request.userId);
+
+    const horsesWithAge = horses.map((horse) => ({
+      ...horse,
+      age: ageFromIsNumber(horse.is_number),
+    }));
+
+    response.json(horsesWithAge);
+  } catch (error) {
+    console.error("Error fetching horses:", error);
+    response.status(500).json({ error: "Failed to fetch horses" });
+  }
+};
+
+export const deleteHorseController = async (
+  request: Request,
+  response: Response
+) => {
+  try {
+    const horseId = Number(request.params.id);
+
+    if (isNaN(horseId)) {
+      return response.status(400).json({ message: "Invalid horse id" });
+    }
+
+    if (!request.userId) {
+      return response.status(401).json({ message: "Unauthorized" });
+    }
+
+    const horse = await getHorseById(horseId);
+
+    if (!horse) {
+      return response.status(404).json({ message: "Horse not found" });
+    }
+
+    if (horse.owner_id !== request.userId) {
+      return response.status(403).json({ message: "Forbidden" });
+    }
+
+    const deletedHorse = await deleteHorse(horseId);
+
+    return response.status(200).json({
+      message: "Horse deleted",
+      horse: deletedHorse,
+    });
+  } catch (error) {
+    console.error("Error deleting horse:", error);
+    return response.status(500).json({ message: "Internal server error" });
+  }
+};

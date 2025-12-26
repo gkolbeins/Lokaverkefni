@@ -48,23 +48,32 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 
 ## Skref 3 – Horses
 ### Endapunktar
-[x] POST /horses – skrá nýja hryssu
-[x] GET /horses – sækja mínar hryssur (filterað á owner_id úr token)
-[ ] PATCH /horses/:id – uppfæra hryssu
-[ ] DELETE /horses/:id – eyða hryssu
+- [x] POST /horses – skrá nýja hryssu (owner_id tekið úr JWT token)
+- [x] GET /horses – sækja mínar hryssur (filterað á owner_id úr token)
+- [x] GET /horses/:id – sækja eina hryssu (aðeins eigandi)
+- [x] PATCH /horses/:id – uppfæra hryssu (aðeins eigandi, whitelist reitir)
+- [x] DELETE /horses/:id – eyða hryssu (aðeins eigandi)
 
 ### Heimildir
-[ ] Aðeins eigandi má uppfæra
-[ ] Aðeins eigandi má eyða
+- [x] Aðeins eigandi má sækja sína hryssu
+- [x] Aðeins eigandi má uppfæra sína hryssu
+- [x] Aðeins eigandi má eyða sinni hryssu
 
 ### Handvirk próf
-- [x] POST /horses án token - 401
-- [x] POST /horses án name - 400
-- [x] POST /horses með gilt token - 201
-- [x] owner_id tekið úr token
+- [x] POST /horses án token → 401
+- [x] POST /horses án name → 400
+- [x] POST /horses með gilt token → 201
+- [x] owner_id er tekið úr JWT token
+- [x] GET /horses skilar aðeins hryssum innskráðs notanda
+- [x] GET /horses/:id → 403 ef notandi er ekki eigandi
+- [x] PATCH /horses/:id → 403 ef notandi er ekki eigandi
+- [x] PATCH /horses/:id → 200 ef notandi er eigandi
+- [x] PATCH hafnar óleyfilegum reitum (t.d. owner_id)
 
 ### Sjálfvirk próf (á eftir)
-[ ] Vitest + Supertest fyrir horses
+- [x] Vitest + Supertest – DELETE /horses
+
+**✓ Skref 2 lokið: 26.12.2025**
 
 ## Fleira á eftir að koma hér.....
 

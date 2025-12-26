@@ -1,0 +1,63 @@
+import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import request from "supertest";
+import app from "../../src/index";
+import { pool } from "../../src/config/db";
+
+let token: string;
+let horseId: number;
+
+describe("DELETE /horses/:id", () => {
+  beforeAll(async () => {
+    //nýr notandi
+    await request(app)
+      .post("/auth/register")
+      .send({
+        name: "Delete Test User",
+        email: "delete@test.is",
+        password: "password123",
+      });
+
+    //innskráning og fá token
+    const loginRes = await request(app)
+      .post("/auth/login")
+      .send({
+        email: "delete@test.is",
+        password: "password123",
+      });
+
+    token = loginRes.body.token;
+
+    //búa til hryssu sem þessi notandi á
+    const horseRes = await request(app)
+      .post("/horses")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        name: "Test Hryssa",
+        is_number: "IS2020-9999",
+      });
+
+    horseId = horseRes.body.id;
+  });
+
+  it("should delete own horse", async () => {
+    const res = await request(app)
+      .delete(`/horses/${horseId}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.message).toBe("Horse deleted");
+    expect(res.body.horse.id).toBe(horseId);
+  });
+
+  it("should return 404 when deleting same horse again", async () => {
+    const res = await request(app)
+      .delete(`/horses/${horseId}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.status).toBe(404);
+  });
+
+  afterAll(async () => {
+    await pool.end();
+  });
+});

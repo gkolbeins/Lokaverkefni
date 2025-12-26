@@ -1,7 +1,8 @@
 import { pool } from "../config/db";
 
-export const getHorses = async () => {
-  const result = await pool.query("SELECT * FROM horses ORDER BY id ASC");
+export const getHorsesByOwner = async (ownerId: number) => {
+  const result = await pool.query("SELECT * FROM horses WHERE owner_id = $1 ORDER BY id ASC",
+    [ownerId]);
   return result.rows;
 };
 

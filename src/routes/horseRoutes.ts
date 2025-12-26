@@ -2,10 +2,11 @@ import { Router } from "express";
 import { pool } from "../config/db";
 import { authenticateToken } from "../middleware/authenticateToken";
 import * as horseController from "../controllers/horseController";
+import { requireAuth } from "../middleware/requireAuth";
 
 const router = Router();
 
-router.get("/", authenticateToken, horseController.getAllHorses);
+router.get("/", authenticateToken, requireAuth, horseController.getAllHorses);
 
 router.get("/:id", authenticateToken, horseController.getHorseByIdController);
 
@@ -36,5 +37,7 @@ router.post("/", authenticateToken, async (request, response) => {
 });
 
 router.patch("/:id", authenticateToken, horseController.patchHorse);
+
+router.delete("/:id", authenticateToken, requireAuth, horseController.deleteHorseController);
 
 export default router;
