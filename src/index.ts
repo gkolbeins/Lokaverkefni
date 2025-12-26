@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import horseRoutes from "./routes/horseRoutes";
 import { pool } from "./config/db";
 import authRoutes from "./routes/authRoutes";
+import stallionRoutes from "./routes/stallionRoutes";
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ app.use("/horses", horseRoutes);
 app.get("/", (req, res) => {
   res.send("Hryssa API running");
 });
+
+app.use("/stallions", stallionRoutes);
 
 // Til að testa database-inn
 app.get("/db-test", async (req, res) => {

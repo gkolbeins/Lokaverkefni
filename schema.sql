@@ -42,5 +42,21 @@ CREATE TABLE horses (
     created_at TIMESTAMPTZ DEFAULT NOW()
 )
 
+CREATE TABLE stallions (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  is_number TEXT UNIQUE,
+  chip_id TEXT UNIQUE,
+  owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  notes TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW())
+  
+DROP TABLE stallions CASCADE
+
+SELECT * FROM stallions
+
 -- prófun
 -- SELECT email, password_hash FROM users;
+
+-- INSERT INTO stallions (name, owner_id)
+-- VALUES ('Test Graðhestur', 1);

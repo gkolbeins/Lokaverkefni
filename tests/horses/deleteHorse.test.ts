@@ -3,6 +3,7 @@ import request from "supertest";
 import app from "../../src/index";
 import { pool } from "../../src/config/db";
 
+describe.sequential("DELETE /horses/:id", () => {
 let token: string;
 let horseId: number;
 
@@ -40,24 +41,22 @@ describe("DELETE /horses/:id", () => {
   });
 
   it("should delete own horse", async () => {
-    const res = await request(app)
+    const response = await request(app)
       .delete(`/horses/${horseId}`)
       .set("Authorization", `Bearer ${token}`);
 
-    expect(res.status).toBe(200);
-    expect(res.body.message).toBe("Horse deleted");
-    expect(res.body.horse.id).toBe(horseId);
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe("Horse deleted");
+    expect(response.body.horse.id).toBe(horseId);
   });
 
   it("should return 404 when deleting same horse again", async () => {
-    const res = await request(app)
+    const response = await request(app)
       .delete(`/horses/${horseId}`)
       .set("Authorization", `Bearer ${token}`);
 
-    expect(res.status).toBe(404);
+    expect(response.status).toBe(404);
   });
 
-  afterAll(async () => {
-    await pool.end();
-  });
+});
 });

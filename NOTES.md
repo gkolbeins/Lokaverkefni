@@ -70,10 +70,54 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] PATCH /horses/:id → 200 ef notandi er eigandi
 - [x] PATCH hafnar óleyfilegum reitum (t.d. owner_id)
 
-### Sjálfvirk próf (á eftir)
-- [x] Vitest + Supertest – DELETE /horses
+### Sjálfvirk próf
+- [x] Vitest + Supertest
+- [x] DELETE /horses
+- [x] GET /horses
+- [x] PATCH /horses
+- [x] POST /horses
 
-**✓ Skref 2 lokið: 26.12.2025**
+**✓ Skref 3 lokið: 26.12.2025**
+
+## Skref 4 – Stallions & Paddocks (grunnur)
+### Stallions
+- [x] Stallions schema (SQL)
+- [x] POST /stallions
+- [x] GET /stallions
+- [x] GET /stallions/:id
+- [x] PATCH /stallions/:id
+- [x] DELETE /stallions/:id
+- [x] Handvirk próf (Postman)
+
+### Handvirk próf – Stallions (Postman)
+- [x] POST /stallions með gilt token → 201 Created
+- [x] POST /stallions án name → 400 Bad Request
+- [x] POST /stallions án token → 401 Unauthorized
+- [x] GET /stallions með gilt token → 200 OK
+- [x] GET /stallions skilar aðeins graðhestum innskráðs notanda
+- [x] GET /stallions/:id með gilt id → 200 OK
+- [x] GET /stallions/:id með id sem er ekki til → 404 Not Found
+- [x] GET /stallions/:id sem tilheyrir öðrum notanda → 403 Forbidden
+- [x] PATCH /stallions/:id með gilt body → 200 OK
+- [x] PATCH /stallions/:id með tómt body → 400 Bad Request
+- [x] PATCH /stallions/:id sem tilheyrir öðrum notanda → 403 Forbidden
+- [x] DELETE /stallions/:id með gilt token → 200 OK
+- [x] DELETE /stallions/:id sem er ekki til → 404 Not Found
+- [x] DELETE /stallions/:id sem tilheyrir öðrum notanda → 403 Forbidden
+
+### Paddocks
+- [ ] POST /paddocks (tengt stallion)
+- [ ] GET /paddocks
+- [ ] GET /paddocks/:id
+- [ ] GET /paddocks/:id/horses
+- [ ] PATCH /paddocks/:id
+- [ ] DELETE /paddocks/:id
+
+### Sjálfvirk próf
+- [ ] DELETE /stallions
+- [ ] GET /stallions
+- [ ] PATCH /stallions
+- [ ] POST /stallions
 
 ## Fleira á eftir að koma hér.....
 

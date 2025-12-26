@@ -178,7 +178,7 @@ Body: paddockId, stallionId
 - Sía eftir girðingu, graðhesti, eiganda, chip_id
 - Raða eftir nafni eða aldri
 
-### UC2 – Skoða upplýsingar um mína hryssu/hryssur
+### UC2 – Skoða upplýsingar um mína hryssu/hryssur - ✅
 - Nafn, IS-nr, chip ID
 - Eigandi og hlekkir: sími og email (front-end getur gert „click to call / click to email“)
 - Núverandi girðing
@@ -190,15 +190,15 @@ Body: paddockId, stallionId
 - Lista allar hryssur í þessari girðingu
 - Birta graðhest ef skráður
 
-### UC4 – Skrá notanda
+### UC4 – Skrá notanda - ✅
 - Nafn, sími, email, lykilorð
 - email unique
 - Lykilorð hössuð
 
-### UC5 – Innskráning
+### UC5 – Innskráning - ✅
 - Skilar JWT token
 
-### UC6 – Skrá nýja hryssu
+### UC6 – Skrá nýja hryssu - ✔️ (vantar enn girðingu, graðhest og arrival_date)
 - Nafn, IS-nr, chip, eigandi, girðing, graðhestur, komudagur ( arrival_date )
 
 ### UC7 – Flytja hryssu
