@@ -114,10 +114,12 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [ ] DELETE /paddocks/:id
 
 ### Sjálfvirk próf
-- [ ] DELETE /stallions
-- [ ] GET /stallions
-- [ ] PATCH /stallions
-- [ ] POST /stallions
+- [x] DELETE /stallions
+- [x] GET /stallions
+- [x] PATCH /stallions
+- [x] POST /stallions
+- [x] POST /auth/register
+- [x] POST /auth/login
 
 ## Fleira á eftir að koma hér.....
 
