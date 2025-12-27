@@ -106,7 +106,8 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] DELETE /stallions/:id sem tilheyrir öðrum notanda → 403 Forbidden
 
 ### Paddocks
-- [ ] POST /paddocks (tengt stallion)
+- [x] Paddocks schema (SQL)
+- [x] POST /paddocks (tengt stallion)
 - [ ] GET /paddocks
 - [ ] GET /paddocks/:id
 - [ ] GET /paddocks/:id/horses
