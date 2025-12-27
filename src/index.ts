@@ -14,8 +14,8 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/horses", horseRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Hryssa API running");
+app.get("/", (request, response) => {
+  response.send("Hryssa API running");
 });
 
 app.use("/stallions", stallionRoutes);
@@ -23,19 +23,21 @@ app.use("/stallions", stallionRoutes);
 app.use("/paddocks", paddockRoutes);
 
 //til að testa database-inn
-app.get("/db-test", async (req, res) => {
+app.get("/db-test", async (request, response) => {
   try {
     const result = await pool.query("SELECT NOW()");
-    res.json(result.rows);
+    response.json(result.rows);
   } catch (error) {
     console.error(error);
-    res.status(500).send("Database error");
+    response.status(500).send("Database error");
   }
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}
 
 export default app;

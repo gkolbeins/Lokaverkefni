@@ -18,6 +18,13 @@ CREATE TABLE paddocks (
 -- bætti við paddock töfluna
 ALTER TABLE paddocks
 ADD COLUMN owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE;
+-- breytti paddock töflunni svo owner_id sé ekki null
+ALTER TABLE paddocks
+ALTER COLUMN owner_id SET NOT NULL;
+-- og bætti við að tvö paddock geti ekki heitið það sama
+ALTER TABLE paddocks
+ADD CONSTRAINT unique_paddock_name_per_owner
+UNIQUE (owner_id, name);
 
 CREATE TABLE stallions (
     id SERIAL PRIMARY KEY,

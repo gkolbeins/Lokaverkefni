@@ -1,7 +1,12 @@
 import pkg from "pg";
 import dotenv from "dotenv";
 
-dotenv.config();
+if (process.env.NODE_ENV === "test") {
+  dotenv.config({ path: ".env.test" });
+} else {
+  dotenv.config();
+}
+
 const { Pool } = pkg;
 
 export const pool = new Pool({

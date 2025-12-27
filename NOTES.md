@@ -108,11 +108,29 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 ### Paddocks
 - [x] Paddocks schema (SQL)
 - [x] POST /paddocks (tengt stallion)
-- [ ] GET /paddocks
-- [ ] GET /paddocks/:id
+- [x] GET /paddocks
+- [x] unique paddock name per owner
+- [x] GET /paddocks/:id
 - [ ] GET /paddocks/:id/horses
 - [ ] PATCH /paddocks/:id
 - [ ] DELETE /paddocks/:id
+
+### Handvirk próf – Paddocks (Postman)
+- [x] POST /paddocks með gilt token + valid body → 201 Created
+- [x] POST /paddocks án token → 401 Unauthorized
+- [x] POST /paddocks án name → 400 Bad Request
+- [x] POST /paddocks án stallion_id → 400 Bad Request
+- [x] POST /paddocks með stallion_id sem er ekki til → 404 Not Found
+- [x] POST /paddocks með stallion_id sem tilheyrir öðrum notanda → 403 Forbidden
+- [x] POST /paddocks með sama name hjá sama notanda → 400 Bad Request
+- [x] owner_id í paddock er tekið úr JWT token
+- [x] GET /paddocks með gilt token → 200 OK
+- [x] GET /paddocks án token → 401 Unauthorized
+- [x] GET /paddocks skilar aðeins paddocks innskráðs notanda
+- [x] GET /paddocks/:id með gilt token → 200 OK
+- [x] GET /paddocks/:id án token → 401 Unauthorized
+- [x] GET /paddocks/:id sem er ekki til → 404 Not Found
+- [x] GET /paddocks/:id sem tilheyrir öðrum notanda → 403 Forbidden
 
 ### Sjálfvirk próf
 - [x] DELETE /stallions
@@ -121,6 +139,12 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] POST /stallions
 - [x] POST /auth/register
 - [x] POST /auth/login
+
+### Athugasemd – Test umhverfi / test db
+- [x] Aðskilnaður test og dev gagnagrunns, bjó til hryssa_test db
+- [x] `.env.test` notað fyrir Vitest
+- [x] Test eiga ekki að keyra lengur gegn raunverulegum gögnum
+- [x] Leyst með aðstoð og útskýringum AI
 
 ## Fleira á eftir að koma hér.....
 
