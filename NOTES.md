@@ -6,12 +6,12 @@ Hér skrái ég stöðu verkefnisins, hvað er lokið og hvað er næst - þetta
 Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 
 ## Skref 1 – Setup
-[x] Búa til project
-[x] Setja upp TypeScript
-[x] Setja upp Express
-[x] Búa til gagnagrunn (hryssa)
-[x] Útfæra schema.sql
-[x] Testa PostgreSQL tengingu
+- [x] Búa til project
+- [x] Setja upp TypeScript
+- [x] Setja upp Express
+- [x] Búa til gagnagrunn (hryssa)
+- [x] Útfæra schema.sql
+- [x] Testa PostgreSQL tengingu
 
 ### Handvirk próf:
 - [x] Server ræsist án villna
@@ -22,11 +22,11 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 **✓ Skref 1 lokið: 9.12.2025**
 
 ## Skref 2 – Auðkenning
-[x] Register endpoint
-[x] Login endpoint
-[x] JWT token
-[x] JWT middleware
-[x] Prófanir: register/login/token
+- [x] Register endpoint
+- [x] Login endpoint
+- [x] JWT token
+- [x] JWT middleware
+- [x] Prófanir: register/login/token
 
 ### Handvirk próf:
 - [x] POST /auth/register svarar og route tengist rétt
