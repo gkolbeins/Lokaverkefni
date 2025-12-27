@@ -15,6 +15,9 @@ CREATE TABLE paddocks (
     name TEXT NOT NULL,
     location TEXT
 )
+-- bætti við paddock töfluna
+ALTER TABLE paddocks
+ADD COLUMN owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE;
 
 CREATE TABLE stallions (
     id SERIAL PRIMARY KEY,

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { getHorsesByOwner, getHorseById, updateHorse, deleteHorse } from "../services/horseService";
 import { ageFromIsNumber } from "../utils/ageFromIsNumber";
+import { isValidIsNumber } from "../utils/isNumber";
 
 export const patchHorse = async (request: Request, response: Response) => {
   try {
@@ -46,6 +47,12 @@ export const patchHorse = async (request: Request, response: Response) => {
 
     if (Object.keys(updates).length === 0) {
       return response.status(400).json({ message: "No valid fields to update" });
+    }
+
+    if (updates.is_number !== undefined && !isValidIsNumber(updates.is_number)) {
+      return response.status(400).json({
+        message: "Invalid is_number format. Expected 2 letters followed by 10 digits.",
+      });
     }
 
     const updatedHorse = await updateHorse(horseId, updates);
@@ -145,4 +152,7 @@ export const deleteHorseController = async (
     console.error("Error deleting horse:", error);
     return response.status(500).json({ message: "Internal server error" });
   }
+
 };
+
+

@@ -4,6 +4,7 @@ import horseRoutes from "./routes/horseRoutes";
 import { pool } from "./config/db";
 import authRoutes from "./routes/authRoutes";
 import stallionRoutes from "./routes/stallionRoutes";
+import paddockRoutes from "./routes/paddockRoutes";
 
 dotenv.config();
 
@@ -19,7 +20,9 @@ app.get("/", (req, res) => {
 
 app.use("/stallions", stallionRoutes);
 
-// Til að testa database-inn
+app.use("/paddocks", paddockRoutes);
+
+//til að testa database-inn
 app.get("/db-test", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()");

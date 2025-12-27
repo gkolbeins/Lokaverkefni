@@ -4,7 +4,7 @@ Gervigreindin var beðin að bera saman lokaverkefnið sem lagt var fyrir og mí
 Á Figma, á slóðinni https://www.figma.com/design/nKf9PYlMcwSYV4gmYwXIrD/Hryssa---app---web-2.0?node-id=0-1&t=KTidrjFVxMZ1d2Hv-1 er tillaga að útliti á framenda sem ég er búin að vinna ásamt styttri verklýsingu.
 
 ATH mögulegt er að þetta yfirlit taki breytingum til aðlögunar á meðan á vinnu verkefnisins stendur:
-- breyting gerð 9.12.2025 og 13.12.2025
+- breyting gerð 9.12.2025, 13.12.2025 og 27.12.2025
 
 # Hryssa API - Lokaverkefni á 3. önn
 
@@ -192,8 +192,8 @@ Uppbygging IS-númers:
 Dæmi:
 - `IS2018185630`
 > Athugið:  
-> Kerfið **framkvæmir ekki format-validation** á IS-númerum.  
-> IS-númer eru geymd sem texti til að tryggja sveigjanleika og styðja raunveruleg gögn.
+> Kerfið framkvæmir **ekki strangt format-validation** á IS-númerum til að tryggja sveigjanleika og mögulega notkun utan Íslands.
+> Í uppfærslum (`PATCH`) er þó framkvæmd **einföld staðfesting** á því að gildið sé á væntu textaformi áður en það er vistað, til að koma í veg fyrir augljóslega ógild gögn.
 
 ## Notkunartilvik (Use Cases)
 

@@ -6,6 +6,7 @@ import {
   updateStallion,
   deleteStallion,
 } from "../services/stallionService";
+import { isValidIsNumber } from "../utils/isNumber";
 
 export const createStallionController = async (
   request: Request,
@@ -125,6 +126,13 @@ export const updateStallionController = async (
         .status(400)
         .json({ message: "No valid fields to update" });
     }
+
+    if (updates.is_number !== undefined && !isValidIsNumber(updates.is_number)) {
+      return response.status(400).json({
+        message: "Invalid is_number format. Expected 2 letters followed by 10 digits.",
+      });
+    }
+
 
     const updatedStallion = await updateStallion(stallionId, updates);
     response.json(updatedStallion);
