@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import request from "supertest";
 import app from "../../src/index";
-import { pool } from "../../src/config/db";
+import { createIsNumber } from "../helpers/isNumber";
 
 describe.sequential("DELETE /horses/:id", () => {
 let token: string;
@@ -34,7 +34,7 @@ describe("DELETE /horses/:id", () => {
       .set("Authorization", `Bearer ${token}`)
       .send({
         name: "Test Hryssa",
-        is_number: "IS2020-9999",
+        is_number: createIsNumber({ gender: 2 }),
       });
 
     horseId = horseRes.body.id;

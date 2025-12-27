@@ -172,6 +172,29 @@ POST /horses/:id/flag/pregnancy
 POST /horses/:id/move  
 Body: paddockId, stallionId  
 
+### Örmerki (chip_id)
+- Chip ID er geymt sem frjáls texti (TEXT)
+- Kerfið setur engar kröfur á format
+- Bil og sértákn eru leyfileg
+- Eitt hross getur aðeins verið með eitt örmerki (unique)
+- Markmiðið er að styðja fjölbreytt raunveruleg örmerki
+
+### IS-númer (is_number)
+IS-númer er skráningarnúmer íslenskra hrossa og er geymt sem texti (`TEXT`).
+Uppbygging IS-númers:
+- **IS** – táknar Ísland (ATH önnur lönd skv. worldfeng)
+- **4 tölustafir** – fæðingarár hests
+- **1 tölustafur** – kyn
+  - `1` = hestur
+  - `2` = hryssa
+- **2 tölustafir** – landsvæði
+- **3 tölustafir** – raðnúmer
+Dæmi:
+- `IS2018185630`
+> Athugið:  
+> Kerfið **framkvæmir ekki format-validation** á IS-númerum.  
+> IS-númer eru geymd sem texti til að tryggja sveigjanleika og styðja raunveruleg gögn.
+
 ## Notkunartilvik (Use Cases)
 
 ### UC1 – Skoða lista af hryssum
@@ -276,7 +299,7 @@ Body: paddockId, stallionId
 - Röng gagnagerð
 - Ógilt format
 
-## Kröfur uppfylltar
+## Kröfur sem verða uppfylltar
 
 - Fullt RESTful API
 - Express + TypeScript
@@ -286,3 +309,14 @@ Body: paddockId, stallionId
 - Villumeðhöndlun
 - Prófanir með góðri umfjöllun
 - Hreint, skýrt README.md
+
+## Aðföng, heimildir og aðstoð
+
+- Þetta verkefni er byggt á hugmynd sem er mitt eigið hugarfóstur. Ég hef þegar þróað nánast tilbúið Flutter-framenda sem fyrirhugað er að tengja við þetta API í framhaldinu.
+- Verkefnið er að langmestu leyti unnið með stuðningi frá áður unnum verkefnum og glósum úr tímum.
+- Leit með Google hefur mikið verið notuð til að afla upplýsinga og finna ítarefni til aðstoðar við þróun og villuleit.
+- Gervigreind (aðallega ChatGPT) hefur verið notuð til villuleitar (virkar mjög vel til að finna innsláttarvillur, stafavíxl og annað sem augað er lengi að finna) og einnig til að fá útskýringar og aðstoð við að finna lausnir þegar ég hef strandað í þróunarferlinu (merkt sérstaklega).
+- Allar lausnir hafa þó verið útfærðar, aðlagaðar og samþættar af mér sjálfri til að virkni þeirra sé rétt og útfærsla rétt.
+- Ég hef einnig fengið ráðgjöf og yfirlestur frá vinum, kunningjum og samstarfsfólki með þekkingu á forritun, m.a. til að ræða lausnir og fá álit á tæknilegum atriðum og útfærslum til samræmis við raunheimanotkun.
+- Skjalið `NOTES.md` er notað til að halda utan um framvindu verkefnisins, stöðu einstakra skrefa og næstu verkefni. Það er lifandi vinnuskjal sem tekur stöðugum breytingum á meðan þróun stendur yfir.
+

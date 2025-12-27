@@ -2,10 +2,12 @@ import { describe, it, expect, beforeAll, beforeEach } from "vitest";
 import request from "supertest";
 import app from "../../src/index";
 import { pool } from "../../src/config/db";
+import { createIsNumber } from "../helpers/isNumber";
 
 describe.sequential("PATCH /horses/:id", () => {
 let token: string;
 let horseId: number;
+const testEmail = `stallion-create-${Date.now()}@test.is`;
 
 beforeAll(async () => {
   await pool.query("DELETE FROM horses");
@@ -14,12 +16,12 @@ beforeAll(async () => {
   //skrá notanda
   await request(app).post("/auth/register").send({
     name: "Patch User",
-    email: "patch@test.is",
+    email: testEmail,
     password: "password",
   });
 
   const loginRes = await request(app).post("/auth/login").send({
-    email: "patch@test.is",
+    email: testEmail,
     password: "password",
   });
 
@@ -33,7 +35,7 @@ beforeEach(async () => {
     .set("Authorization", `Bearer ${token}`)
     .send({
       name: "Gamla nafnið",
-      is_number: "IS2018001234",
+      is_number: createIsNumber({ gender: 2 }),
     });
 
   horseId = horseRes.body.id;

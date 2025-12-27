@@ -2,6 +2,7 @@ import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import request from "supertest";
 import app from "../../src/index";
 import { pool } from "../../src/config/db";
+import { createIsNumber } from "../helpers/isNumber";
 
 describe.sequential("POST /horses", () => {
 let token: string;
@@ -39,7 +40,7 @@ describe("POST /horses", () => {
       .set("Authorization", `Bearer ${token}`)
       .send({
         name: "Test Hryssa",
-        is_number: "IS2019123456",
+        is_number: createIsNumber({ gender: 2 }),
         chip_id: "352098100000001",
       });
 
@@ -61,7 +62,7 @@ describe("POST /horses", () => {
       .post("/horses")
       .set("Authorization", `Bearer ${token}`)
       .send({
-        is_number: "IS2019123456",
+        is_number: createIsNumber({ gender: 2 }),
       });
 
     expect(response.status).toBe(400);
