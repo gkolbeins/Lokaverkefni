@@ -3,6 +3,8 @@ Gervigreindin var beðin að bera saman lokaverkefnið sem lagt var fyrir og mí
 
 Á Figma, á slóðinni https://www.figma.com/design/nKf9PYlMcwSYV4gmYwXIrD/Hryssa---app---web-2.0?node-id=0-1&t=KTidrjFVxMZ1d2Hv-1 er tillaga að útliti á framenda sem ég er búin að vinna ásamt styttri verklýsingu.
 
+Ég á Flutter app sem hægt er að nota sem framenda https://github.com/gkolbeins/hryssa_app
+
 ATH mögulegt er að þetta yfirlit taki breytingum til aðlögunar á meðan á vinnu verkefnisins stendur:
 - breyting gerð 9.12.2025, 13.12.2025 og 27.12.2025
 
