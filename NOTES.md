@@ -141,10 +141,17 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] POST /auth/login
 
 ### Athugasemd – Test umhverfi / test db
-- [x] Aðskilnaður test og dev gagnagrunns, bjó til hryssa_test db
+- [x] Aðskilnaður test og dev gagnagrunns, bjó til hryssa_test db (Leyst með aðstoð og útskýringum AI)
 - [x] `.env.test` notað fyrir Vitest
 - [x] Test eiga ekki að keyra lengur gegn raunverulegum gögnum
-- [x] Leyst með aðstoð og útskýringum AI
+- [x] Leysti vandamál þar sem test pössuðu aðeins í fyrstu keyrslu
+- [x] Greint að test skildu eftir gögn sem höfðu áhrif á önnur test
+- [x] Innleiddi global DB reset fyrir test keyrslu (í setup.ts undir test möppu)
+- [x] Fjarlægði `TRUNCATE` úr einstökum test-skrám
+- [x] Hvert test býr nú til sín eigin gögn
+- [x] Test eru nú óháð keyrsluröð
+
+✓ Öll sjálfvirk test keyra nú stöðugt og eru endurkeyranleg (3.1.2026)
 
 ## Fleira á eftir að koma hér.....
 

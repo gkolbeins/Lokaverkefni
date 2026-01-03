@@ -2,10 +2,12 @@ import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import request from "supertest";
 import app from "../../src/index";
 import { createIsNumber } from "../helpers/isNumber";
+import test from "node:test";
 
 describe.sequential("DELETE /horses/:id", () => {
 let token: string;
 let horseId: number;
+const testEmail = `horse-delete-${Date.now()}@test.is`;
 
 describe("DELETE /horses/:id", () => {
   beforeAll(async () => {
@@ -14,7 +16,7 @@ describe("DELETE /horses/:id", () => {
       .post("/auth/register")
       .send({
         name: "Delete Test User",
-        email: "delete@test.is",
+        email: testEmail,
         password: "password123",
       });
 
@@ -22,7 +24,7 @@ describe("DELETE /horses/:id", () => {
     const loginRes = await request(app)
       .post("/auth/login")
       .send({
-        email: "delete@test.is",
+        email: testEmail,
         password: "password123",
       });
 

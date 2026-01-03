@@ -319,6 +319,6 @@ Dæmi:
 - Leit með Google hefur mikið verið notuð til að afla upplýsinga og finna ítarefni til aðstoðar við þróun og villuleit.
 - Gervigreind (aðallega ChatGPT) hefur verið notuð til villuleitar (virkar mjög vel til að finna innsláttarvillur, stafavíxl og annað sem augað er lengi að finna) og einnig til að fá útskýringar og aðstoð við að finna lausnir þegar ég hef strandað í þróunarferlinu (merkt sérstaklega).
 - Allar lausnir hafa þó verið útfærðar, aðlagaðar og samþættar af mér sjálfri til að virkni þeirra sé rétt og útfærsla rétt.
-- Ég hef einnig fengið ráðgjöf og yfirlestur frá vinum, kunningjum og samstarfsfólki með þekkingu á forritun, m.a. til að ræða lausnir og fá álit á tæknilegum atriðum og útfærslum til samræmis við raunheimanotkun.
+- Ég hef einnig fengið ráðgjöf og yfirlestur frá félögum og samstarfsfólki með þekkingu á forritun, m.a. til að ræða lausnir og fá álit á tæknilegum atriðum og útfærslum til samræmis við raunheimanotkun.
 - Skjalið `NOTES.md` er notað til að halda utan um framvindu verkefnisins, stöðu einstakra skrefa og næstu verkefni. Það er lifandi vinnuskjal sem tekur stöðugum breytingum á meðan þróun stendur yfir.
 

@@ -1,51 +1,42 @@
 import { describe, it, expect, beforeAll, beforeEach } from "vitest";
 import request from "supertest";
 import app from "../../src/index";
-import { pool } from "../../src/config/db";
 import { createIsNumber } from "../helpers/isNumber";
 
-//það er eitthvað fjandans vandamál líklega með röðina á testunum hér (3.1.2026)
+describe("PATCH /horses/:id", () => {
+  let token: string;
+  let horseId: number;
+  const testEmail = `horse-patch-${Date.now()}@test.is`;
 
-describe.sequential("PATCH /horses/:id", () => {
-let token: string;
-let horseId: number;
-const testEmail = `stallion-create-${Date.now()}@test.is`;
-
-beforeEach(async () => {
-  await pool.query(`TRUNCATE TABLE horses, 
-    users
-    RESTART IDENTITY
-    CASCADE;`);
-
-  //skrá notanda
-  await request(app).post("/auth/register").send({
-    name: "Patch User",
-    email: testEmail,
-    password: "password",
-  });
-
-  const loginRes = await request(app).post("/auth/login").send({
-    email: testEmail,
-    password: "password",
-  });
-
-  token = loginRes.body.token;
-});
-
-beforeEach(async () => {
-  //búa alltaf til NÝJA hryssu
-  const horseRes = await request(app)
-    .post("/horses")
-    .set("Authorization", `Bearer ${token}`)
-    .send({
-      name: "Gamla nafnið",
-      is_number: createIsNumber({ gender: 2 }),
+  beforeAll(async () => {
+    //skrá notanda
+    await request(app).post("/auth/register").send({
+      name: "Patch User",
+      email: testEmail,
+      password: "password",
     });
 
-  horseId = horseRes.body.id;
-});
+    //login
+    const loginRes = await request(app).post("/auth/login").send({
+      email: testEmail,
+      password: "password",
+    });
 
-describe("PATCH /horses/:id", () => {
+    token = loginRes.body.token;
+  });
+
+  beforeEach(async () => {
+    const horseRes = await request(app)
+      .post("/horses")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        name: "Gamla nafnið",
+        is_number: createIsNumber({ gender: 2 }),
+      });
+
+    horseId = horseRes.body.id;
+  });
+
   it("should update horse when owner", async () => {
     const response = await request(app)
       .patch(`/horses/${horseId}`)
@@ -85,5 +76,4 @@ describe("PATCH /horses/:id", () => {
 
     expect(response.status).toBe(404);
   });
-});
 });

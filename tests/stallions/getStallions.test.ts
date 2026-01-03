@@ -1,64 +1,61 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import request from "supertest";
 import app from "../../src/index";
-import { pool } from "../../src/config/db";
+import test from "node:test";
 
 describe.sequential("GET /stallions", () => {
-let tokenA: string;
-let tokenB: string;
-const emailA = `stallion-a-${Date.now()}@test.is`;
-const emailB = `stallion-b-${Date.now()}@test.is`;
+  let tokenA: string;
+  let tokenB: string;
+  const testEmailA = `stallion_emaila-${Date.now()}@test.is`;
+  const testEmailB = `stallion_emailb-${Date.now()}@test.is`;
 
-beforeAll(async () => {
-  await pool.query("DELETE FROM stallions");
+  beforeAll(async () => {
+    //notandi A
+    await request(app).post("/auth/register").send({
+      name: "User A",
+      email: testEmailA,
+      password: "password",
+    });
 
-  //notandi a
-  await request(app).post("/auth/register").send({
-    name: "User A",
-    email: emailA,
-    password: "password",
+    const loginA = await request(app).post("/auth/login").send({
+      email: testEmailA,
+      password: "password",
+    });
+
+    tokenA = loginA.body.token;
+
+    //notandi B
+    await request(app).post("/auth/register").send({
+      name: "User B",
+      email: testEmailB,
+      password: "password",
+    });
+
+    const loginB = await request(app).post("/auth/login").send({
+      email: testEmailB,
+      password: "password",
+    });
+
+    tokenB = loginB.body.token;
+
+    //hryssa notanda A
+    await request(app)
+      .post("/stallions")
+      .set("Authorization", `Bearer ${tokenA}`)
+      .send({ name: "Hryssa A1" });
+
+    await request(app)
+      .post("/stallions")
+      .set("Authorization", `Bearer ${tokenA}`)
+      .send({ name: "Hryssa A2" });
+
+    //hryssa notanda B
+    await request(app)
+      .post("/stallions")
+      .set("Authorization", `Bearer ${tokenB}`)
+      .send({ name: "Hryssa B1" });
   });
 
-  const loginA = await request(app).post("/auth/login").send({
-    email: emailA,
-    password: "password",
-  });
-
-  tokenA = loginA.body.token;
-
-  //notandi b
-  await request(app).post("/auth/register").send({
-    name: "User B",
-    email: emailB,
-    password: "password",
-  });
-
-  const loginB = await request(app).post("/auth/login").send({
-    email: emailB,
-    password: "password",
-  });
-
-  tokenB = loginB.body.token;
-
-  //hestar frá notanda a
-  await request(app)
-    .post("/stallions")
-    .set("Authorization", `Bearer ${tokenA}`)
-    .send({ name: "Hestur A1" });
-
-  await request(app)
-    .post("/stallions")
-    .set("Authorization", `Bearer ${tokenA}`)
-    .send({ name: "Hestur A2" });
-
-  //hestar frá notanda b
-  await request(app)
-    .post("/stallions")
-    .set("Authorization", `Bearer ${tokenB}`)
-    .send({ name: "Hestur B1" });
-});
-
-describe("GET /stallions", () => {
   it("should return only stallions belonging to the logged-in user", async () => {
     const res = await request(app)
       .get("/stallions")
@@ -68,7 +65,7 @@ describe("GET /stallions", () => {
     expect(res.body.length).toBe(2);
 
     res.body.forEach((stallion: any) => {
-      expect(stallion.name.startsWith("Hestur A")).toBe(true);
+      expect(stallion.name.startsWith("Hryssa A")).toBe(true);
     });
   });
 
@@ -76,5 +73,4 @@ describe("GET /stallions", () => {
     const res = await request(app).get("/stallions");
     expect(res.status).toBe(401);
   });
-});
 });

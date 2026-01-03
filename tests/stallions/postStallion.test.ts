@@ -1,42 +1,31 @@
-import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { describe, it, expect, beforeAll } from "vitest";
 import request from "supertest";
 import app from "../../src/index";
-import { pool } from "../../src/config/db";
 import { createIsNumber } from "../helpers/isNumber";
 
-describe.sequential("POST /stallions", () => {
-let token: string;
-const testEmail = `stallion-create-${Date.now()}@test.is`;
-
-beforeAll(async () => {
-  await pool.query(`
-    TRUNCATE TABLE stallions,
-    users
-    RESTART IDENTITY
-    CASCADE`);
-
-  await request(app).post("/auth/register").send({
-    name: "Stallion User",
-    email: "stallion@test.is",
-    password: "password",
-  });
-
-  const loginRes = await request(app).post("/auth/login").send({
-    email: "stallion@test.is",
-    password: "password",
-  });
-
-  token = loginRes.body.token;
-});
-
-
-afterAll(async () => {
-  //hreinsa test-gögn
-  await pool.query("DELETE FROM stallions");
-  await pool.query("DELETE FROM users WHERE email = $1", [testEmail]);
-});
-
 describe("POST /stallions", () => {
+  let token: string;
+
+  //fimleikar til að búa til einstakt netfang fyrir hvert test
+  const testEmail = `stallion-create-${Date.now()}@test.is`;
+
+  beforeAll(async () => {
+    //skrá notanda
+    await request(app).post("/auth/register").send({
+      name: "Stallion User",
+      email: testEmail,
+      password: "password",
+    });
+
+    //logga inn
+    const loginRes = await request(app).post("/auth/login").send({
+      email: testEmail,
+      password: "password",
+    });
+
+    token = loginRes.body.token;
+  });
+
   it("should create a stallion and return 201", async () => {
     const response = await request(app)
       .post("/stallions")
@@ -70,5 +59,4 @@ describe("POST /stallions", () => {
 
     expect(response.status).toBe(400);
   });
-});
 });

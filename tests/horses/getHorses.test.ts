@@ -1,63 +1,61 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import request from "supertest";
 import app from "../../src/index";
-import { pool } from "../../src/config/db";
+import test from "node:test";
 
 describe.sequential("GET /horses", () => {
-let tokenA: string;
-let tokenB: string;
+  let tokenA: string;
+  let tokenB: string;
+  const testEmailA = `horse_emaila-${Date.now()}@test.is`;
+  const testEmailB = `horse_emailb-${Date.now()}@test.is`;
 
-beforeAll(async () => {
-  await pool.query("DELETE FROM horses");
-  await pool.query("DELETE FROM users");
+  beforeAll(async () => {
+    //notandi A
+    await request(app).post("/auth/register").send({
+      name: "User A",
+      email: testEmailA,
+      password: "password",
+    });
 
-  //notandi a
-  await request(app).post("/auth/register").send({
-    name: "User A",
-    email: "a@test.is",
-    password: "password",
+    const loginA = await request(app).post("/auth/login").send({
+      email: testEmailA,
+      password: "password",
+    });
+
+    tokenA = loginA.body.token;
+
+    //notandi B
+    await request(app).post("/auth/register").send({
+      name: "User B",
+      email: testEmailB,
+      password: "password",
+    });
+
+    const loginB = await request(app).post("/auth/login").send({
+      email: testEmailB,
+      password: "password",
+    });
+
+    tokenB = loginB.body.token;
+
+    //hryssa notanda A
+    await request(app)
+      .post("/horses")
+      .set("Authorization", `Bearer ${tokenA}`)
+      .send({ name: "Hryssa A1" });
+
+    await request(app)
+      .post("/horses")
+      .set("Authorization", `Bearer ${tokenA}`)
+      .send({ name: "Hryssa A2" });
+
+    //hryssa notanda B
+    await request(app)
+      .post("/horses")
+      .set("Authorization", `Bearer ${tokenB}`)
+      .send({ name: "Hryssa B1" });
   });
 
-  const loginA = await request(app).post("/auth/login").send({
-    email: "a@test.is",
-    password: "password",
-  });
-
-  tokenA = loginA.body.token;
-
-  //notandi b
-  await request(app).post("/auth/register").send({
-    name: "User B",
-    email: "b@test.is",
-    password: "password",
-  });
-
-  const loginB = await request(app).post("/auth/login").send({
-    email: "b@test.is",
-    password: "password",
-  });
-
-  tokenB = loginB.body.token;
-
-  //hestar frá notanda a
-  await request(app)
-    .post("/horses")
-    .set("Authorization", `Bearer ${tokenA}`)
-    .send({ name: "Hryssa A1" });
-
-  await request(app)
-    .post("/horses")
-    .set("Authorization", `Bearer ${tokenA}`)
-    .send({ name: "Hryssa A2" });
-
-  //hestar frá notanda b
-  await request(app)
-    .post("/horses")
-    .set("Authorization", `Bearer ${tokenB}`)
-    .send({ name: "Hryssa B1" });
-});
-
-describe("GET /horses", () => {
   it("should return only horses belonging to the logged-in user", async () => {
     const res = await request(app)
       .get("/horses")
@@ -75,5 +73,4 @@ describe("GET /horses", () => {
     const res = await request(app).get("/horses");
     expect(res.status).toBe(401);
   });
-});
 });
