@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { createPaddock, getPaddocksByOwner, getPaddockById } from "../services/paddockService";
 import { getStallionById } from "../services/stallionService";
+import { pool } from "../config/db";
 
 export const createPaddockController = async (
   request: Request,
@@ -62,34 +63,139 @@ export const getPaddocksController = async (
   }
 };
 
-export const getPaddockByIdController = async (
-  request: Request,
-  response: Response
-) => {
-  try {
-    if (!request.userId) {
-      return response.status(401).json({ message: "Unauthorized" });
-    }
+export async function getPaddockHorsesController(request: any, response: any) {
+  const paddockId = Number(request.params.id);
+  const userId = request.user.id;
 
-    const paddockId = Number(request.params.id);
+  //finnum paddock
+  const paddockResult = await pool.query(
+    "SELECT * FROM paddocks WHERE id = $1",
+    [paddockId]
+  );
 
-    if (isNaN(paddockId)) {
-      return response.status(400).json({ message: "Invalid paddock id" });
-    }
-
-    const paddock = await getPaddockById(paddockId);
-
-    if (!paddock) {
-      return response.status(404).json({ message: "Paddock not found" });
-    }
-
-    if (paddock.owner_id !== request.userId) {
-      return response.status(403).json({ message: "Forbidden" });
-    }
-
-    return response.json(paddock);
-  } catch (error) {
-    console.error("Error fetching paddock:", error);
-    return response.status(500).json({ message: "Internal server error" });
+  if (paddockResult.rows.length === 0) {
+    return response.status(404).json({ error: "Paddock not found" });
   }
-};
+
+  const paddock = paddockResult.rows[0];
+
+  //ath eiganda
+  if (paddock.owner_id !== userId) {
+    return response.status(403).json({ error: "Forbidden" });
+  }
+
+  //sækja hryssur í girðingu
+  const horsesResult = await pool.query(
+    "SELECT * FROM horses WHERE current_paddock_id = $1",
+    [paddockId]
+  );
+
+  response.status(200).json(horsesResult.rows);
+}
+
+export async function getPaddockByIdController(
+  request: Request & { user?: any },
+  response: Response
+) {
+  const paddockId = Number(request.params.id);
+  const userId = request.user!.id;
+
+  const paddockResult = await pool.query(
+    "SELECT * FROM paddocks WHERE id = $1",
+    [paddockId]
+  );
+
+  if (paddockResult.rows.length === 0) {
+    return response.status(404).json({ error: "Paddock not found" });
+  }
+
+  const paddock = paddockResult.rows[0];
+
+  if (paddock.owner_id !== userId) {
+    return response.status(403).json({ error: "Forbidden" });
+  }
+
+  return response.status(200).json(paddock);
+}
+
+export async function updatePaddockController(
+  request: Request & { user?: any },
+  response: Response
+) {
+  const paddockId = Number(request.params.id);
+  const userId = request.user!.id;
+  const { name, location } = request.body;
+
+  if (!name && !location) {
+    return response.status(400).json({
+      error: "No fields provided for update",
+    });
+  }
+
+  const paddockResult = await pool.query(
+    "SELECT * FROM paddocks WHERE id = $1",
+    [paddockId]
+  );
+
+  if (paddockResult.rows.length === 0) {
+    return response.status(404).json({ error: "Paddock not found" });
+  }
+
+  const paddock = paddockResult.rows[0];
+
+  if (paddock.owner_id !== userId) {
+    return response.status(403).json({ error: "Forbidden" });
+  }
+
+  const updateResult = await pool.query(
+    `UPDATE paddocks
+     SET name = COALESCE($1, name),
+         location = COALESCE($2, location)
+     WHERE id = $3
+     RETURNING *`,
+    [name ?? null, location ?? null, paddockId]
+  );
+
+  return response.status(200).json(updateResult.rows[0]);
+}
+
+export async function deletePaddockController(
+  request: Request & { user?: any },
+  response: Response
+) {
+  const paddockId = Number(request.params.id);
+  const userId = request.user!.id;
+
+  const paddockResult = await pool.query(
+    "SELECT * FROM paddocks WHERE id = $1",
+    [paddockId]
+  );
+
+  if (paddockResult.rows.length === 0) {
+    return response.status(404).json({ error: "Paddock not found" });
+  }
+
+  const paddock = paddockResult.rows[0];
+
+  if (paddock.owner_id !== userId) {
+    return response.status(403).json({ error: "Forbidden" });
+  }
+
+  const horsesResult = await pool.query(
+    "SELECT 1 FROM horses WHERE current_paddock_id = $1 LIMIT 1",
+    [paddockId]
+  );
+
+  if (horsesResult.rows.length > 0) {
+    return response.status(400).json({
+      error: "Cannot delete paddock with horses",
+    });
+  }
+
+  await pool.query(
+    "DELETE FROM paddocks WHERE id = $1",
+    [paddockId]
+  );
+
+  return response.status(204).send();
+}

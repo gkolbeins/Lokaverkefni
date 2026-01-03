@@ -111,9 +111,9 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] GET /paddocks
 - [x] unique paddock name per owner
 - [x] GET /paddocks/:id
-- [ ] GET /paddocks/:id/horses
-- [ ] PATCH /paddocks/:id
-- [ ] DELETE /paddocks/:id
+- [x] GET /paddocks/:id/horses
+- [x] PATCH /paddocks/:id
+- [x] DELETE /paddocks/:id
 
 ### Handvirk próf – Paddocks (Postman)
 - [x] POST /paddocks með gilt token + valid body → 201 Created
