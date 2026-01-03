@@ -4,14 +4,18 @@ import app from "../../src/index";
 import { pool } from "../../src/config/db";
 import { createIsNumber } from "../helpers/isNumber";
 
+//það er eitthvað fjandans vandamál líklega með röðina á testunum hér (3.1.2026)
+
 describe.sequential("PATCH /horses/:id", () => {
 let token: string;
 let horseId: number;
 const testEmail = `stallion-create-${Date.now()}@test.is`;
 
-beforeAll(async () => {
-  await pool.query("DELETE FROM horses");
-  await pool.query("DELETE FROM users");
+beforeEach(async () => {
+  await pool.query(`TRUNCATE TABLE horses, 
+    users
+    RESTART IDENTITY
+    CASCADE;`);
 
   //skrá notanda
   await request(app).post("/auth/register").send({
