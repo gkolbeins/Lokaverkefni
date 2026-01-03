@@ -9,21 +9,26 @@ let token: string;
 const testEmail = `stallion-create-${Date.now()}@test.is`;
 
 beforeAll(async () => {
-  //skrá notanda
+  await pool.query(`
+    TRUNCATE TABLE stallions,
+    users
+    RESTART IDENTITY
+    CASCADE`);
+
   await request(app).post("/auth/register").send({
-    name: "Test User",
-    email: testEmail,
-    password: "password123",
+    name: "Stallion User",
+    email: "stallion@test.is",
+    password: "password",
   });
 
-  //innskráning
   const loginRes = await request(app).post("/auth/login").send({
-    email: testEmail,
-    password: "password123",
+    email: "stallion@test.is",
+    password: "password",
   });
 
   token = loginRes.body.token;
 });
+
 
 afterAll(async () => {
   //hreinsa test-gögn

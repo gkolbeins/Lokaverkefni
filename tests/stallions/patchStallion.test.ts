@@ -10,9 +10,12 @@ let stallionId: number;
 const testEmail = `stallion-create-${Date.now()}@test.is`;
 
 beforeAll(async () => {
-  await pool.query("DELETE FROM stallions");
+  await pool.query(`
+    TRUNCATE TABLE stallions,
+    users
+    RESTART IDENTITY
+    CASCADE`);
 
-  //skrá notanda
   await request(app).post("/auth/register").send({
     name: "Patch User",
     email: testEmail,

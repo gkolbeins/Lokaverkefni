@@ -8,21 +8,26 @@ describe.sequential("POST /horses", () => {
 let token: string;
 
 beforeAll(async () => {
-  //skrá notanda
+  await pool.query(`
+    TRUNCATE TABLE horses,
+    users
+    RESTART IDENTITY
+    CASCADE`);
+
   await request(app).post("/auth/register").send({
-    name: "Test User",
-    email: "horse-create@test.is",
-    password: "password123",
+    name: "Horse User",
+    email: "horse@test.is",
+    password: "password",
   });
 
-  //innskráning
   const loginRes = await request(app).post("/auth/login").send({
-    email: "horse-create@test.is",
-    password: "password123",
+    email: "horse@test.is",
+    password: "password",
   });
 
   token = loginRes.body.token;
 });
+
 
 afterAll(async () => {
   //hreinsa test-gögn
