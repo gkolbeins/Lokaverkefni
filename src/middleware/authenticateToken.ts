@@ -5,6 +5,14 @@ interface JwtPayload {
   userId: number;
 }
 
+declare global {
+  namespace Express {
+    interface Request {
+      user?: { id: number };
+    }
+  }
+}
+
 export const authenticateToken = (
   request: Request,
   response: Response,
@@ -22,14 +30,16 @@ export const authenticateToken = (
   }
 
   try {
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET as string
-    ) as JwtPayload;
+  const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
 
-    request.userId = decoded.userId;
-    next();
-  } catch {
-    return response.status(403).json({ message: "Invalid or expired token" });
-  }
+  request.user = {
+    id: decoded.userId,
+  };
+
+  next();
+    } catch {
+      return response
+        .status(403)
+        .json({ message: "Invalid or expired token" });
+    }
 };

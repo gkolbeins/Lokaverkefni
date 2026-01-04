@@ -8,15 +8,17 @@ import {
 } from "../services/stallionService";
 import { isValidIsNumber } from "../utils/isNumber";
 
+
 export const createStallionController = async (
-  request: Request,
+  request: Request & { user?: { id: number } },
   response: Response
 ) => {
   try {
-    if (!request.userId) {
+    if (!request.user) {
       return response.status(401).json({ message: "Unauthorized" });
     }
 
+    const userId = request.user.id;
     const { name, is_number, chip_id, notes } = request.body;
 
     if (!name) {
@@ -28,7 +30,7 @@ export const createStallionController = async (
       is_number,
       chip_id,
       notes,
-      owner_id: request.userId,
+      owner_id: userId,
     });
 
     return response.status(201).json(stallion);
@@ -38,25 +40,29 @@ export const createStallionController = async (
   }
 };
 
+
 export const getMyStallions = async (
-  request: Request,
+  request: Request & { user?: { id: number } },
   response: Response
 ) => {
   try {
-    if (!request.userId) {
+    if (!request.user) {
       return response.status(401).json({ message: "Unauthorized" });
     }
 
-    const stallions = await getStallionsByOwner(request.userId);
-    response.json(stallions);
+    const userId = request.user.id;
+
+    const stallions = await getStallionsByOwner(userId);
+    return response.status(200).json(stallions);
   } catch (error) {
     console.error("Error fetching stallions:", error);
-    response.status(500).json({ message: "Internal server error" });
+    return response.status(500).json({ message: "Internal server error" });
   }
 };
 
+
 export const getStallionByIdController = async (
-  request: Request,
+  request: Request & { user?: { id: number } },
   response: Response
 ) => {
   try {
@@ -66,9 +72,11 @@ export const getStallionByIdController = async (
       return response.status(400).json({ message: "Invalid stallion id" });
     }
 
-    if (!request.userId) {
+    if (!request.user) {
       return response.status(401).json({ message: "Unauthorized" });
     }
+
+    const userId = request.user.id;
 
     const stallion = await getStallionById(stallionId);
 
@@ -76,19 +84,20 @@ export const getStallionByIdController = async (
       return response.status(404).json({ message: "Stallion not found" });
     }
 
-    if (stallion.owner_id !== request.userId) {
+    if (stallion.owner_id !== userId) {
       return response.status(403).json({ message: "Forbidden" });
     }
 
-    response.json(stallion);
+    return response.status(200).json(stallion);
   } catch (error) {
     console.error("Error fetching stallion:", error);
-    response.status(500).json({ message: "Internal server error" });
+    return response.status(500).json({ message: "Internal server error" });
   }
 };
 
+
 export const updateStallionController = async (
-  request: Request,
+  request: Request & { user?: { id: number } },
   response: Response
 ) => {
   try {
@@ -98,17 +107,18 @@ export const updateStallionController = async (
       return response.status(400).json({ message: "Invalid stallion id" });
     }
 
-    if (!request.userId) {
+    if (!request.user) {
       return response.status(401).json({ message: "Unauthorized" });
     }
 
+    const userId = request.user.id;
     const stallion = await getStallionById(stallionId);
 
     if (!stallion) {
       return response.status(404).json({ message: "Stallion not found" });
     }
 
-    if (stallion.owner_id !== request.userId) {
+    if (stallion.owner_id !== userId) {
       return response.status(403).json({ message: "Forbidden" });
     }
 
@@ -127,23 +137,27 @@ export const updateStallionController = async (
         .json({ message: "No valid fields to update" });
     }
 
-    if (updates.is_number !== undefined && !isValidIsNumber(updates.is_number)) {
+    if (
+      updates.is_number !== undefined &&
+      !isValidIsNumber(updates.is_number)
+    ) {
       return response.status(400).json({
-        message: "Invalid is_number format. Expected 2 letters followed by 10 digits.",
+        message:
+          "Invalid is_number format. Expected 2 letters followed by 10 digits.",
       });
     }
 
-
     const updatedStallion = await updateStallion(stallionId, updates);
-    response.json(updatedStallion);
+    return response.status(200).json(updatedStallion);
   } catch (error) {
     console.error("Error updating stallion:", error);
-    response.status(500).json({ message: "Internal server error" });
+    return response.status(500).json({ message: "Internal server error" });
   }
 };
 
+
 export const deleteStallionController = async (
-  request: Request,
+  request: Request & { user?: { id: number } },
   response: Response
 ) => {
   try {
@@ -153,17 +167,18 @@ export const deleteStallionController = async (
       return response.status(400).json({ message: "Invalid stallion id" });
     }
 
-    if (!request.userId) {
+    if (!request.user) {
       return response.status(401).json({ message: "Unauthorized" });
     }
 
+    const userId = request.user.id;
     const stallion = await getStallionById(stallionId);
 
     if (!stallion) {
       return response.status(404).json({ message: "Stallion not found" });
     }
 
-    if (stallion.owner_id !== request.userId) {
+    if (stallion.owner_id !== userId) {
       return response.status(403).json({ message: "Forbidden" });
     }
 
@@ -175,6 +190,6 @@ export const deleteStallionController = async (
     });
   } catch (error) {
     console.error("Error deleting stallion:", error);
-    response.status(500).json({ message: "Internal server error" });
+    return response.status(500).json({ message: "Internal server error" });
   }
 };

@@ -79,7 +79,7 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 
 **✓ Skref 3 lokið: 26.12.2025**
 
-## Skref 4 – Stallions & Paddocks (grunnur)
+## Skref 4 – Stallions & Paddocks
 ### Stallions
 - [x] Stallions schema (SQL)
 - [x] POST /stallions
@@ -115,6 +115,11 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] PATCH /paddocks/:id
 - [x] DELETE /paddocks/:id
 
+### Paddock – yfirsýn eiganda
+- [x] GET /paddocks/:id/horses – sýnir hross í paddock
+- [x] Aðeins eigandi paddock sér hrossin
+- [x] Skilar tómu array ef engin hross eru í paddock
+
 ### Handvirk próf – Paddocks (Postman)
 - [x] POST /paddocks með gilt token + valid body → 201 Created
 - [x] POST /paddocks án token → 401 Unauthorized
@@ -140,6 +145,24 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] POST /auth/register
 - [x] POST /auth/login
 
+### Horses – Paddock & Stallion tengingar
+- [x] POST /horses/:id/move – færa hryssu í paddock hjá stallion
+- [x] current_paddock_id og current_stallion_id uppfærð á horse
+- [x] Eigandi hryssu má færa hana
+- [x] Eigandi paddock má taka við hryssu
+- [x] Heimildir staðfestar (401 / 403)
+- [x] Hryssa birtist í paddock eftir færslu
+- [x] Skoða hross í paddock (GET /paddocks/:id/horses)
+
+### Handvirk próf – Horse movement (Postman)
+- [x] POST /horses/:id/move með gilt token → 200 OK
+- [x] Horse færist í rétt paddock
+- [x] current_paddock_id uppfærist rétt
+- [x] current_stallion_id uppfærist rétt
+- [x] Eigandi paddock sér hryssu í GET /paddocks/:id/horses
+- [x] Annar notandi fær 403 Forbidden
+- [x] Óinnskráður notandi fær 401 Unauthorized
+
 ### Athugasemd – Test umhverfi / test db
 - [x] Aðskilnaður test og dev gagnagrunns, bjó til hryssa_test db (Leyst með aðstoð og útskýringum AI)
 - [x] `.env.test` notað fyrir Vitest
@@ -151,9 +174,36 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Hvert test býr nú til sín eigin gögn
 - [x] Test eru nú óháð keyrsluröð
 
-✓ Öll sjálfvirk test keyra nú stöðugt og eru endurkeyranleg (3.1.2026)
+✓ Öll sjálfvirk test sem komin eru keyra nú stöðugt og eru endurkeyranleg (3.1.2026)
 
-## Fleira á eftir að koma hér.....
+## Næstu skref
+- [ ] Vitest: POST /horses/:id/move
+- [ ] Vitest: GET /paddocks/:id/horses
+- [ ] Vitest: forbidden cases (403)
+- [ ] Vitest: unauthorized cases (401)
+- [ ] Uppfæra README með nýjum endapunktum
+
+## Skref 5 – Staðfesting á use cases, lokaprófanir og frágangur
+
+### Use cases – staðfesting
+- [ ] Yfirfara öll use case í README og staðfesta að þau séu leyst
+
+### Lokaprófanir (Vitest)
+- [ ] Happy path tests
+- [ ] Unauthorized cases (401)
+- [ ] Forbidden cases (403)
+- [ ] Not found cases (404)
+- [ ] Regression tests fyrir eldri virkni
+
+### Frágangur
+- [ ] README uppfært með öllum endapunktum
+- [ ] Dæmi um request/response body
+- [ ] Samræmd villuskilaboð
+- [ ] Kóðatiltekt (fjarlægja ónotað)
+- [ ] Lokayfirferð fyrir skil
+
+
+## Fleira á örugglega eftir að koma hér.....
 
 ## Hugmyndir sem bíða:
 - Invoices (UC11–UC13)

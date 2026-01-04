@@ -1,15 +1,18 @@
 import { Request, Response } from "express";
-import { createPaddock, getPaddocksByOwner, getPaddockById } from "../services/paddockService";
+import { createPaddock, getPaddocksByOwner } from "../services/paddockService";
 import { getStallionById } from "../services/stallionService";
 import { pool } from "../config/db";
 
 export const createPaddockController = async (
-  request: Request,
+  request: Request & { user?: { id: number } },
   response: Response
 ) => {
   try {
-    if (!request.userId) {return response.status(401).json({ message: "Unauthorized" });}
+    if (!request.user) {
+      return response.status(401).json({ message: "Unauthorized" });
+    }
 
+    const userId = request.user.id;
     const { name, location, stallion_id } = request.body;
 
     if (!name || !stallion_id) {
@@ -20,42 +23,48 @@ export const createPaddockController = async (
 
     const stallion = await getStallionById(Number(stallion_id));
 
-    if (!stallion) {return response.status(404).json({ message: "Stallion not found" });}
+    if (!stallion) {
+      return response.status(404).json({ message: "Stallion not found" });
+    }
 
-//bara eigandi graðhests má eiga paddock!!!
-    if (stallion.owner_id !== request.userId) {
-      return response
-        .status(403)
-        .json({ message: "Only the stallion owner can create paddocks" });
+    //bara eigandi graðhests má búa til paddock
+    if (stallion.owner_id !== userId) {
+      return response.status(403).json({
+        message: "Only the stallion owner can create paddocks",
+      });
     }
 
     const paddock = await createPaddock({
       name,
       location,
-      owner_id: request.userId,
+      owner_id: userId,
+      stallion_id: Number(stallion_id),
     });
 
     return response.status(201).json(paddock);
   } catch (error: any) {
     if (error.code === "23505") {
-      return response.status(400).json({ message: "you already have a paddock with this name" });
+      return response.status(400).json({
+        message: "You already have a paddock with this name",
+      });
     }
+
     console.error("Error creating paddock:", error);
     return response.status(500).json({ message: "Internal server error" });
   }
 };
 
+
 export const getPaddocksController = async (
-  request: Request,
+  request: Request & { user?: { id: number } },
   response: Response
 ) => {
   try {
-    if (!request.userId) {
+    if (!request.user) {
       return response.status(401).json({ message: "Unauthorized" });
     }
 
-    const paddocks = await getPaddocksByOwner(request.userId);
-
+    const paddocks = await getPaddocksByOwner(request.user.id);
     return response.status(200).json(paddocks);
   } catch (error) {
     console.error("Error fetching paddocks:", error);
@@ -63,11 +72,18 @@ export const getPaddocksController = async (
   }
 };
 
-export async function getPaddockHorsesController(request: any, response: any) {
+
+export const getPaddockHorsesController = async (
+  request: Request & { user?: { id: number } },
+  response: Response
+) => {
+  if (!request.user) {
+    return response.status(401).json({ message: "Unauthorized" });
+  }
+
   const paddockId = Number(request.params.id);
   const userId = request.user.id;
 
-  //finnum paddock
   const paddockResult = await pool.query(
     "SELECT * FROM paddocks WHERE id = $1",
     [paddockId]
@@ -79,26 +95,29 @@ export async function getPaddockHorsesController(request: any, response: any) {
 
   const paddock = paddockResult.rows[0];
 
-  //ath eiganda
   if (paddock.owner_id !== userId) {
     return response.status(403).json({ error: "Forbidden" });
   }
 
-  //sækja hryssur í girðingu
   const horsesResult = await pool.query(
     "SELECT * FROM horses WHERE current_paddock_id = $1",
     [paddockId]
   );
 
-  response.status(200).json(horsesResult.rows);
-}
+  return response.status(200).json(horsesResult.rows);
+};
 
-export async function getPaddockByIdController(
-  request: Request & { user?: any },
+
+export const getPaddockByIdController = async (
+  request: Request & { user?: { id: number } },
   response: Response
-) {
+) => {
+  if (!request.user) {
+    return response.status(401).json({ message: "Unauthorized" });
+  }
+
   const paddockId = Number(request.params.id);
-  const userId = request.user!.id;
+  const userId = request.user.id;
 
   const paddockResult = await pool.query(
     "SELECT * FROM paddocks WHERE id = $1",
@@ -116,14 +135,19 @@ export async function getPaddockByIdController(
   }
 
   return response.status(200).json(paddock);
-}
+};
 
-export async function updatePaddockController(
-  request: Request & { user?: any },
+
+export const updatePaddockController = async (
+  request: Request & { user?: { id: number } },
   response: Response
-) {
+) => {
+  if (!request.user) {
+    return response.status(401).json({ message: "Unauthorized" });
+  }
+
   const paddockId = Number(request.params.id);
-  const userId = request.user!.id;
+  const userId = request.user.id;
   const { name, location } = request.body;
 
   if (!name && !location) {
@@ -157,14 +181,19 @@ export async function updatePaddockController(
   );
 
   return response.status(200).json(updateResult.rows[0]);
-}
+};
 
-export async function deletePaddockController(
-  request: Request & { user?: any },
+
+export const deletePaddockController = async (
+  request: Request & { user?: { id: number } },
   response: Response
-) {
+) => {
+  if (!request.user) {
+    return response.status(401).json({ message: "Unauthorized" });
+  }
+
   const paddockId = Number(request.params.id);
-  const userId = request.user!.id;
+  const userId = request.user.id;
 
   const paddockResult = await pool.query(
     "SELECT * FROM paddocks WHERE id = $1",
@@ -192,10 +221,7 @@ export async function deletePaddockController(
     });
   }
 
-  await pool.query(
-    "DELETE FROM paddocks WHERE id = $1",
-    [paddockId]
-  );
+  await pool.query("DELETE FROM paddocks WHERE id = $1", [paddockId]);
 
   return response.status(204).send();
-}
+};
