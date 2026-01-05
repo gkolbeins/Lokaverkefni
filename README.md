@@ -252,7 +252,7 @@ Dæmi:
 - Velur hryssu og tengda dvöl (stay)
 - Slær inn: upphæð, lýsingu, gjalddaga
 - Kerfið býr til rukkun með stöðunni pending
-- Hryssueigandi sér ógreidda rukkun í appinu eða á vefnum
+- Hryssueigandi sér ógreidda rukkun í appinu eða á vefnum - eða í tölvupósti? greiðslulink?
 
 ### UC12 - Greiða rukkun
 - Hryssueigandi sér ógreidda rukkun (pending)
