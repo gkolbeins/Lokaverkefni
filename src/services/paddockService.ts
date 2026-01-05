@@ -4,12 +4,12 @@ export const createPaddock = async ({
   name,
   location,
   owner_id,
-  stallion_id,
+  stallion_id = null,
 }: {
   name: string;
   location?: string;
   owner_id: number;
-  stallion_id: number;
+  stallion_id?: number | null;
 }) => {
   const result = await pool.query(
     `INSERT INTO paddocks (name, location, owner_id, stallion_id)

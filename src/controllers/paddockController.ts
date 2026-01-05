@@ -13,32 +13,16 @@ export const createPaddockController = async (
     }
 
     const userId = request.user.id;
-    const { name, location, stallion_id } = request.body;
+    const { name, location } = request.body;
 
-    if (!name || !stallion_id) {
-      return response
-        .status(400)
-        .json({ message: "name and stallion_id are required" });
-    }
-
-    const stallion = await getStallionById(Number(stallion_id));
-
-    if (!stallion) {
-      return response.status(404).json({ message: "Stallion not found" });
-    }
-
-    //bara eigandi graðhests má búa til paddock
-    if (stallion.owner_id !== userId) {
-      return response.status(403).json({
-        message: "Only the stallion owner can create paddocks",
-      });
+    if (!name) {
+      return response.status(400).json({ message: "name is required" });
     }
 
     const paddock = await createPaddock({
       name,
       location,
       owner_id: userId,
-      stallion_id: Number(stallion_id),
     });
 
     return response.status(201).json(paddock);

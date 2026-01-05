@@ -177,11 +177,12 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 ✓ Öll sjálfvirk test sem komin eru keyra nú stöðugt og eru endurkeyranleg (3.1.2026)
 
 ## Næstu skref
-- [ ] Vitest: POST /horses/:id/move
-- [ ] Vitest: GET /paddocks/:id/horses
-- [ ] Vitest: forbidden cases (403)
-- [ ] Vitest: unauthorized cases (401)
+- [x] Vitest: POST /horses/:id/move
+- [x] Vitest: GET /paddocks/:id/horses
+- [x] Vitest: unauthorized cases (401)
 - [ ] Uppfæra README með nýjum endapunktum
+
+> Athuga að eftir breytingar 5.1.2025 þarf að endurtaka postman próf!
 
 ## Skref 5 – Staðfesting á use cases, lokaprófanir og frágangur
 

@@ -25,6 +25,10 @@ ALTER COLUMN owner_id SET NOT NULL;
 ALTER TABLE paddocks
 ADD CONSTRAINT unique_paddock_name_per_owner
 UNIQUE (owner_id, name);
+-- breytti aftur 
+ALTER TABLE paddocks
+ALTER COLUMN stallion_id DROP NOT NULL;
+
 
 CREATE TABLE stallions (
     id SERIAL PRIMARY KEY,

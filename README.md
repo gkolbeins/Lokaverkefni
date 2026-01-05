@@ -223,7 +223,7 @@ Dæmi:
 ### UC5 – Innskráning - ✅
 - Skilar JWT token
 
-### UC6 – Skrá nýja hryssu - ✔️ (vantar enn girðingu, graðhest og arrival_date)
+### UC6 – Skrá nýja hryssu - ✔️ (vantar enn arrival_date)
 - Nafn, IS-nr, chip, eigandi, girðing, graðhestur, komudagur ( arrival_date )
 
 ### UC7 – Flytja hryssu

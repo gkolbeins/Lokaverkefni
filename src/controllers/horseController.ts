@@ -185,11 +185,11 @@ export const moveHorseController = async (
 
     const userId = request.user.id;
     const horseId = Number(request.params.id);
-    const { paddockId, stallionId } = request.body;
+    const { paddockId } = request.body;
 
-    if (isNaN(horseId) || !paddockId || !stallionId) {
+    if (isNaN(horseId) || !paddockId) {
       return response.status(400).json({
-        message: "horseId, paddockId and stallionId are required",
+        message: "horseId and paddockId are required",
       });
     }
 
@@ -197,6 +197,10 @@ export const moveHorseController = async (
 
     if (!horse) {
       return response.status(404).json({ message: "Horse not found" });
+    }
+
+    if (horse.owner_id !== userId) {
+      return response.status(403).json({ message: "Forbidden" });
     }
 
     const paddockResult = await pool.query(
@@ -210,27 +214,21 @@ export const moveHorseController = async (
 
     const paddock = paddockResult.rows[0];
 
-    const canMove =
-      horse.owner_id === userId ||
-      paddock.owner_id === userId;
-
-    if (!canMove) {
+    if (paddock.owner_id !== userId) {
       return response.status(403).json({ message: "Forbidden" });
     }
 
     await pool.query(
       `UPDATE horses
-       SET current_paddock_id = $1,
-           current_stallion_id = $2
-       WHERE id = $3`,
-      [paddockId, stallionId, horseId]
+       SET current_paddock_id = $1
+       WHERE id = $2`,
+      [paddockId, horseId]
     );
 
     return response.status(200).json({
       message: "Horse moved successfully",
       horseId,
       paddockId,
-      stallionId,
     });
   } catch (error) {
     console.error("Error moving horse:", error);
