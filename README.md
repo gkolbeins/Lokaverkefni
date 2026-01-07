@@ -6,7 +6,7 @@ Gervigreindin var beðin að bera saman lokaverkefnið sem lagt var fyrir og mí
 Ég á Flutter app sem hægt er að nota sem framenda https://github.com/gkolbeins/hryssa_app
 
 ATH mögulegt er að þetta yfirlit taki breytingum til aðlögunar á meðan á vinnu verkefnisins stendur:
-- breyting gerð 9.12.2025, 13.12.2025 og 27.12.2025
+- breyting gerð 9.12.2025, 13.12.2025, 27.12.2025 og 7.1.2026
 
 # Hryssa API - Lokaverkefni á 3. önn
 
@@ -108,7 +108,6 @@ README.md
 - current_paddock_id (FK paddock)
 - current_stallion_id (FK stallions)
 - needs_vet (bool)
-- scanned (bool)
 - pregnancy_confirmed (bool)
 - age (int)
 - notes (text)
@@ -167,7 +166,6 @@ DELETE /stallions/:id
 
 ### Status flags
 POST /horses/:id/flag/vet  
-POST /horses/:id/flag/scanned  
 POST /horses/:id/flag/pregnancy  
 
 ### Flytja hryssu
@@ -208,7 +206,7 @@ Dæmi:
 - Eigandi og hlekkir: sími og email (front-end getur gert „click to call / click to email“)
 - Núverandi girðing
 - Graðhestur
-- Stöður: needs_vet, scanned, pregnancy_confirmed
+- Stöður: needs_vet, pregnancy_confirmed
 
 ### UC3 – Skoða girðingu
 - Birta staðsetningu
@@ -235,7 +233,6 @@ Dæmi:
 
 ### UC8 – Merkja stöðu
 - needs_vet = true/false
-- scanned = true/false
 - pregnancy_confirmed = true/false
 
 ### UC9 – Uppfæra prófíl notanda
@@ -293,7 +290,6 @@ Dæmi:
 
 ### Flags
 - needs_vet
-- scanned
 - pregnancy_confirmed
 
 ### Validation
