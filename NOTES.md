@@ -58,6 +58,8 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Aðeins eigandi má sækja sína hryssu
 - [x] Aðeins eigandi má uppfæra sína hryssu
 - [x] Aðeins eigandi má eyða sinni hryssu
+- [x] Aðeins hryssur innskráðs notanda sjást hjá honum (owner_id úr JWT)
+
 
 ### Handvirk próf
 - [x] POST /horses án token → 401
@@ -178,12 +180,16 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Vitest: unauthorized cases (401)
 - [x] Uppfæra README með nýjum endapunktum
 
-> Athuga að eftir breytingar 5.1.2025 þarf að endurtaka postman próf!
+> Athuga að eftir breytingar 5.1.2025 þarf að endurtaka postman próf - geri það með UC testum í skrefi 5
 
 ## Skref 5 – Staðfesting á use cases, lokaprófanir og frágangur
-
-### Use cases – staðfesting
 - [ ] Yfirfara öll use case í README og staðfesta að þau séu leyst
+
+### UC1 hefur verið fullklárað og staðfest
+- [x] GET /horses styður nú: síun eftir paddock, stallion og chip_id (combo filters leyfð)
+- [x] GET /horses styður nú: röðun eftir name eða age (default ORDER BY id ASC)
+- [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecases/uc1.test.ts)
+- [x] Prófanir: Handvirk staðfesting í Postman (filters, combo filters og sorting)
 
 ### Lokaprófanir (Vitest)
 - [ ] Happy path tests

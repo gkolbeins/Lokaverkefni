@@ -197,9 +197,11 @@ Dæmi:
 
 ## Notkunartilvik (Use Cases)
 
-### UC1 – Skoða lista af hryssum
+### UC1 – Skoða lista af hryssum - ✅
 - Sía eftir girðingu, graðhesti, chip_id
 - Raða eftir nafni eða aldri
+- Leyfir samsettar síur (combo filters)
+- Sjálfgefin röðun: default ORDER BY id ASC
 
 ### UC2 – Skoða upplýsingar um mína hryssu/hryssur - ✅
 - Nafn, IS-nr, chip ID

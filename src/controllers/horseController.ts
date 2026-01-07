@@ -120,12 +120,48 @@ export const getAllHorses = async (
     }
 
     const userId = request.user.id;
-    const horses = await getHorsesByOwner(userId);
+
+    const { paddock, stallion, chip_id, sort } = request.query;
+
+    const options: {
+      paddockId?: number;
+      stallionId?: number;
+      chipId?: string;
+      sort?: "name" | "age";
+    } = {};
+
+    if (paddock !== undefined) {
+      const paddockId = Number(paddock);
+      if (!isNaN(paddockId)) {
+        options.paddockId = paddockId;
+      }
+    }
+
+    if (stallion !== undefined) {
+      const stallionId = Number(stallion);
+      if (!isNaN(stallionId)) {
+        options.stallionId = stallionId;
+      }
+    }
+
+    if (chip_id !== undefined && typeof chip_id === "string") {
+      options.chipId = chip_id;
+    }
+
+    if (sort === "name" || sort === "age") {
+      options.sort = sort;
+    }
+
+    const horses = await getHorsesByOwner(userId, options);
 
     const horsesWithAge = horses.map((horse) => ({
       ...horse,
       age: ageFromIsNumber(horse.is_number),
     }));
+
+    if (sort === "age") {
+      horsesWithAge.sort((a, b) => a.age - b.age);
+    }
 
     return response.status(200).json(horsesWithAge);
   } catch (error) {
