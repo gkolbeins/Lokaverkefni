@@ -203,10 +203,14 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [ ] Kóðatiltekt (fjarlægja ónotað)
 - [ ] Lokayfirferð fyrir skil
 
+### Athugasemd
+> Breytan scanned var fjarlægð af ásetningi. Í raunheimum er sónarskoðun aðeins leið til að staðfesta fyl,
+> þannig að kerfið geymir niðurstöðuna (pregnancy_confirmed) frekar en atburðinn sjálfan.
+
 
 ## Fleira á örugglega eftir að koma hér.....
 
-## Hugmyndir sem bíða:
+## Hugmyndir til framtíðar - ekki í lokaverkefni í samráði við kennara:
 - Invoices (UC11–UC13)
 - Stay history
 - Fertility flags workflow
