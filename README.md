@@ -242,7 +242,7 @@ Dæmi:
 ### UC10 – Eyða notandareikningi
 - Eyðir notanda og merkir hross hans óvirk eða eyðir þeim ( eftir því hvernig viðskiptalógík er skilgreind )
 
-### Viðbótarhugmynd: saga og greiðslur - UC11-UC13 mögulegar viðbætur
+### Viðbótarhugmynd: saga og greiðslur - UC11-UC13 mögulegar viðbætur ekki í lokaverkefni í samráði við kennara
 
 ### UC11 - Búa til rukkun (invoice)
 - Graðhestseigandi býr til rukkun fyrir dvöl eða þjónustu
