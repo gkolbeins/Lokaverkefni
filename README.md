@@ -198,7 +198,7 @@ Dæmi:
 ## Notkunartilvik (Use Cases)
 
 ### UC1 – Skoða lista af hryssum
-- Sía eftir girðingu, graðhesti, eiganda, chip_id
+- Sía eftir girðingu, graðhesti, chip_id
 - Raða eftir nafni eða aldri
 
 ### UC2 – Skoða upplýsingar um mína hryssu/hryssur - ✅
