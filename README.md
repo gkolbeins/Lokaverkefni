@@ -10,7 +10,7 @@ ATH mögulegt er að þetta yfirlit taki breytingum til aðlögunar á meðan á
 
 # Hryssa API - Lokaverkefni á 3. önn
 
-Bakendakerfi fyrir app og vef sem heldur utan um hryssur, graðhesta, girðingar og stöðu þeirra (hvar hver hryssa er, hjá hvaða hesti, hvort það hafi verið sónað, fyl staðfest, þarf dýralækni). Kerfið styður auðkenningu, leit, flutninga milli girðinga, tengingu við eigendur, leit eftir örmerkjum o.fl. og uppfærslu upplýsinga um hryssur.
+Bakendakerfi fyrir app og vef sem heldur utan um hryssur, graðhesta, girðingar og stöðu þeirra (hvar hver hryssa er, hjá hvaða hesti, hvort fyl sé staðfest, þarf dýralækni). Kerfið styður auðkenningu, leit, flutninga milli girðinga, tengingu við eigendur, leit eftir örmerkjum o.fl. og uppfærslu upplýsinga um hryssur.
 
 ## Yfirlit
 
@@ -19,7 +19,7 @@ Hryssa API er RESTful þjónusta sem sér um:
 - Skrá og sækja eigendur (nafn, sími, email)
 - Skrá og sækja girðingar (paddock)
 - Skrá og sækja graðhesta (stallions, örmerki)
-- Skrá stöðutákn: þarf dýralækni, sónað / fyl staðfest
+- Skrá stöðutákn: þarf dýralækni, fyl staðfest
 - Lesa örmerki / Bluetooth ID (chip_id)
 - Flytja hryssu í aðra girðingu / undir annan graðhest
 - Leita að hryssu eftir örmerki, nafni, eiganda, staðsetningu eða valkvæðum reitum (hafa t.d. 2 auka valkvæða reiti fyrir gælunafn eða frostmerki)
@@ -234,6 +234,7 @@ Dæmi:
 ### UC8 – Merkja stöðu
 - needs_vet = true/false
 - pregnancy_confirmed = true/false
+- (við true er síðar hægt að skrá dagsetningu fylstaðfestingar)
 
 ### UC9 – Uppfæra prófíl notanda
 - Nafn, sími, email
