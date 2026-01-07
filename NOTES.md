@@ -107,7 +107,7 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 
 ### Paddocks
 - [x] Paddocks schema (SQL)
-- [x] POST /paddocks (tengt stallion)
+- [x] POST /paddocks
 - [x] GET /paddocks
 - [x] unique paddock name per owner
 - [x] GET /paddocks/:id
@@ -124,9 +124,6 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] POST /paddocks með gilt token + valid body → 201 Created
 - [x] POST /paddocks án token → 401 Unauthorized
 - [x] POST /paddocks án name → 400 Bad Request
-- [x] POST /paddocks án stallion_id → 400 Bad Request
-- [x] POST /paddocks með stallion_id sem er ekki til → 404 Not Found
-- [x] POST /paddocks með stallion_id sem tilheyrir öðrum notanda → 403 Forbidden
 - [x] POST /paddocks með sama name hjá sama notanda → 400 Bad Request
 - [x] owner_id í paddock er tekið úr JWT token
 - [x] GET /paddocks með gilt token → 200 OK
@@ -147,7 +144,7 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 
 ### Horses – Paddock & Stallion tengingar
 - [x] POST /horses/:id/move – færa hryssu í paddock hjá stallion
-- [x] current_paddock_id og current_stallion_id uppfærð á horse
+- [x] current_paddock_id uppfærð á horse
 - [x] Eigandi hryssu má færa hana
 - [x] Eigandi paddock má taka við hryssu
 - [x] Heimildir staðfestar (401 / 403)
@@ -158,7 +155,6 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] POST /horses/:id/move með gilt token → 200 OK
 - [x] Horse færist í rétt paddock
 - [x] current_paddock_id uppfærist rétt
-- [x] current_stallion_id uppfærist rétt
 - [x] Eigandi paddock sér hryssu í GET /paddocks/:id/horses
 - [x] Annar notandi fær 403 Forbidden
 - [x] Óinnskráður notandi fær 401 Unauthorized
@@ -176,11 +172,11 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 
 ✓ Öll sjálfvirk test sem komin eru keyra nú stöðugt og eru endurkeyranleg (3.1.2026)
 
-## Næstu skref
+## Sjálfvirk próf
 - [x] Vitest: POST /horses/:id/move
 - [x] Vitest: GET /paddocks/:id/horses
 - [x] Vitest: unauthorized cases (401)
-- [ ] Uppfæra README með nýjum endapunktum
+- [x] Uppfæra README með nýjum endapunktum
 
 > Athuga að eftir breytingar 5.1.2025 þarf að endurtaka postman próf!
 
