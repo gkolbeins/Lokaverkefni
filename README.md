@@ -1,5 +1,5 @@
 ATH að þetta yfirlit er unnið af gervigreind og yfirfarið af GH að mestu 29.11.2025 og fínpússað 2.12.2025!  
-Gervigreindin var beðin að bera saman lokaverkefnið sem lagt var fyrir og mína hugmynd að verkefni til að setja réttar kröfur á verkefnið mitt.
+Gervigreindin var beðin að bera saman fyrirmynd af lokaverkefni sem lagt var fyrir og mína hugmynd að verkefni og setja réttar kröfur á verkefnið mitt.
 
 Á Figma, á slóðinni https://www.figma.com/design/nKf9PYlMcwSYV4gmYwXIrD/Hryssa---app---web-2.0?node-id=0-1&t=KTidrjFVxMZ1d2Hv-1 er tillaga að útliti á framenda sem ég er búin að vinna ásamt styttri verklýsingu.
 
@@ -11,6 +11,7 @@ ATH mögulegt er að þetta yfirlit taki breytingum til aðlögunar á meðan á
 # Hryssa API - Lokaverkefni á 3. önn
 
 Bakendakerfi fyrir app og vef sem heldur utan um hryssur, graðhesta, girðingar og stöðu þeirra (hvar hver hryssa er, hjá hvaða hesti, hvort fyl sé staðfest, þarf dýralækni). Kerfið styður auðkenningu, leit, flutninga milli girðinga, tengingu við eigendur, leit eftir örmerkjum o.fl. og uppfærslu upplýsinga um hryssur.
+Raunhugmynd kerfisins er að vera bakendi fyrir app sem er eins konar "minnisblokk" fyrir eiganda stóðhests þar sem hann heldur utan um hryssur sem koma til hans og getur skráð upplýsingar. Einhverjum kröfum hefur verið bætt við eða breytt til að uppfylla skilyrði lokaverkefnis.
 
 ## Yfirlit
 
@@ -52,9 +53,9 @@ Build:
 npm run build  
 npm start  
 
-Keyra gagnagrunnsmigration:  
-npm run db:migrate  
-npm run db:seed  
+Keyra gagnagrunn:
+Búa til PostgreSQL gagnagrunn `hryssa`
+Keyra SQL skipanir í `schema.sql` 
 
 Keyra prófanir:  
 npm test  
@@ -245,7 +246,7 @@ Dæmi:
 ### UC10 – Eyða notandareikningi
 - Eyðir notanda og merkir hross hans óvirk eða eyðir þeim ( eftir því hvernig viðskiptalógík er skilgreind )
 
-### Viðbótarhugmynd: saga og greiðslur - UC11-UC13 mögulegar viðbætur ekki í lokaverkefni í samráði við kennara
+### Viðbótarhugmyndir: saga og greiðslur - UC11-UC13 eru ekki hluti af lokaverkefni - ákveðið í samráði við kennara
 
 ### UC11 - Búa til rukkun (invoice)
 - Graðhestseigandi býr til rukkun fyrir dvöl eða þjónustu
