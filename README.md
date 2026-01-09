@@ -43,9 +43,9 @@ Hryssa API er RESTful þjónusta sem sér um:
 
 Afritaðu verkefnið og settu upp:
 
-git clone \<repo-url\>  
-cd hryssa-api  
-
+git clone https://github.com/gkolbeins/Lokaverkefni  
+cd Lokaverkefni
+  
 npm install  
 npm run dev  
 
@@ -69,6 +69,8 @@ DATABASE_URL=postgresql://postgres:password@localhost:5432/hryssa
 JWT_SECRET=supersecretsecret  
 PORT=3000  
 
+> Athugið að uppfæra password í samræmi við Postgres uppsetningu
+
 ## Möppuskipulag (ráðlagt af gervigreind, tekur mannlegum breytingum)
 
 src/  
@@ -87,7 +89,8 @@ tests/
 - stallions/  
 - paddock/  
 - flags/  
-- utils/  
+- utils/    
+- usecases/
 
 README.md  
 
@@ -111,7 +114,6 @@ README.md
 - current_stallion_id (FK stallions)
 - needs_vet (bool)
 - pregnancy_confirmed (bool)
-- age (int)
 - notes (text)
 - created_at
 - other_info_1 
@@ -129,7 +131,7 @@ README.md
 - chip_id (örmerki)
 - notes
 
-### optional history
+### optional history (ekki útfært í lokaverkefni)
 - horse_id
 - paddock_id
 - stallion_id
