@@ -1,4 +1,4 @@
-# Hryssa API – Verkflæði og vinnuáætlun
+# Hryssa API (Lokaverkefni) – Verkflæði og vinnuáætlun
 
 Þetta skjal geymir vinnuferlið mitt, skipulag og áætlun um hvernig ég byggi Hryssa API-ið.  
 Hér skrái ég stöðu verkefnisins, hvað er lokið og hvað er næst - þetta er fyrst og fremst vinnuskjal.
@@ -72,7 +72,7 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] PATCH /horses/:id → 200 ef notandi er eigandi
 - [x] PATCH hafnar óleyfilegum reitum (t.d. owner_id)
 
-### Sjálfvirk próf
+### Sjálfvirk próf - skref 3
 - [x] Vitest + Supertest
 - [x] DELETE /horses
 - [x] GET /horses
@@ -136,14 +136,6 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] GET /paddocks/:id sem er ekki til → 404 Not Found
 - [x] GET /paddocks/:id sem tilheyrir öðrum notanda → 403 Forbidden
 
-### Sjálfvirk próf
-- [x] DELETE /stallions
-- [x] GET /stallions
-- [x] PATCH /stallions
-- [x] POST /stallions
-- [x] POST /auth/register
-- [x] POST /auth/login
-
 ### Horses – Paddock & Stallion tengingar
 - [x] POST /horses/:id/move – færa hryssu í paddock hjá stallion
 - [x] current_paddock_id uppfærð á horse
@@ -172,15 +164,22 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Hvert test býr nú til sín eigin gögn
 - [x] Test eru nú óháð keyrsluröð
 
+### Sjálfvirk próf – Skref 4 (Vitest)
+- [x] POST /stallions
+- [x] GET /stallions
+- [x] PATCH /stallions
+- [x] DELETE /stallions
+- [x] POST /horses/:id/move
+- [x] GET /paddocks/:id/horses
+- [x] Unauthorized cases (401)
+- [x] POST /auth/register
+- [x] POST /auth/login
+
 ✓ Öll sjálfvirk test sem komin eru keyra nú stöðugt og eru endurkeyranleg (3.1.2026)
 
-## Sjálfvirk próf
-- [x] Vitest: POST /horses/:id/move
-- [x] Vitest: GET /paddocks/:id/horses
-- [x] Vitest: unauthorized cases (401)
 - [x] Uppfæra README með nýjum endapunktum
 
-> Athuga að eftir breytingar 5.1.2025 þarf að endurtaka postman próf - geri það með UC testum í skrefi 5
+> Athuga að eftir breytingar 5.1.2025 eru postman próf endurtekin með UC testum í skrefi 5
 
 ## Skref 5 – Staðfesting á use cases, lokaprófanir og frágangur
 - [ ] Yfirfara öll use case í README og staðfesta að þau séu leyst
