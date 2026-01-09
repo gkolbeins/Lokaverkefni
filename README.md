@@ -53,8 +53,8 @@ Build:
 npm run build  
 npm start  
 
-Keyra gagnagrunn:
-Búa til PostgreSQL gagnagrunn `hryssa`
+Keyra gagnagrunn:  
+Búa til PostgreSQL gagnagrunn `hryssa`  
 Keyra SQL skipanir í `schema.sql`
 > Athugið: Gagnagrunnur er ekki sjálfkrafa búinn til. PostgreSQL þarf að vera keyrandi og `schema.sql` keyrt handvirkt (t.d. í pgAdmin eða psql).
 
