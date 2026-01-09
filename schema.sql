@@ -1,6 +1,12 @@
---- Töflur sem ég er búin að gera í pgAdmin
+-- =====================================================
+-- HRYSSA API – DATABASE SCHEMA
+-- Endanlegt gagnagrunnsskema fyrir verkefnið
+-- =====================================================
 
 
+-- ========================
+-- USERS
+-- ========================
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
@@ -8,69 +14,64 @@ CREATE TABLE users (
     email TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW()
-)
+);
 
+
+-- ========================
+-- PADDOCKS (GIRÐINGAR)
+-- ========================
 CREATE TABLE paddocks (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-    location TEXT
-)
--- bætti við paddock töfluna
-ALTER TABLE paddocks
-ADD COLUMN owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE;
--- breytti paddock töflunni svo owner_id sé ekki null
-ALTER TABLE paddocks
-ALTER COLUMN owner_id SET NOT NULL;
--- og bætti við að tvö paddock geti ekki heitið það sama
-ALTER TABLE paddocks
-ADD CONSTRAINT unique_paddock_name_per_owner
-UNIQUE (owner_id, name);
--- breytti aftur 
-ALTER TABLE paddocks
-ALTER COLUMN stallion_id DROP NOT NULL;
+    location TEXT,
+    owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT unique_paddock_name_per_owner UNIQUE (owner_id, name)
+);
 
 
+-- ========================
+-- STALLIONS (GRAÐHESTAR)
+-- ========================
 CREATE TABLE stallions (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-    is_number TEXT,
-    chip_id TEXT,
-    notes TEXT
-)
+    is_number TEXT UNIQUE,
+    chip_id TEXT UNIQUE,
+    owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    notes TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
 
+
+-- ========================
+-- HORSES (HRYSSUR)
+-- ========================
 CREATE TABLE horses (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     is_number TEXT,
-    chip_id TEXT,
-    owner_id INTEGER REFERENCES users(id),
+    chip_id TEXT UNIQUE,
+    owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     current_paddock_id INTEGER REFERENCES paddocks(id),
     current_stallion_id INTEGER REFERENCES stallions(id),
     needs_vet BOOLEAN DEFAULT false,
-    scanned BOOLEAN DEFAULT false,
     pregnancy_confirmed BOOLEAN DEFAULT false,
-    age INTEGER,
     notes TEXT,
     other_info_1 TEXT,
     other_info_2 TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW()
-)
+);
 
-CREATE TABLE stallions (
-  id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL,
-  is_number TEXT UNIQUE,
-  chip_id TEXT UNIQUE,
-  owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  notes TEXT,
-  created_at TIMESTAMPTZ DEFAULT NOW())
-  
-DROP TABLE stallions CASCADE
 
-SELECT * FROM stallions
+-- =====================================================
+-- ATHUGASEMDIR / PRÓFANIR (ekki hluti af schema)
+-- =====================================================
 
--- prófun
--- SELECT email, password_hash FROM users;
+-- Prófunardæmi:
+-- SELECT * FROM users;
+-- SELECT * FROM horses;
+-- SELECT * FROM paddocks;
+-- SELECT * FROM stallions;
 
 -- INSERT INTO stallions (name, owner_id)
 -- VALUES ('Test Graðhestur', 1);
