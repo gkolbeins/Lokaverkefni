@@ -9,33 +9,43 @@ router.post("/register", async (request, response) => {
     const { name, email, password } = request.body;
 
     if (!name || !email || !password) {
-        return response.status(400).json({ message: "name, email and password are required" });
+        return response.status(400).json({
+            message: "name, email and password are required",
+        });
     }
 
     try {
         const existingUser = await pool.query(
-            "SELECT * FROM users WHERE email = $1",
+            "SELECT 1 FROM users WHERE email = $1",
             [email]
         );
 
-    if (existingUser.rows.length > 0) {
-        return response.status(400).json({ message: "User already exists" });
+        if (existingUser.rows.length > 0) {
+            return response.status(400).json({
+                message: "User already exists",
+            });
+        }
+
+        const passwordHash = await bcrypt.hash(password, 10);
+
+        const result = await pool.query(
+            `INSERT INTO users (name, email, password_hash)
+            VALUES ($1, $2, $3)
+            RETURNING id, name, email`,
+            [name, email, passwordHash]
+        );
+
+        const user = result.rows[0];
+
+        return response.status(201).json(user);
+    } catch (error) {
+        console.error(error);
+        return response.status(500).json({
+            message: "Internal server error",
+        });
     }
-
-    const passwordHash = await bcrypt.hash(password, 10);
-
-    await pool.query(
-        "INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3)",
-        [name, email, passwordHash]
-    );
-
-    response.status(201).json({ message: "User registered successfully" });
-} catch (error) {
-    console.error(error);
-    return response.status(500).json({ message: "Internal server error" });
-}
-
 });
+
 
 router.post("/login", async (request, response) => {
     const { email, password } = request.body;

@@ -208,6 +208,14 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Prófanir: Sjálfvirk prófun með Vitest
 - [x] Prófanir: Handvirk staðfesting í Postman
 
+### UC4 hefur verið fullklárað og staðfest
+- [x] Notandi getur skráð sig með nafni, email og lykilorði
+- [x] Email er unique
+- [x] Lykilorð er hössað áður en vistað er í gagnagrunni
+- [x] Viðkvæm gögn (lykilorð) eru ekki skilað í API svari
+- [x] Prófanir: Sjálfvirk prófun með Vitest
+- [x] Prófanir: Handvirk staðfesting í Postman
+
 ### Lokaprófanir (Vitest)
 - [ ] Happy path tests
 - [ ] Unauthorized cases (401)

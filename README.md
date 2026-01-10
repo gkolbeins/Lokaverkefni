@@ -219,7 +219,7 @@ Dæmi:
 - Lista allar hryssur í þessari girðingu
 - Birta graðhest ef skráður
 
-### UC4 – Skrá notanda - ✔️
+### UC4 – Skrá notanda - ✅
 - Nafn, sími, email, lykilorð
 - email unique
 - Lykilorð hössuð
