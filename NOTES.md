@@ -198,6 +198,15 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Prófanir: Handvirk staðfesting í Postman
 - [x] Prófanir: Sjálfvirk prófun með Vitest
 
+### UC3 hefur verið fullklárað og staðfest
+- [x] GET /paddocks/:id skilar upplýsingum um girðingu
+- [x] Skilar hryssum í girðingu með arrival_date
+- [x] Skilar graðhesti ef skráður (annars null)
+- [x] Aðeins eigandi hefur aðgang
+- [x] Skilar 403 Forbidden fyrir aðra notendur
+- [x] Skilar 401 Unauthorized án innskráningar
+- [x] Prófanir: Sjálfvirk prófun með Vitest
+- [x] Prófanir: Handvirk staðfesting í Postman
 
 ### Lokaprófanir (Vitest)
 - [ ] Happy path tests

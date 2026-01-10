@@ -103,6 +103,7 @@ export const getPaddockByIdController = async (
   const paddockId = Number(request.params.id);
   const userId = request.user.id;
 
+  //sækja paddock
   const paddockResult = await pool.query(
     "SELECT * FROM paddocks WHERE id = $1",
     [paddockId]
@@ -118,7 +119,34 @@ export const getPaddockByIdController = async (
     return response.status(403).json({ error: "Forbidden" });
   }
 
-  return response.status(200).json(paddock);
+  //sækja stallion (ef til)
+  let stallion = null;
+  if (paddock.stallion_id) {
+    const stallionResult = await pool.query(
+      "SELECT id, name FROM stallions WHERE id = $1",
+      [paddock.stallion_id]
+    );
+    stallion = stallionResult.rows[0] ?? null;
+  }
+
+  //sækja hryssur í paddock
+  const horsesResult = await pool.query(
+    `
+    SELECT id, name, chip_id, arrival_date
+    FROM horses
+    WHERE current_paddock_id = $1
+    ORDER BY arrival_date ASC
+    `,
+    [paddockId]
+  );
+
+  return response.status(200).json({
+    id: paddock.id,
+    name: paddock.name,
+    location: paddock.location,
+    stallion,
+    horses: horsesResult.rows,
+  });
 };
 
 
@@ -132,9 +160,9 @@ export const updatePaddockController = async (
 
   const paddockId = Number(request.params.id);
   const userId = request.user.id;
-  const { name, location } = request.body;
+  const { name, location, stallion_id } = request.body;
 
-  if (!name && !location) {
+  if (!name && !location && stallion_id === undefined) {
     return response.status(400).json({
       error: "No fields provided for update",
     });
@@ -155,14 +183,35 @@ export const updatePaddockController = async (
     return response.status(403).json({ error: "Forbidden" });
   }
 
-  const updateResult = await pool.query(
-    `UPDATE paddocks
-     SET name = COALESCE($1, name),
-         location = COALESCE($2, location)
-     WHERE id = $3
-     RETURNING *`,
-    [name ?? null, location ?? null, paddockId]
+  if (stallion_id !== undefined) {
+  const stallionRes = await pool.query(
+    "SELECT * FROM stallions WHERE id = $1",
+    [stallion_id]
   );
+
+  if (stallionRes.rows.length === 0) {
+    return response.status(400).json({ error: "Invalid stallion_id" });
+  }
+
+  if (stallionRes.rows[0].owner_id !== userId) {
+    return response.status(403).json({ error: "Forbidden" });
+  }
+  }
+
+  const updateResult = await pool.query(
+  `UPDATE paddocks
+    SET
+      name = COALESCE($1, name),
+      location = COALESCE($2, location),
+      stallion_id = COALESCE($3, stallion_id)
+    WHERE id = $4
+    RETURNING *`,
+  [
+    name ?? null,
+    location ?? null,
+    stallion_id ?? null,
+    paddockId,
+  ]);
 
   return response.status(200).json(updateResult.rows[0]);
 };

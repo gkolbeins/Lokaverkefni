@@ -74,6 +74,10 @@ ALTER COLUMN owner_phone DROP NOT NULL;
 ALTER TABLE horses
 ALTER COLUMN owner_email DROP NOT NULL;
 
+ALTER TABLE horses
+ADD COLUMN arrival_date DATE;
+
+
 -- =====================================================
 -- ATHUGASEMDIR / PRÓFANIR (ekki hluti af schema)
 -- =====================================================

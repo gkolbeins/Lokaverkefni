@@ -214,17 +214,17 @@ Dæmi:
 - Graðhestur
 - Stöður: needs_vet, pregnancy_confirmed
 
-### UC3 – Skoða girðingu
+### UC3 – Skoða girðingu - ✅
 - Birta staðsetningu
 - Lista allar hryssur í þessari girðingu
 - Birta graðhest ef skráður
 
-### UC4 – Skrá notanda - ✅
+### UC4 – Skrá notanda - ✔️
 - Nafn, sími, email, lykilorð
 - email unique
 - Lykilorð hössuð
 
-### UC5 – Innskráning - ✅
+### UC5 – Innskráning - ✔️
 - Skilar JWT token
 
 ### UC6 – Skrá nýja hryssu - ✔️ (vantar enn arrival_date)

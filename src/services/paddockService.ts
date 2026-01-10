@@ -46,11 +46,28 @@ export const getPaddocksByOwner = async (ownerId: number) => {
 };
 
 
-export const getPaddockById = async (id: number) => {
+export const getPaddockById = async (paddockId: number) => {
   const result = await pool.query(
-    "SELECT * FROM paddocks WHERE id = $1",
-    [id]
-  );
+    `SELECT
+      p.id AS paddock_id,
+      p.name AS paddock_name,
+      p.location,
 
-  return result.rows[0];
+      s.id AS stallion_id,
+      s.name AS stallion_name,
+
+      h.id AS horse_id,
+      h.name AS horse_name,
+      h.is_number,
+      h.chip_id,
+      h.needs_vet,
+      h.pregnancy_confirmed,
+      h.arrival_date
+    FROM paddocks p
+    LEFT JOIN stallions s ON p.stallion_id = s.id
+    LEFT JOIN horses h ON h.current_paddock_id = p.id
+    WHERE p.id = $1`, [paddockId]);
+
+  return result.rows;
 };
+
