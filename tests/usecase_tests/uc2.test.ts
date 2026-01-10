@@ -9,7 +9,7 @@ describe("UC2 – View my horse details", () => {
   let horseId: number;
 
   beforeAll(async () => {
-    //búa til eiganda
+    //búa til notanda sem er eigandi
     const ownerRes = await request(app)
       .post("/auth/register")
       .send({
