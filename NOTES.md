@@ -181,6 +181,8 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 
 > Athuga að eftir breytingar 5.1.2025 eru postman próf endurtekin með UC testum í skrefi 5
 
+**✓ Skref 4 lokið: 6.1.2026**
+
 ## Skref 5 – Staðfesting á use cases, lokaprófanir og frágangur
 - [ ] Yfirfara öll use case í README og staðfesta að þau séu leyst
 
