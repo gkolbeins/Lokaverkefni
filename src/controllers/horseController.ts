@@ -26,7 +26,7 @@ export const patchHorse = async (
       return response.status(404).json({ message: "Horse not found" });
     }
 
-    if (horse.owner_id !== userId) {
+    if (horse.owner.id !== userId) {
       return response.status(403).json({ message: "Forbidden" });
     }
 
@@ -95,7 +95,7 @@ export const getHorseByIdController = async (
       return response.status(404).json({ message: "Horse not found" });
     }
 
-    if (horse.owner_id !== userId) {
+    if (horse.owner.id !== userId) {
       return response.status(403).json({ message: "Forbidden" });
     }
 
@@ -193,7 +193,7 @@ export const deleteHorseController = async (
       return response.status(404).json({ message: "Horse not found" });
     }
 
-    if (horse.owner_id !== userId) {
+    if (horse.owner.id !== userId) {
       return response.status(403).json({ message: "Forbidden" });
     }
 
@@ -235,7 +235,7 @@ export const moveHorseController = async (
       return response.status(404).json({ message: "Horse not found" });
     }
 
-    if (horse.owner_id !== userId) {
+    if (horse.owner.id !== userId) {
       return response.status(403).json({ message: "Forbidden" });
     }
 

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeAll } from "vitest";
 import request from "supertest";
 import app from "../../src/index";
 
@@ -6,8 +6,10 @@ describe("UC1 – GET /horses filters & sorting", () => {
   let token: string;
   let paddockId: number;
   let stallionId: number;
+  let horseAId: number;
+  let horseBId: number;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const email = `uc1-${Date.now()}@test.is`;
 
     await request(app).post("/auth/register").send({
@@ -37,8 +39,8 @@ describe("UC1 – GET /horses filters & sorting", () => {
 
     stallionId = stallionRes.body.id;
 
-    //hestur a – paddock + stallion
-    await request(app)
+    // Horse A
+    const horseARes = await request(app)
       .post("/horses")
       .set("Authorization", `Bearer ${token}`)
       .send({
@@ -47,14 +49,15 @@ describe("UC1 – GET /horses filters & sorting", () => {
         is_number: "IS2019202560",
       });
 
-    //hestur b – paddock + stallion
+    horseAId = horseARes.body.id;
+
     await request(app)
-      .post("/horses/:id/move".replace(":id", "1"))
+      .post(`/horses/${horseAId}/move`)
       .set("Authorization", `Bearer ${token}`)
       .send({ paddockId });
 
-    //hestur c – ekki paddock
-    await request(app)
+    // Horse B
+    const horseBRes = await request(app)
       .post("/horses")
       .set("Authorization", `Bearer ${token}`)
       .send({
@@ -62,6 +65,8 @@ describe("UC1 – GET /horses filters & sorting", () => {
         chip_id: "B2",
         is_number: "IS2017202560",
       });
+
+    horseBId = horseBRes.body.id;
   });
 
   it("filters by chip_id", async () => {

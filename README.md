@@ -6,7 +6,7 @@ Gervigreindin var beðin að bera saman fyrirmynd af lokaverkefni sem lagt var f
 Ég á Flutter app sem hægt er að nota sem framenda https://github.com/gkolbeins/hryssa_app
 
 ATH mögulegt er að þetta yfirlit taki breytingum til aðlögunar á meðan á vinnu verkefnisins stendur:
-- breyting gerð 9.12.2025, 13.12.2025, 27.12.2025 og 7.1.2026
+- breytingar gerðar 9.12.2025, 13.12.2025, 27.12.2025 og 7.1.2026
 
 # Hryssa API - Lokaverkefni á 3. önn
 

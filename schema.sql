@@ -1,8 +1,6 @@
 -- =====================================================
 -- HRYSSA API – DATABASE SCHEMA
--- Endanlegt gagnagrunnsskema fyrir verkefnið
 -- =====================================================
-
 
 -- ========================
 -- USERS
@@ -16,6 +14,19 @@ CREATE TABLE users (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- ========================
+-- STALLIONS (GRAÐHESTAR)
+-- ========================
+CREATE TABLE stallions (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    is_number TEXT UNIQUE,
+    chip_id TEXT UNIQUE,
+    owner_id INTEGER NOT NULL
+        REFERENCES users(id) ON DELETE CASCADE,
+    notes TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
 
 -- ========================
 -- PADDOCKS (GIRÐINGAR)
@@ -25,23 +36,9 @@ CREATE TABLE paddocks (
     name TEXT NOT NULL,
     location TEXT,
     owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    stallion_id INTEGER REFERENCES stallions(id) ON DELETE SET NULL,
     CONSTRAINT unique_paddock_name_per_owner UNIQUE (owner_id, name)
 );
-
-
--- ========================
--- STALLIONS (GRAÐHESTAR)
--- ========================
-CREATE TABLE stallions (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    is_number TEXT UNIQUE,
-    chip_id TEXT UNIQUE,
-    owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    notes TEXT,
-    created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
 
 -- ========================
 -- HORSES (HRYSSUR)
@@ -51,6 +48,9 @@ CREATE TABLE horses (
     name TEXT NOT NULL,
     is_number TEXT,
     chip_id TEXT UNIQUE,
+    owner_name TEXT NOT NULL,
+    owner_phone TEXT,
+    owner_email TEXT,
     owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     current_paddock_id INTEGER REFERENCES paddocks(id),
     current_stallion_id INTEGER REFERENCES stallions(id),
@@ -63,15 +63,34 @@ CREATE TABLE horses (
 );
 
 
+-- Breytingar:
+
+ALTER TABLE horses
+ALTER COLUMN owner_name DROP NOT NULL;
+
+ALTER TABLE horses
+ALTER COLUMN owner_phone DROP NOT NULL;
+
+ALTER TABLE horses
+ALTER COLUMN owner_email DROP NOT NULL;
+
 -- =====================================================
 -- ATHUGASEMDIR / PRÓFANIR (ekki hluti af schema)
 -- =====================================================
 
--- Prófunardæmi:
+-- DROP TABLE IF EXISTS horses, paddocks, stallions, users CASCADE;
+
 -- SELECT * FROM users;
 -- SELECT * FROM horses;
 -- SELECT * FROM paddocks;
 -- SELECT * FROM stallions;
 
+-- INSERT INTO paddocks (name, owner_id)
+-- VALUES ('Próf-girðing', 1);
+
 -- INSERT INTO stallions (name, owner_id)
--- VALUES ('Test Graðhestur', 1);
+-- VALUES ('Próf-graðhestur', 1);
+
+-- UPDATE paddocks
+-- SET stallion_id = 1
+-- WHERE id = 1;

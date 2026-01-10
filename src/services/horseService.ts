@@ -52,11 +52,68 @@ export const getHorsesByOwner = async (
 
 export const getHorseById = async (id: number) => {
   const result = await pool.query(
-    "SELECT * FROM horses WHERE id = $1",
-    [id]
-  );
-  return result.rows[0];
+    `SELECT
+      h.id,
+      h.name,
+      h.is_number,
+      h.chip_id,
+      h.owner_id,
+      h.owner_name,
+      h.owner_phone,
+      h.owner_email,
+      h.needs_vet,
+      h.pregnancy_confirmed,
+      h.notes,
+      h.other_info_1,
+      h.other_info_2,
+      h.created_at,
+
+      p.id AS paddock_id,
+      p.name AS paddock_name,
+
+      s.id AS stallion_id,
+      s.name AS stallion_name
+
+    FROM horses h
+    LEFT JOIN paddocks p ON h.current_paddock_id = p.id
+    LEFT JOIN stallions s ON h.current_stallion_id = s.id
+    WHERE h.id = $1`,[id]);
+
+  if (!result.rows[0]) return null;
+
+  const row = result.rows[0];
+
+  return {
+    id: row.id,
+    name: row.name,
+    is_number: row.is_number,
+    chip_id: row.chip_id,
+
+    owner: {
+      id: row.owner_id,
+      name: row.owner_name,
+      phone: row.owner_phone,
+      email: row.owner_email,
+    },
+
+    paddock: row.paddock_id
+      ? { id: row.paddock_id, name: row.paddock_name }
+      : null,
+
+    stallion: row.stallion_id
+      ? { id: row.stallion_id, name: row.stallion_name }
+      : null,
+
+    needs_vet: row.needs_vet,
+    pregnancy_confirmed: row.pregnancy_confirmed,
+
+    notes: row.notes,
+    other_info_1: row.other_info_1,
+    other_info_2: row.other_info_2,
+    created_at: row.created_at,
+  };
 };
+
 
 
 export const updateHorse = async (

@@ -190,6 +190,15 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecases/uc1.test.ts)
 - [x] Prófanir: Handvirk staðfesting í Postman (filters, combo filters og sorting)
 
+### UC2 hefur verið fullklárað og staðfest
+- [x] GET /horses/:id skilar fullum upplýsingum um hryssu
+- [x] Skilar eiganda (nafn, sími, email)
+- [x] Skilar paddock, stallion og stöðum
+- [x] Aðeins eigandi hefur aðgang
+- [x] Prófanir: Handvirk staðfesting í Postman
+- [x] Prófanir: Sjálfvirk prófun með Vitest
+
+
 ### Lokaprófanir (Vitest)
 - [ ] Happy path tests
 - [ ] Unauthorized cases (401)

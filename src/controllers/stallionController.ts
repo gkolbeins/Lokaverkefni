@@ -21,8 +21,12 @@ export const createStallionController = async (
     const userId = request.user.id;
     const { name, is_number, chip_id, notes } = request.body;
 
-    if (!name) {
-      return response.status(400).json({ message: "name is required" });
+    if (!name || !is_number || !chip_id) {
+      return response.status(400).json({message: "name, is_number and chip_id are required"});
+    }
+
+    if (!isValidIsNumber(is_number)) {
+      return response.status(400).json({message: "Invalid is_number format"});
     }
 
     const stallion = await createStallion({

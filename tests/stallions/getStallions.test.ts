@@ -1,15 +1,17 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import request from "supertest";
 import app from "../../src/index";
-import test from "node:test";
+import { createIsNumber } from "../helpers/isNumber";
 
 describe.sequential("GET /stallions", () => {
   let tokenA: string;
   let tokenB: string;
+
   const testEmailA = `stallion_emaila-${Date.now()}@test.is`;
   const testEmailB = `stallion_emailb-${Date.now()}@test.is`;
 
   beforeAll(async () => {
+
     //notandi A
     await request(app).post("/auth/register").send({
       name: "User A",
@@ -38,22 +40,35 @@ describe.sequential("GET /stallions", () => {
 
     tokenB = loginB.body.token;
 
-    //hryssa notanda A
+    //graddi notanda A (2 stk)
     await request(app)
       .post("/stallions")
       .set("Authorization", `Bearer ${tokenA}`)
-      .send({ name: "Hryssa A1" });
+      .send({
+        name: "Hryssa A1",
+        is_number: createIsNumber({ gender: 2 }),
+        chip_id: `A1-${Date.now()}`
+      });
 
     await request(app)
       .post("/stallions")
       .set("Authorization", `Bearer ${tokenA}`)
-      .send({ name: "Hryssa A2" });
+      .send({
+        name: "Hryssa A2",
+        is_number: createIsNumber({ gender: 2 }),
+        chip_id: `A2-${Date.now()}`
+      });
 
-    //hryssa notanda B
+    
+    //graddi notanda B (1 stk)
     await request(app)
       .post("/stallions")
       .set("Authorization", `Bearer ${tokenB}`)
-      .send({ name: "Hryssa B1" });
+      .send({
+        name: "Hryssa B1",
+        is_number: createIsNumber({ gender: 2 }),
+        chip_id: `B1-${Date.now()}`
+      });
   });
 
   it("should return only stallions belonging to the logged-in user", async () => {

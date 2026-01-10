@@ -15,7 +15,7 @@ router.post("/", authenticateToken, async (request: any, response) => {
     return response.status(401).json({ message: "Unauthorized" });
   }
 
-  const { name, is_number, chip_id, age } = request.body;
+  const { name, is_number, chip_id } = request.body;
   const ownerId = request.user.id;
 
   if (!name) {
@@ -24,10 +24,10 @@ router.post("/", authenticateToken, async (request: any, response) => {
 
   try {
     const result = await pool.query(
-      `INSERT INTO horses (name, is_number, chip_id, age, owner_id)
+      `INSERT INTO horses (name, is_number, chip_id, owner_id, notes)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *`,
-      [name, is_number, chip_id, age, ownerId]
+      [name, is_number, chip_id, ownerId, null]
     );
 
     return response.status(201).json(result.rows[0]);

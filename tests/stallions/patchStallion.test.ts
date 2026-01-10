@@ -6,6 +6,7 @@ import { createIsNumber } from "../helpers/isNumber";
 describe("PATCH /stallions/:id", () => {
   let token: string;
   let stallionId: number;
+
   const testEmail = `stallion-patch-${Date.now()}@test.is`;
 
   beforeAll(async () => {
@@ -26,14 +27,17 @@ describe("PATCH /stallions/:id", () => {
   });
 
   beforeEach(async () => {
+    //búa til gradda MEÐ öllum required fields
     const stallionRes = await request(app)
       .post("/stallions")
       .set("Authorization", `Bearer ${token}`)
       .send({
         name: "Gamla nafnið",
         is_number: createIsNumber({ gender: 2 }),
+        chip_id: `PATCH-${Date.now()}`,
       });
 
+    expect(stallionRes.status).toBe(201);
     stallionId = stallionRes.body.id;
   });
 
