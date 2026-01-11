@@ -271,7 +271,6 @@ Dæmi:
 - Hægt að sjá sögu fyrir: Hryssur sem notandi á og Rukkanir sem notandi hefur búið til (ef graðhestseigandi)
 - Niðurstöður birtar með upphæð, lýsingu, dagsetningum og stöðu
 
-
 ## Prófanir
 
 ### Auth

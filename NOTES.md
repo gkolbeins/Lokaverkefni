@@ -218,6 +218,13 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Prófanir: Sjálfvirk prófun með Vitest
 - [x] Prófanir: Handvirk staðfesting í Postman
 
+### UC5 hefur verið fullklárað og staðfest
+- [x] POST /auth/login skilar JWT token
+- [x] Aðgangur aðeins með rétt email og lykilorð
+- [x] Rangar innskráningar skila 401
+- [x] Prófanir: Sjálfvirk prófun með Vitest
+- [x] Prófanir: Handvirk staðfesting í Postman
+
 ### Lokaprófanir (Vitest)
 - [ ] Happy path tests
 - [ ] Unauthorized cases (401)
