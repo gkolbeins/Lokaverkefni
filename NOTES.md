@@ -295,6 +295,26 @@ Allir endapunktar sem lýst er í README eru raunverulega útfærðir og prófa�
 Skjalið NOTES.md endurspeglar raunverulegt þróunarferli verkefnisins og stöðu hvers skrefs fram að lokaskilum.
 Áhersla var lögð á skýra API hönnun, raunhæfa viðskiptalógík, skýrar heimildir og prófanir sem staðfesta bæði virkni og villur.
 
+## Viðbót – Supabase proof-of-concept og framtíðarundirbúningur
+
+Að loknum hefðbundnum lokaskilum var sett upp auka-útfærsla á bakendanum í Supabase sem proof-of-concept.
+Markmið hennar var að kanna hvernig sama lén (hryssur, girðingar og graðhestar) gæti verið útfært með cloud-based backend lausn.
+
+Í þessari útfærslu:
+- PostgreSQL gagnagrunnur er hýstur í Supabase
+- Supabase Auth notað í stað sérsmíðaðs JWT kerfis
+- Töflur skilgreindar fyrir horses, paddocks og stallions
+- Row Level Security (RLS) notað til að tryggja að notendur hafi aðeins aðgang að sínum gögnum
+- Lausnin prófuð með Supabase REST API og Postman
+
+Supabase-útfærslan kemur ekki í stað Express API lausnarinnar sem er skilaverkefnið,  
+heldur var hún sett upp sérstaklega með það í huga að hún geti þjónað sem backend fyrir mögulegt Flutter frontend í framtíðinni.
+
+Þessi viðbót er því fyrst og fremst hugsuð sem undirbúningur og tilraun, en ekki hluti af lokaskilum.
+
+Supabase project (aðgangsstýrt): https://supabase.com/dashboard/project/xtcoydpweprxzjeraudo
+
+
 ### Mögulegar hugmyndir til framtíðar - ekki í lokaverkefni í samráði við kennara:
 - Invoices
 - Stay history
