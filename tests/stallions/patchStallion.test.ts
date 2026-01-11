@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, beforeEach } from "vitest";
+import { describe, it, expect, beforeAll } from "vitest";
 import request from "supertest";
 import app from "../../src/index";
 import { createIsNumber } from "../helpers/isNumber";
@@ -24,16 +24,14 @@ describe("PATCH /stallions/:id", () => {
     });
 
     token = loginRes.body.token;
-  });
 
-  beforeEach(async () => {
-    //búa til gradda MEÐ öllum required fields
+    //búa til stallion einu sinni
     const stallionRes = await request(app)
       .post("/stallions")
       .set("Authorization", `Bearer ${token}`)
       .send({
         name: "Gamla nafnið",
-        is_number: createIsNumber({ gender: 2 }),
+        is_number: createIsNumber({ gender: 1 }),
         chip_id: `PATCH-${Date.now()}`,
       });
 

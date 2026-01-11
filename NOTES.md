@@ -79,6 +79,10 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] PATCH /horses
 - [x] POST /horses
 
+### Athugasemd
+> Breytan scanned var fjarlægð af ásetningi. Í raunheimum er sónarskoðun aðeins leið til að staðfesta fyl,
+> þannig að kerfið geymir niðurstöðuna (pregnancy_confirmed) frekar en atburðinn sjálfan.
+
 **✓ Skref 3 lokið: 26.12.2025**
 
 ## Skref 4 – Stallions & Paddocks
@@ -198,7 +202,7 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Skilar paddock, stallion og stöðum
 - [x] Aðeins eigandi hefur aðgang
 - [x] Prófanir: Handvirk staðfesting í Postman
-- [x] Prófanir: Sjálfvirk prófun með Vitest
+- [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecase_tests/uc2.test.ts)
 
 ### UC3 hefur verið fullklárað og staðfest
 - [x] GET /paddocks/:id skilar upplýsingum um girðingu
@@ -207,7 +211,7 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Aðeins eigandi hefur aðgang
 - [x] Skilar 403 Forbidden fyrir aðra notendur
 - [x] Skilar 401 Unauthorized án innskráningar
-- [x] Prófanir: Sjálfvirk prófun með Vitest
+- [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecase_tests/uc3.test.ts)
 - [x] Prófanir: Handvirk staðfesting í Postman
 
 ### UC4 hefur verið fullklárað og staðfest
@@ -215,14 +219,14 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Email er unique
 - [x] Lykilorð er hössað áður en vistað er í gagnagrunni
 - [x] Viðkvæm gögn (lykilorð) eru ekki skilað í API svari
-- [x] Prófanir: Sjálfvirk prófun með Vitest
+- [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecase_tests/uc4.test.ts)
 - [x] Prófanir: Handvirk staðfesting í Postman
 
 ### UC5 hefur verið fullklárað og staðfest
 - [x] POST /auth/login skilar JWT token
 - [x] Aðgangur aðeins með rétt email og lykilorð
 - [x] Rangar innskráningar skila 401
-- [x] Prófanir: Sjálfvirk prófun með Vitest
+- [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecase_tests/uc5.test.ts)
 - [x] Prófanir: Handvirk staðfesting í Postman
 
 ### UC6 hefur verið fullklárað og staðfest
@@ -242,12 +246,23 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecase_tests/uc7.test.ts)
 - [x] Prófanir: Handvirk staðfesting í Postman
 
+### UC8 hefur verið útfært og staðfest
+- [x] PATCH /horses/:id uppfærir needs_vet
+- [x] PATCH /horses/:id uppfærir pregnancy_confirmed
+- [x] Við pregnancy_confirmed = true er dagsetning skráð sjálfkrafa
+- [x] Við pregnancy_confirmed = false er dagsetning hreinsuð
+- [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecase_tests/uc7.test.ts)
+- [x] Prófanir: Handvirk staðfesting í Postman
+
 ### Lokaprófanir (Vitest)
-- [ ] Happy path tests
+- [ ] Happy path tests (ath fellur undir UC test)
 - [ ] Unauthorized cases (401)
 - [ ] Forbidden cases (403)
 - [ ] Not found cases (404)
 - [ ] Regression tests fyrir eldri virkni
+  - Öll eldri test keyra rétt eftir nýjar breytingar
+  - Allar breytingar staðfestar með fullri Vitest keyrslu
+  - Happy path, error cases og regression eru prófuð óbeint í use case testum og almennum route testum.
 
 ### Frágangur
 - [ ] README uppfært með öllum endapunktum
@@ -256,14 +271,9 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [ ] Kóðatiltekt (fjarlægja ónotað)
 - [ ] Lokayfirferð fyrir skil
 
-### Athugasemd
-> Breytan scanned var fjarlægð af ásetningi. Í raunheimum er sónarskoðun aðeins leið til að staðfesta fyl,
-> þannig að kerfið geymir niðurstöðuna (pregnancy_confirmed) frekar en atburðinn sjálfan.
-
-
 ## Fleira á örugglega eftir að koma hér.....
 
-## Hugmyndir til framtíðar - ekki í lokaverkefni í samráði við kennara:
+## Mögulegar hugmyndir til framtíðar - ekki í lokaverkefni í samráði við kennara:
 - Invoices (UC11–UC13)
 - Stay history
 - Fertility flags workflow

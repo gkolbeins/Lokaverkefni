@@ -35,8 +35,10 @@ export const patchHorse = async (
       "is_number",
       "chip_id",
       "notes",
+      "owner_name",
+      "owner_phone",
+      "owner_email",
       "needs_vet",
-      "scanned",
       "pregnancy_confirmed",
       "other_info_1",
       "other_info_2",
@@ -48,6 +50,16 @@ export const patchHorse = async (
       if (request.body[field] !== undefined) {
         updates[field] = request.body[field];
       }
+    }
+
+    if (request.body.pregnancy_confirmed === true) {
+      updates.pregnancy_confirmed = true;
+      updates.pregnancy_confirmed_at = new Date();
+    }
+
+    if (request.body.pregnancy_confirmed === false) {
+      updates.pregnancy_confirmed = false;
+      updates.pregnancy_confirmed_at = null;
     }
 
     if (Object.keys(updates).length === 0) {
@@ -121,12 +133,13 @@ export const getAllHorses = async (
 
     const userId = request.user.id;
 
-    const { paddock, stallion, chip_id, sort } = request.query;
+    const { paddock, stallion, chip_id, sort, search } = request.query;
 
     const options: {
       paddockId?: number;
       stallionId?: number;
       chipId?: string;
+      search?: string;
       sort?: "name" | "age";
     } = {};
 
@@ -135,6 +148,10 @@ export const getAllHorses = async (
       if (!isNaN(paddockId)) {
         options.paddockId = paddockId;
       }
+    }
+
+    if (typeof search === "string" && search.trim() !== "") {
+      options.search = search;
     }
 
     if (stallion !== undefined) {

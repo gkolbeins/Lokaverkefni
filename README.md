@@ -149,7 +149,7 @@ DELETE /me
 ### Horses (hryssur)
 GET /horses  
 GET /horses/:id  
-GET /horses?search=ABC123 
+GET /horses?search=eitthvað 
 POST /horses  
 PATCH /horses/:id  
 DELETE /horses/:id  
@@ -253,10 +253,10 @@ Dæmi:
 > Dvöl er ekki vistuð sem sér tafla og ekki talin þörf á því, kerfið heldur aðeins utan um núverandi stöðu.
 > departure_date er ekki hluti af þessari útgáfu verkefnisins (mögulega alls ekki þarft í notkun kerfisins).
 
-### UC8 – Merkja stöðu
+### UC8 – Merkja stöðu - ✅
 - needs_vet = true/false
 - pregnancy_confirmed = true/false
-- (við true er síðar hægt að skrá dagsetningu fylstaðfestingar)
+- við true skráist dagsetning þegar fyl er staðfest
 
 ### UC9 – Uppfæra prófíl notanda
 - Nafn, sími, email

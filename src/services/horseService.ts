@@ -7,6 +7,7 @@ export const getHorsesByOwner = async (
     stallionId?: number;
     chipId?: string;
     sort?: "name" | "age";
+    search?: string;
   }
 ) => {
   const values: any[] = [ownerId];
@@ -31,6 +32,18 @@ export const getHorsesByOwner = async (
     values.push(options.chipId);
     index++;
   }
+
+  if (options?.search !== undefined) {
+  conditions.push(`
+    (name ILIKE $${index}
+      OR chip_id ILIKE $${index}
+      OR is_number ILIKE $${index}
+      OR other_info_1 ILIKE $${index}
+      OR other_info_2 ILIKE $${index})`
+    );
+  values.push(`%${options.search}%`);
+  index++;
+}
 
   let orderBy = "ORDER BY id ASC";
 
