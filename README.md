@@ -4,7 +4,7 @@
 
 Á Figma, á slóðinni https://www.figma.com/design/nKf9PYlMcwSYV4gmYwXIrD/Hryssa---app---web-2.0?node-id=0-1&t=KTidrjFVxMZ1d2Hv-1 er tillaga að útliti á framenda sem ég er búin að vinna ásamt styttri verklýsingu.
 
-Flutter app, samhliða náminu, er að nota sem framenda: https://github.com/gkolbeins/hryssa_app
+Flutter app, sem ég bjó til samhliða náminu, er hægt að nota sem framenda: https://github.com/gkolbeins/hryssa_app
 
 ATH mögulegt er að þetta yfirlit taki breytingum til aðlögunar á meðan á vinnu verkefnisins stendur:
 - breytingar gerðar 9.12.2025, 13.12.2025, 27.12.2025, 7.1.2026 og lokaútgáfa 11.1.2026
