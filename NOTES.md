@@ -225,6 +225,15 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Prófanir: Sjálfvirk prófun með Vitest
 - [x] Prófanir: Handvirk staðfesting í Postman
 
+### UC6 hefur verið fullklárað og staðfest
+- [x] POST /horses skráir nýja hryssu
+- [x] Nafn, IS-nr og chip_id studd (arrival_date valfrjálst)
+- [x] Eigandi er sjálfkrafa innskráður notandi en owner_name er valfrjálst
+- [x] arrival_date er vistað ef það er skráð, annars null
+- [x] Óinnskráður notandi fær 401
+- [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecase_tests/uc6.test.ts)
+- [x] Prófanir: Handvirk staðfesting í Postman
+
 ### Lokaprófanir (Vitest)
 - [ ] Happy path tests
 - [ ] Unauthorized cases (401)

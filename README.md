@@ -224,11 +224,11 @@ Dæmi:
 - email unique
 - Lykilorð hössuð
 
-### UC5 – Innskráning - ✔️
+### UC5 – Innskráning - ✅
 - Skilar JWT token
 
-### UC6 – Skrá nýja hryssu - ✔️ (vantar enn arrival_date)
-- Nafn, IS-nr, chip, eigandi, girðing, graðhestur, komudagur ( arrival_date )
+### UC6 – Skrá nýja hryssu - ✅
+- Nafn, IS-nr, chip, eigandi, girðing, graðhestur, komudagur (arrival_date)
 
 ### UC7 – Flytja hryssu
 - Eigandi verður að vera sá sami (eigandi hryssu og/eða sá sem hefur réttindi á paddock/graðhesti)
