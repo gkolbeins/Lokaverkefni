@@ -247,9 +247,9 @@ Dæmi:
 
 #### Athugasemd við UC7
 > UC7 er útfært í einfaldri útgáfu, við flutning hryssu er uppfært:
->  current_paddock_id
->  (current_stallion_id ef við á)
->  arrival_date sem merkir komudag í núverandi girðingu.
+> current_paddock_id
+> (current_stallion_id ef við á)
+> arrival_date sem merkir komudag í núverandi girðingu.
 > Dvöl er ekki vistuð sem sér tafla og ekki talin þörf á því, kerfið heldur aðeins utan um núverandi stöðu.
 > departure_date er ekki hluti af þessari útgáfu verkefnisins (mögulega alls ekki þarft í notkun kerfisins).
 
@@ -258,7 +258,7 @@ Dæmi:
 - pregnancy_confirmed = true/false
 - við true skráist dagsetning þegar fyl er staðfest
 
-### UC9 – Uppfæra prófíl notanda
+### UC9 – Uppfæra prófíl notanda - ✅
 - Nafn, sími, email
 - email unique
 

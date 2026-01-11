@@ -2,6 +2,8 @@ import { Router } from 'express';
 import bcrypt from 'bcrypt';
 import { pool } from '../config/db';
 import jwt from 'jsonwebtoken';
+import { authenticateToken } from '../middleware/authenticateToken';
+import { deleteMeController, patchMeController } from '../controllers/authController';
 
 const router = Router();
 
@@ -84,5 +86,8 @@ router.post("/login", async (request, response) => {
         return response.status(500).json({ message: "Internal server error" });
     }
 });
+
+router.patch("/me", authenticateToken, patchMeController);
+router.delete("/me", authenticateToken, deleteMeController);
 
 export default router;

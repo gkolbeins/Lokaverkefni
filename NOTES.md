@@ -14,7 +14,7 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Testa PostgreSQL tengingu
 
 ### Handvirk próf:
-- [x] Server ræsist án villna
+- [x] Server ræsist án villu
 - [x] Root endpoint (`GET /`) svarar
 - [x] Database tenging prófuð með `GET /db-test`
 - [x] Routing prófað með `GET /horses`
@@ -251,7 +251,15 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] PATCH /horses/:id uppfærir pregnancy_confirmed
 - [x] Við pregnancy_confirmed = true er dagsetning skráð sjálfkrafa
 - [x] Við pregnancy_confirmed = false er dagsetning hreinsuð
-- [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecase_tests/uc7.test.ts)
+- [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecase_tests/uc8.test.ts)
+- [x] Prófanir: Handvirk staðfesting í Postman
+
+### UC9 hefur verið útfært og staðfest
+- [x] PATCH /auth/me uppfærir prófíl innskráðs notanda
+- [x] Leyfir uppfærslu á: name, phone og email
+- [x] Email er unique (400 ef email er þegar í notkun)
+- [x] Óinnskráður notandi fær 401 Unauthorized
+- [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecase_tests/uc9.test.ts)
 - [x] Prófanir: Handvirk staðfesting í Postman
 
 ### Lokaprófanir (Vitest)
