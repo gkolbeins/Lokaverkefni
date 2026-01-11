@@ -1,4 +1,4 @@
-//skilgrini IS númer fyri prófanir, þau eru pínu fókin, IS fyrir land, síðan fæðingarár, svo kyn,
+//skilgreini IS númer fyri prófanir, þau eru pínu fókin, IS fyrir land, síðan fæðingarár, svo kyn,
 //svo landshluti og svo síðustu 3 eru raðnúmer
 //AI aðstoðaði við þessa lausn
 

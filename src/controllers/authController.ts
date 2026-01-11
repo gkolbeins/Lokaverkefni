@@ -66,6 +66,7 @@ export const patchMeController = async (
   }
 };
 
+
 //controller til að eyða eigin notandareikningi
 export const deleteMeController = async (
   request: Request & { user?: { id: number } },
@@ -77,13 +78,28 @@ export const deleteMeController = async (
     }
 
     const userId = request.user.id;
+    const confirm = request.body?.confirm === true;
 
-    await pool.query(
-      "DELETE FROM users WHERE id = $1",
+    //ath hvort notandi eigi paddock eða stallion
+    const paddocks = await pool.query(
+      "SELECT 1 FROM paddocks WHERE owner_id = $1 LIMIT 1",
       [userId]
     );
 
-    //hrossin hans eyðast sjálfkrafa (ON DELETE CASCADE)
+    const stallions = await pool.query(
+      "SELECT 1 FROM stallions WHERE owner_id = $1 LIMIT 1",
+      [userId]
+    );
+
+    if ((paddocks.rows.length > 0 || stallions.rows.length > 0) && !confirm) {
+      return response.status(400).json({
+        message:
+          "Confirmation required to delete user with paddocks or stallions",
+      });
+    }
+
+    await pool.query("DELETE FROM users WHERE id = $1", [userId]);
+
     return response.status(200).json({
       message: "User deleted successfully",
     });
@@ -92,4 +108,6 @@ export const deleteMeController = async (
     return response.status(500).json({ message: "Internal server error" });
   }
 };
+
+
 

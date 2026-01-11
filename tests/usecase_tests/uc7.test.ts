@@ -91,7 +91,7 @@ describe.sequential("UC7 – Move horse", () => {
     expect(res.status).toBe(401);
   });
 
-  it("Vantar paddockId → 400", async () => {
+  it("Vantar paddockId - 400", async () => {
     const res = await request(app)
       .post(`/horses/${horseId}/move`)
       .set("Authorization", `Bearer ${ownerToken}`)

@@ -46,16 +46,18 @@ CREATE TABLE paddocks (
 CREATE TABLE horses (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-    is_number TEXT,
+    is_number TEXT UNIQUE,
     chip_id TEXT UNIQUE,
-    owner_name TEXT NOT NULL,
+    owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    owner_name TEXT,
     owner_phone TEXT,
     owner_email TEXT,
-    owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    current_paddock_id INTEGER REFERENCES paddocks(id),
-    current_stallion_id INTEGER REFERENCES stallions(id),
+    current_paddock_id INTEGER REFERENCES paddocks(id) ON DELETE SET NULL,
+    current_stallion_id INTEGER REFERENCES stallions(id) ON DELETE SET NULL,
     needs_vet BOOLEAN DEFAULT false,
     pregnancy_confirmed BOOLEAN DEFAULT false,
+    pregnancy_confirmed_at DATE,
+    arrival_date DATE,
     notes TEXT,
     other_info_1 TEXT,
     other_info_2 TEXT,
@@ -63,24 +65,9 @@ CREATE TABLE horses (
 );
 
 
--- Breytingar:
-
-ALTER TABLE horses
-ALTER COLUMN owner_name DROP NOT NULL;
-
-ALTER TABLE horses
-ALTER COLUMN owner_phone DROP NOT NULL;
-
-ALTER TABLE horses
-ALTER COLUMN owner_email DROP NOT NULL;
-
-ALTER TABLE horses
-ADD COLUMN arrival_date DATE;
-
-
--- =====================================================
--- ATHUGASEMDIR / PRÓFANIR (ekki hluti af schema)
--- =====================================================
+-- =============================================================
+-- ÝMSAR PRÓFANIR (ekki hluti af schema en var notað í þróun))
+-- =============================================================
 
 -- DROP TABLE IF EXISTS horses, paddocks, stallions, users CASCADE;
 

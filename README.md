@@ -1,12 +1,13 @@
-ATH að þetta yfirlit er unnið af gervigreind og yfirfarið af GH að mestu 29.11.2025 og fínpússað 2.12.2025!  
-Gervigreindin var beðin að bera saman fyrirmynd af lokaverkefni sem lagt var fyrir og mína hugmynd að verkefni og setja réttar kröfur á verkefnið mitt.
+> ATH að þetta yfirlit er unnið af gervigreind og yfirfarið af GH að mestu 29.11.2025 og fínpússað 2.12.2025!  
+> Gervigreindin var beðin að bera saman fyrirmynd af lokaverkefni sem lagt var fyrir og mína hugmynd að verkefni og setja réttar kröfur á verkefnið mitt.  
+> README lýsir aðeins virkni sem er raunverulega útfærð og prófuð.
 
 Á Figma, á slóðinni https://www.figma.com/design/nKf9PYlMcwSYV4gmYwXIrD/Hryssa---app---web-2.0?node-id=0-1&t=KTidrjFVxMZ1d2Hv-1 er tillaga að útliti á framenda sem ég er búin að vinna ásamt styttri verklýsingu.
 
-Ég á Flutter app sem hægt er að nota sem framenda https://github.com/gkolbeins/hryssa_app
+Flutter app, samhliða náminu, er að nota sem framenda: https://github.com/gkolbeins/hryssa_app
 
 ATH mögulegt er að þetta yfirlit taki breytingum til aðlögunar á meðan á vinnu verkefnisins stendur:
-- breytingar gerðar 9.12.2025, 13.12.2025, 27.12.2025 og 7.1.2026
+- breytingar gerðar 9.12.2025, 13.12.2025, 27.12.2025, 7.1.2026 og lokaútgáfa 11.1.2026
 
 # Hryssa API - Lokaverkefni á 3. önn
 
@@ -17,17 +18,17 @@ Raunhugmynd kerfisins er að vera bakendi fyrir app sem er eins konar "minnisblo
 
 Hryssa API er RESTful þjónusta sem sér um:
 - Skrá og sækja hryssur (upplýsingar, örmerki og jafnvel mynd)
-- Skrá og sækja eigendur (nafn, sími, email)
+- Skrá, sækja og uppfæra eigin notandaprófíl
 - Skrá og sækja girðingar (paddock)
 - Skrá og sækja graðhesta (stallions, örmerki)
 - Skrá stöðutákn: þarf dýralækni, fyl staðfest
-- Lesa örmerki / Bluetooth ID (chip_id)
+- Lesa örmerki / chip_id (lesið með bluetooth tengdum örmerkjalesara í framenda)
 - Flytja hryssu í aðra girðingu / undir annan graðhest
-- Leita að hryssu eftir örmerki, nafni, eiganda, staðsetningu eða valkvæðum reitum (hafa t.d. 2 auka valkvæða reiti fyrir gælunafn eða frostmerki)
+- Leita að hryssu eftir örmerki, nafni, eiganda, staðsetningu eða valkvæðum reitum (2 auka valkvæðir reitir fyrir td gælunafn eða frostmerki)
 - Auðkenningu notenda með JWT
 - Heimildir:
-  - eigandi graðhests/girðingar og eigandi hryssu geta báðir breytt upplýsingum um hryssur
-  - eigandi hryssu getur aðeins breytt upplýsingum um hryssuna
+  - eigandi hryssu getur breytt upplýsingum um hryssu
+  - eigandi paddock/graðhests hefur heimild til flutnings (UC7)
   - til vara er að kerfið sé eingöngu ætlað eigendum graðhesta/girðinga til utanumhalds!
 
 ## Tækni
@@ -71,14 +72,13 @@ PORT=3000
 
 > Athugið að uppfæra password í samræmi við Postgres uppsetningu
 
-## Möppuskipulag (ráðlagt af gervigreind, tekur mannlegum breytingum)
+## Möppuskipulag
 
 src/  
 - routes/  
 - controllers/  
 - services/  
-- middleware/  
-- repository/  
+- middleware/    
 - utils/  
 - config/  
 - index.ts  
@@ -87,12 +87,11 @@ tests/
 - auth/  
 - horses/  
 - stallions/  
-- paddock/  
-- flags/  
-- utils/    
-- usecases/
+- paddock/     
+- usecase_tests/
 
-README.md  
+README.md
+NOTES.md  
 
 ## Gagnagrunnsskema
 
@@ -115,14 +114,20 @@ README.md
 - needs_vet (bool)
 - pregnancy_confirmed (bool)
 - notes (text)
-- created_at
 - other_info_1 
 - other_info_2
+- created_at
+- owner_name
+- owner_phone
+- owner_email
+- arrival_date
 
 ### paddock (girðingar)
 - id
 - name
 - location (farm name / staðsetning)
+- owner_id
+- stallion_id
 
 ### stallions (graðhestar)
 - id
@@ -130,6 +135,7 @@ README.md
 - is_number (IS-nr)
 - chip_id (örmerki)
 - notes
+- created_at
 
 ### optional history (ekki útfært í lokaverkefni)
 - horse_id
@@ -141,10 +147,9 @@ README.md
 
 ### Auth
 POST /auth/register  
-POST /auth/login  
-GET /me  
-PATCH /me  
-DELETE /me  
+POST /auth/login   
+PATCH /auth/me  
+DELETE /auth/me  
 
 ### Horses (hryssur)
 GET /horses  
@@ -169,8 +174,8 @@ PATCH /stallions/:id
 DELETE /stallions/:id  
 
 ### Status flags
-POST /horses/:id/flag/vet  
-POST /horses/:id/flag/pregnancy  
+- Uppfært í gegnum PATCH /horses/:id
+- Body getur innihaldið: { needs_vet, pregnancy_confirmed }
 
 ### Flytja hryssu
 POST /horses/:id/move  
@@ -239,11 +244,9 @@ Dæmi:
 - arrival_date er skráð við flutning (sjá UC7)
 
 ### UC7 – Flytja hryssu - ✅
-- Eigandi verður að vera sá sami (eigandi hryssu og/eða sá sem hefur réttindi á paddock/graðhesti)
-- Uppfærir current_paddock, current_stallion og arrival_date
-- Hætta við dvöl: Skráð dvöl (stay) er merkt sem lokið eða cancelled
-- departure_date er skráð þegar dvöl er hætt
-- Kerfið tryggir að dvöl sem er hætt við sé ekki lengur virk
+- Uppfærir current_paddock og current_stallion
+- arrival_date er skráð við flutning
+- Kerfið heldur aðeins utan um núverandi stöðu
 
 #### Athugasemd við UC7
 > UC7 er útfært í einfaldri útgáfu, við flutning hryssu er uppfært:
@@ -262,46 +265,29 @@ Dæmi:
 - Nafn, sími, email
 - email unique
 
-### UC10 – Eyða notandareikningi
-- Eyðir notanda og merkir hross hans óvirk eða eyðir þeim ( eftir því hvernig viðskiptalógík er skilgreind )
+### UC10 – Eyða notandareikningi - ✅
+- Eyðir notanda og öllum tengdum hrossum (ON DELETE CASCADE)
 
-### Viðbótarhugmyndir: saga og greiðslur - UC11-UC13 eru ekki hluti af lokaverkefni - ákveðið í samráði við kennara
-
-### UC11 - Búa til rukkun (invoice)
-- Graðhestseigandi býr til rukkun fyrir dvöl eða þjónustu
-- Velur hryssu og tengda dvöl (stay)
-- Slær inn: upphæð, lýsingu, gjalddaga
-- Kerfið býr til rukkun með stöðunni pending
-- Hryssueigandi sér ógreidda rukkun í appinu eða á vefnum - eða í tölvupósti? greiðslulink?
-
-### UC12 - Greiða rukkun
-- Hryssueigandi sér ógreidda rukkun (pending)
-- Ýtir á “Greiða”
-- Kerfið uppfærir rukkun: status → paid
-- Skráir paid_at dagsetningu
-- Rukkanir færast í “greiddar” hjá báðum aðilum
-
-### UC13 - Skoða greiðslusögu
-- Notandi skoðar greiddar og ógreiddar rukkanir
-- Hægt að sía eftir stöðu: pending, paid, cancelled, overdue
-- Hægt að sjá sögu fyrir: Hryssur sem notandi á og Rukkanir sem notandi hefur búið til (ef graðhestseigandi)
-- Niðurstöður birtar með upphæð, lýsingu, dagsetningum og stöðu
+#### Athugasemd við UC10
+> Við eyðingu notandareiknings er athugað hvort notandi eigi graðhesta eða girðingar.
+> Ef svo er þarf notandi að staðfesta eyðingu sérstaklega (confirm = true).
+> Allar hryssur eyðast sjálfkrafa (ON DELETE CASCADE).
 
 ## Prófanir
 
 ### Auth
 - register
 - login
-- protected routes án tokens → 401
-- ógilt token → 401
-- rétt token → 200
+- protected routes án tokens - 401
+- ógilt token - 401
+- rétt token - 200
 
 ### Horses
 - Create / Read / Update / Delete
 - Leit og síur
 - Finna eftir chip_id
 - 404 ef ekki til
-- Heimildir: aðeins eigandi → 403 ef annar reynir
+- Heimildir: aðeins eigandi - 403 ef annar reynir
 
 ### Paddocks
 - CRUD

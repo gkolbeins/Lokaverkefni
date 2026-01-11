@@ -62,14 +62,14 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 
 
 ### Handvirk próf
-- [x] POST /horses án token → 401
-- [x] POST /horses án name → 400
-- [x] POST /horses með gilt token → 201
+- [x] POST /horses án token - 401
+- [x] POST /horses án name - 400
+- [x] POST /horses með gilt token - 201
 - [x] owner_id er tekið úr JWT token
 - [x] GET /horses skilar aðeins hryssum innskráðs notanda
-- [x] GET /horses/:id → 403 ef notandi er ekki eigandi
-- [x] PATCH /horses/:id → 403 ef notandi er ekki eigandi
-- [x] PATCH /horses/:id → 200 ef notandi er eigandi
+- [x] GET /horses/:id - 403 ef notandi er ekki eigandi
+- [x] PATCH /horses/:id - 403 ef notandi er ekki eigandi
+- [x] PATCH /horses/:id - 200 ef notandi er eigandi
 - [x] PATCH hafnar óleyfilegum reitum (t.d. owner_id)
 
 ### Sjálfvirk próf - skref 3
@@ -96,20 +96,20 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Handvirk próf (Postman)
 
 ### Handvirk próf – Stallions (Postman)
-- [x] POST /stallions með gilt token → 201 Created
-- [x] POST /stallions án name → 400 Bad Request
-- [x] POST /stallions án token → 401 Unauthorized
-- [x] GET /stallions með gilt token → 200 OK
+- [x] POST /stallions með gilt token - 201 Created
+- [x] POST /stallions án name - 400 Bad Request
+- [x] POST /stallions án token - 401 Unauthorized
+- [x] GET /stallions með gilt token - 200 OK
 - [x] GET /stallions skilar aðeins graðhestum innskráðs notanda
-- [x] GET /stallions/:id með gilt id → 200 OK
-- [x] GET /stallions/:id með id sem er ekki til → 404 Not Found
-- [x] GET /stallions/:id sem tilheyrir öðrum notanda → 403 Forbidden
-- [x] PATCH /stallions/:id með gilt body → 200 OK
-- [x] PATCH /stallions/:id með tómt body → 400 Bad Request
-- [x] PATCH /stallions/:id sem tilheyrir öðrum notanda → 403 Forbidden
-- [x] DELETE /stallions/:id með gilt token → 200 OK
-- [x] DELETE /stallions/:id sem er ekki til → 404 Not Found
-- [x] DELETE /stallions/:id sem tilheyrir öðrum notanda → 403 Forbidden
+- [x] GET /stallions/:id með gilt id - 200 OK
+- [x] GET /stallions/:id með id sem er ekki til - 404 Not Found
+- [x] GET /stallions/:id sem tilheyrir öðrum notanda - 403 Forbidden
+- [x] PATCH /stallions/:id með gilt body - 200 OK
+- [x] PATCH /stallions/:id með tómt body - 400 Bad Request
+- [x] PATCH /stallions/:id sem tilheyrir öðrum notanda - 403 Forbidden
+- [x] DELETE /stallions/:id með gilt token - 200 OK
+- [x] DELETE /stallions/:id sem er ekki til - 404 Not Found
+- [x] DELETE /stallions/:id sem tilheyrir öðrum notanda - 403 Forbidden
 
 ### Paddocks
 - [x] Paddocks schema (SQL)
@@ -127,18 +127,18 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Skilar tómu array ef engin hross eru í paddock
 
 ### Handvirk próf – Paddocks (Postman)
-- [x] POST /paddocks með gilt token + valid body → 201 Created
-- [x] POST /paddocks án token → 401 Unauthorized
-- [x] POST /paddocks án name → 400 Bad Request
-- [x] POST /paddocks með sama name hjá sama notanda → 400 Bad Request
+- [x] POST /paddocks með gilt token + valid body - 201 Created
+- [x] POST /paddocks án token - 401 Unauthorized
+- [x] POST /paddocks án name - 400 Bad Request
+- [x] POST /paddocks með sama name hjá sama notanda - 400 Bad Request
 - [x] owner_id í paddock er tekið úr JWT token
-- [x] GET /paddocks með gilt token → 200 OK
-- [x] GET /paddocks án token → 401 Unauthorized
+- [x] GET /paddocks með gilt token - 200 OK
+- [x] GET /paddocks án token - 401 Unauthorized
 - [x] GET /paddocks skilar aðeins paddocks innskráðs notanda
-- [x] GET /paddocks/:id með gilt token → 200 OK
-- [x] GET /paddocks/:id án token → 401 Unauthorized
-- [x] GET /paddocks/:id sem er ekki til → 404 Not Found
-- [x] GET /paddocks/:id sem tilheyrir öðrum notanda → 403 Forbidden
+- [x] GET /paddocks/:id með gilt token - 200 OK
+- [x] GET /paddocks/:id án token - 401 Unauthorized
+- [x] GET /paddocks/:id sem er ekki til - 404 Not Found
+- [x] GET /paddocks/:id sem tilheyrir öðrum notanda - 403 Forbidden
 
 ### Horses – Paddock & Stallion tengingar
 - [x] POST /horses/:id/move – færa hryssu í paddock hjá stallion
@@ -150,7 +150,7 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Skoða hross í paddock (GET /paddocks/:id/horses)
 
 ### Handvirk próf – Horse movement (Postman)
-- [x] POST /horses/:id/move með gilt token → 200 OK
+- [x] POST /horses/:id/move með gilt token - 200 OK
 - [x] Horse færist í rétt paddock
 - [x] current_paddock_id uppfærist rétt
 - [x] Eigandi paddock sér hryssu í GET /paddocks/:id/horses
@@ -183,12 +183,12 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 
 - [x] Uppfæra README með nýjum endapunktum
 
-> Athuga að eftir breytingar 5.1.2025 eru postman próf endurtekin með UC testum í skrefi 5
+> Athuga að eftir breytingar 5.1.2026 voru postman próf endurtekin með UC testum í skrefi 5
 
 **✓ Skref 4 lokið: 6.1.2026**
 
 ## Skref 5 – Staðfesting á use cases, lokaprófanir og frágangur
-- [ ] Yfirfara öll use case í README og staðfesta að þau séu leyst
+- [x] Yfirfara öll use case í README og staðfesta að þau séu leyst
 
 ### UC1 hefur verið fullklárað og staðfest
 - [x] GET /horses styður nú: síun eftir paddock, stallion og chip_id (combo filters leyfð)
@@ -262,26 +262,40 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecase_tests/uc9.test.ts)
 - [x] Prófanir: Handvirk staðfesting í Postman
 
+### UC10 hefur verið útfært og staðfest
+- [x] DELETE /auth/me eyðir innskráðum notanda
+- [x] Hross notanda eyðast sjálfkrafa (ON DELETE CASCADE)
+- [x] Ef notandi á paddock eða stallion er staðfestingar krafist
+- [x] DELETE án staðfestingar - 400 Bad Request
+- [x] DELETE með { "confirm": true } - 200 OK
+- [x] Óinnskráður notandi fær 401 Unauthorized
+- [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecase_tests/uc10.test.ts)
+- [x] Prófanir: Handvirk staðfesting í Postman
+
 ### Lokaprófanir (Vitest)
-- [ ] Happy path tests (ath fellur undir UC test)
-- [ ] Unauthorized cases (401)
-- [ ] Forbidden cases (403)
-- [ ] Not found cases (404)
-- [ ] Regression tests fyrir eldri virkni
+- [x] Happy path tests (ath fellur undir UC test)
+- [x] Unauthorized cases (401)
+- [x] Forbidden cases (403)
+- [x] Not found cases (404)
+- [x] Regression tests fyrir eldri virkni
   - Öll eldri test keyra rétt eftir nýjar breytingar
   - Allar breytingar staðfestar með fullri Vitest keyrslu
   - Happy path, error cases og regression eru prófuð óbeint í use case testum og almennum route testum.
 
 ### Frágangur
-- [ ] README uppfært með öllum endapunktum
-- [ ] Dæmi um request/response body
-- [ ] Samræmd villuskilaboð
-- [ ] Kóðatiltekt (fjarlægja ónotað)
-- [ ] Lokayfirferð fyrir skil
+- [x] README uppfært með öllum endapunktum
+- [x] Samræmd villuskilaboð (401/403/404/400 notað samkvæmt tilgangi)
+- [x] Kóðatiltekt (fjarlægja ónotað) og schema.sql hreinsað
+- [x] Lokayfirferð fyrir skil
 
-## Fleira á örugglega eftir að koma hér.....
+## Lokafrágangur
 
-## Mögulegar hugmyndir til framtíðar - ekki í lokaverkefni í samráði við kennara:
-- Invoices (UC11–UC13)
+Verkefnið er fullklárað í samræmi við skilgreind use cases.  
+Allir endapunktar sem lýst er í README eru raunverulega útfærðir og prófaðir með bæði sjálfvirkum Vitest prófum og handvirkum Postman prófum.
+Skjalið NOTES.md endurspeglar raunverulegt þróunarferli verkefnisins og stöðu hvers skrefs fram að lokaskilum.
+Áhersla var lögð á skýra API hönnun, raunhæfa viðskiptalógík, skýrar heimildir og prófanir sem staðfesta bæði virkni og villur.
+
+### Mögulegar hugmyndir til framtíðar - ekki í lokaverkefni í samráði við kennara:
+- Invoices
 - Stay history
 - Fertility flags workflow

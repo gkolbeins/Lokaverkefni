@@ -50,7 +50,7 @@ describe.sequential("UC4 – Register user", () => {
     expect(res.status).toBe(400);
   });
 
-  it("Vantar nauðsynleg gögn → 400", async () => {
+  it("Vantar nauðsynleg gögn - 400", async () => {
     const res = await request(app)
       .post("/auth/register")
       .send({

@@ -26,7 +26,7 @@ describe.sequential("UC5 – Login user", () => {
     expect(typeof res.body.token).toBe("string");
   });
 
-  it("Rangt lykilorð → 401 Unauthorized", async () => {
+  it("Rangt lykilorð - 401 Unauthorized", async () => {
     const res = await request(app).post("/auth/login").send({
       email,
       password: "wrongpassword",
@@ -35,7 +35,7 @@ describe.sequential("UC5 – Login user", () => {
     expect(res.status).toBe(401);
   });
 
-  it("Rangt email → 401 Unauthorized", async () => {
+  it("Rangt email - 401 Unauthorized", async () => {
     const res = await request(app).post("/auth/login").send({
       email: "wrong-email@test.is",
       password,
@@ -44,7 +44,7 @@ describe.sequential("UC5 – Login user", () => {
     expect(res.status).toBe(401);
   });
 
-  it("Vantar email eða lykilorð → 400 Bad Request", async () => {
+  it("Vantar email eða lykilorð - 400 Bad Request", async () => {
     const res = await request(app).post("/auth/login").send({
       email,
     });
