@@ -149,7 +149,7 @@ DELETE /me
 ### Horses (hryssur)
 GET /horses  
 GET /horses/:id  
-GET /horses/by-chip/:chip_id  
+GET /horses?search=ABC123 
 POST /horses  
 PATCH /horses/:id  
 DELETE /horses/:id  
@@ -199,6 +199,12 @@ Dæmi:
 > Kerfið framkvæmir **ekki strangt format-validation** á IS-númerum til að tryggja sveigjanleika og mögulega notkun utan Íslands.
 > Í uppfærslum (`PATCH`) er þó framkvæmd **einföld staðfesting** á því að gildið sé á væntu textaformi áður en það er vistað, til að koma í veg fyrir augljóslega ógild gögn.
 
+### Leit að hryssu (Search)
+- Notandi getur leitað með einu leitarorði
+- Leitað er í: name, chip_id, is_number, other_info_1, other_info_2
+- Útfært með GET /horses?search=
+- Leit er case-insensitive og styður hluta strengja
+
 ## Notkunartilvik (Use Cases)
 
 ### UC1 – Skoða lista af hryssum - ✅
@@ -228,14 +234,24 @@ Dæmi:
 - Skilar JWT token
 
 ### UC6 – Skrá nýja hryssu - ✅
-- Nafn, IS-nr, chip, eigandi, girðing, graðhestur, komudagur (arrival_date)
+- Nafn, IS-nr, chip, eigandi
+- Girðing og graðhestur eru valkvæð
+- arrival_date er skráð við flutning (sjá UC7)
 
-### UC7 – Flytja hryssu
+### UC7 – Flytja hryssu - ✅
 - Eigandi verður að vera sá sami (eigandi hryssu og/eða sá sem hefur réttindi á paddock/graðhesti)
 - Uppfærir current_paddock, current_stallion og arrival_date
 - Hætta við dvöl: Skráð dvöl (stay) er merkt sem lokið eða cancelled
 - departure_date er skráð þegar dvöl er hætt
 - Kerfið tryggir að dvöl sem er hætt við sé ekki lengur virk
+
+#### Athugasemd við UC7
+> UC7 er útfært í einfaldri útgáfu, við flutning hryssu er uppfært:
+>  current_paddock_id
+>  (current_stallion_id ef við á)
+>  arrival_date sem merkir komudag í núverandi girðingu.
+> Dvöl er ekki vistuð sem sér tafla og ekki talin þörf á því, kerfið heldur aðeins utan um núverandi stöðu.
+> departure_date er ekki hluti af þessari útgáfu verkefnisins (mögulega alls ekki þarft í notkun kerfisins).
 
 ### UC8 – Merkja stöðu
 - needs_vet = true/false

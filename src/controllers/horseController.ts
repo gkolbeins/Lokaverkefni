@@ -221,7 +221,7 @@ export const moveHorseController = async (
 
     const userId = request.user.id;
     const horseId = Number(request.params.id);
-    const { paddockId } = request.body;
+    const { paddockId, arrival_date } = request.body;
 
     if (isNaN(horseId) || !paddockId) {
       return response.status(400).json({
@@ -254,21 +254,29 @@ export const moveHorseController = async (
       return response.status(403).json({ message: "Forbidden" });
     }
 
+    //ef arrival_date er ekki sett með nota ég daginn í dag
+    const arrivalDate =
+      arrival_date ??
+      new Date().toISOString().split("T")[0];
+
     await pool.query(
       `UPDATE horses
-       SET current_paddock_id = $1
-       WHERE id = $2`,
-      [paddockId, horseId]
+       SET current_paddock_id = $1,
+           arrival_date = $2
+       WHERE id = $3`,
+      [paddockId, arrivalDate, horseId]
     );
 
     return response.status(200).json({
       message: "Horse moved successfully",
       horseId,
       paddockId,
+      arrival_date: arrivalDate,
     });
   } catch (error) {
     console.error("Error moving horse:", error);
     return response.status(500).json({ message: "Internal server error" });
   }
 };
+
 

@@ -234,6 +234,14 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecase_tests/uc6.test.ts)
 - [x] Prófanir: Handvirk staðfesting í Postman
 
+### UC7 hefur verið útfært og staðfest
+- [x] POST /horses/:id/move færir hryssu milli girðinga
+- [x] Aðeins eigandi hryssu og girðingar hefur heimild
+- [x] current_paddock_id er uppfært við flutning
+- [x] arrival_date er skráð við flutning (sjálfgefið eða úr request)
+- [x] Prófanir: Sjálfvirk prófun með Vitest (tests/usecase_tests/uc7.test.ts)
+- [x] Prófanir: Handvirk staðfesting í Postman
+
 ### Lokaprófanir (Vitest)
 - [ ] Happy path tests
 - [ ] Unauthorized cases (401)
