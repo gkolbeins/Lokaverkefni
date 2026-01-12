@@ -297,11 +297,11 @@ Skjalið NOTES.md endurspeglar raunverulegt þróunarferli verkefnisins og stö�
 
 ## Viðbót – Supabase proof-of-concept og framtíðarundirbúningur
 
-Að loknum lokafrágangi var sett upp aðskilin tilraunaútfærsla í Supabase til að kanna hvernig sama gagnalíkan (hryssur, graðhestar og girðingar) gæti verið útfært í cloud-hýstri backend lausn. Markmiðið var fyrst og fremst að prófa mögulegan bakenda fyrir Flutter framenda í framtíðinni.
+Að loknum lokafrágangi var sett upp aðskilin proof-of-concept útfærsla í Supabase til að kanna hvernig sama verkefni (hryssur, graðhestar og girðingar) gæti verið útfært í cloud-hýstri bakenda lausn. Markmiðið var fyrst og fremst að prófa mögulegan bakenda fyrir Flutter framenda í framtíðinni.
 
-Í þessari útfærslu var Supabase Auth notað í stað sérsmíðaðs JWT-kerfis og Supabase REST API notað til prófana (m.a. með Postman). Row Level Security (RLS) var virkt til að stýra aðgangi að gögnum.
+Í þessari útfærslu var Supabase Auth notað í stað sérsmíðaðs JWT-kerfis og Supabase REST API notað til prófana (m.a. með Postman). Gagnalíkanið var aðlagað að Supabase með UUID-auðkenndum notendum og Row Level Security (RLS) notað til að stýra aðgangi að gögnum á töflustigi.
 
-Supabase-útfærslan er algjörlega aðskilin frá Express + TypeScript lausninni sem er skilaverkefnið og kemur ekki í stað hennar. Vegna mismunar á auðkenningarlíkani (UUID í Supabase Auth vs. integer-based notendur í skilaverkefni) er lausnin ekki fullútfærð og er eingöngu hugsuð sem tilraun og framtíðarundirbúningur, en ekki hluti af lokaskilum.
+Supabase-útfærslan er algjörlega aðskilin frá Express + TypeScript lausninni sem er skilaverkefnið og kemur ekki í stað hennar. Lausnin er hugsuð sem tæknileg tilraun og framtíðarundirbúningur og er því ekki fullútfærð né hluti af lokaskilum.
 
 Supabase project (aðgangsstýrt): https://supabase.com/dashboard/project/xtcoydpweprxzjeraudo
 
