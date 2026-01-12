@@ -297,23 +297,13 @@ Skjalið NOTES.md endurspeglar raunverulegt þróunarferli verkefnisins og stö�
 
 ## Viðbót – Supabase proof-of-concept og framtíðarundirbúningur
 
-Að loknum hefðbundnum lokaskilum var sett upp auka-útfærsla á bakendanum í Supabase sem proof-of-concept.
-Markmið hennar var að kanna hvernig sama lén (hryssur, girðingar og graðhestar) gæti verið útfært með cloud-based backend lausn.
+Að loknum lokafrágangi var sett upp aðskilin tilraunaútfærsla í Supabase til að kanna hvernig sama gagnalíkan (hryssur, graðhestar og girðingar) gæti verið útfært í cloud-hýstri backend lausn. Markmiðið var fyrst og fremst að prófa mögulegan bakenda fyrir Flutter framenda í framtíðinni.
 
-Í þessari útfærslu:
-- PostgreSQL gagnagrunnur er hýstur í Supabase
-- Supabase Auth notað í stað sérsmíðaðs JWT kerfis
-- Töflur skilgreindar fyrir horses, paddocks og stallions
-- Row Level Security (RLS) notað til að tryggja að notendur hafi aðeins aðgang að sínum gögnum
-- Lausnin verður prófuð með Supabase REST API og Postman
+Í þessari útfærslu var Supabase Auth notað í stað sérsmíðaðs JWT-kerfis og Supabase REST API notað til prófana (m.a. með Postman). Row Level Security (RLS) var virkt til að stýra aðgangi að gögnum.
 
-Supabase-útfærslan kemur ekki í stað Express API lausnarinnar sem er skilaverkefnið,  
-heldur var hún sett upp sérstaklega með það í huga að hún geti þjónað sem backend fyrir mögulegt Flutter frontend í framtíðinni.
-
-Þessi viðbót er því fyrst og fremst hugsuð sem undirbúningur og tilraun, en ekki hluti af lokaskilum og er ekki fullprófuð.
+Supabase-útfærslan er algjörlega aðskilin frá Express + TypeScript lausninni sem er skilaverkefnið og kemur ekki í stað hennar. Vegna mismunar á auðkenningarlíkani (UUID í Supabase Auth vs. integer-based notendur í skilaverkefni) er lausnin ekki fullútfærð og er eingöngu hugsuð sem tilraun og framtíðarundirbúningur, en ekki hluti af lokaskilum.
 
 Supabase project (aðgangsstýrt): https://supabase.com/dashboard/project/xtcoydpweprxzjeraudo
-
 
 ### Mögulegar hugmyndir til framtíðar - ekki í lokaverkefni í samráði við kennara:
 - Invoices
