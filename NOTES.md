@@ -305,12 +305,12 @@ Markmið hennar var að kanna hvernig sama lén (hryssur, girðingar og graðhes
 - Supabase Auth notað í stað sérsmíðaðs JWT kerfis
 - Töflur skilgreindar fyrir horses, paddocks og stallions
 - Row Level Security (RLS) notað til að tryggja að notendur hafi aðeins aðgang að sínum gögnum
-- Lausnin prófuð með Supabase REST API og Postman
+- Lausnin verður prófuð með Supabase REST API og Postman
 
 Supabase-útfærslan kemur ekki í stað Express API lausnarinnar sem er skilaverkefnið,  
 heldur var hún sett upp sérstaklega með það í huga að hún geti þjónað sem backend fyrir mögulegt Flutter frontend í framtíðinni.
 
-Þessi viðbót er því fyrst og fremst hugsuð sem undirbúningur og tilraun, en ekki hluti af lokaskilum.
+Þessi viðbót er því fyrst og fremst hugsuð sem undirbúningur og tilraun, en ekki hluti af lokaskilum og er ekki fullprófuð.
 
 Supabase project (aðgangsstýrt): https://supabase.com/dashboard/project/xtcoydpweprxzjeraudo
 
