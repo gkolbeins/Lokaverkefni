@@ -210,7 +210,7 @@ Uppbygging IS-númers:
 Dæmi:
 - `IS2018185630`
 > Athugið:  
-> Kerfið framkvæmir **ekki strangt format-validation** á IS-númerum til að tryggja sveigjanleika og mögulega notkun utan Íslands.
+> Kerfið framkvæmir **ekki strangt format-validation** á IS-númerum til að tryggja sveigjanleika og mögulega notkun utan Íslands.  
 > Í uppfærslum (`PATCH`) er þó framkvæmd **einföld staðfesting** á því að gildið sé á væntu textaformi áður en það er vistað, til að koma í veg fyrir augljóslega ógild gögn.
 
 ### Leit að hryssu (Search)
@@ -258,11 +258,11 @@ Dæmi:
 - Kerfið heldur aðeins utan um núverandi stöðu
 
 #### Athugasemd við UC7
-> UC7 er útfært í einfaldri útgáfu, við flutning hryssu er uppfært:
-> current_paddock_id
-> (current_stallion_id ef við á)
-> arrival_date sem merkir komudag í núverandi girðingu.
-> Dvöl er ekki vistuð sem sér tafla og ekki talin þörf á því, kerfið heldur aðeins utan um núverandi stöðu.
+> UC7 er útfært í einfaldri útgáfu, við flutning hryssu er uppfært:  
+> current_paddock_id  
+> (current_stallion_id ef við á)  
+> arrival_date sem merkir komudag í núverandi girðingu.  
+> Dvöl er ekki vistuð sem sér tafla og ekki talin þörf á því, kerfið heldur aðeins utan um núverandi stöðu.  
 > departure_date er ekki hluti af þessari útgáfu verkefnisins (mögulega alls ekki þarft í notkun kerfisins).
 
 ### UC8 – Merkja stöðu - ✅
@@ -278,8 +278,8 @@ Dæmi:
 - Eyðir notanda og öllum tengdum hrossum (ON DELETE CASCADE)
 
 #### Athugasemd við UC10
-> Við eyðingu notandareiknings er athugað hvort notandi eigi graðhesta eða girðingar.
-> Ef svo er þarf notandi að staðfesta eyðingu sérstaklega (confirm = true).
+> Við eyðingu notandareiknings er athugað hvort notandi eigi graðhesta eða girðingar.  
+> Ef svo er þarf notandi að staðfesta eyðingu sérstaklega (confirm = true).  
 > Allar hryssur eyðast sjálfkrafa (ON DELETE CASCADE).
 
 ## Prófanir
