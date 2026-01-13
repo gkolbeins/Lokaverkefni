@@ -1,8 +1,8 @@
 # Hryssa API (Lokaverkefni) – Verkflæði og vinnuáætlun
 
-Þetta skjal geymir vinnuferlið mitt, skipulag og áætlun um hvernig ég byggi Hryssa API-ið.  
-Hér skrái ég stöðu verkefnisins, hvað er lokið og hvað er næst - þetta er fyrst og fremst vinnuskjal.
-Þetta skjal tekur stöðugum breytingum í gegnum verkefnið.
+Þetta skjal geymir þróunarsögu verkefnisins, vinnuferlið mitt, tæknilegar ákvarðanir
+og rökstuðning fyrir útfærslum í Hryssa API lokaverkefninu.
+Skjalið var lifandi vinnuskjal á meðan á þróun stóð og endurspeglar raunverulegt ferli verkefnisins.
 Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 
 ## Skref 1 – Setup
@@ -78,10 +78,15 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] GET /horses
 - [x] PATCH /horses
 - [x] POST /horses
+- [x] POST /horses hafnar tvíteknum IS-númerum
 
 ### Athugasemd
 > Breytan scanned var fjarlægð af ásetningi. Í raunheimum er sónarskoðun aðeins leið til að staðfesta fyl,
 > þannig að kerfið geymir niðurstöðuna (pregnancy_confirmed) frekar en atburðinn sjálfan.
+
+### Athugasemd – Edge cases
+> IS-númer hrossa er skilgreint sem unique per owner.
+> Kerfið hafnar bæði skráningu og uppfærslu ef notandi reynir að nota IS-númer sem er þegar til hjá honum (409 Conflict).
 
 **✓ Skref 3 lokið: 26.12.2025**
 
@@ -178,6 +183,10 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Unauthorized cases (401)
 - [x] POST /auth/register
 - [x] POST /auth/login
+
+### Athugasemd – Edge cases
+> Girðing getur aðeins haft einn graðhest í einu.
+> Ef reynt er að setja nýjan graðhest í girðingu sem þegar er með graðhest er uppfærslu hafnað með 409 Conflict.
 
 ✓ Öll sjálfvirk test sem komin eru keyra nú stöðugt og eru endurkeyranleg (3.1.2026)
 
@@ -301,7 +310,7 @@ Að loknum lokafrágangi var sett upp aðskilin proof-of-concept útfærsla í S
 
 Í þessari útfærslu var Supabase Auth notað í stað sérsmíðaðs JWT-kerfis og Supabase REST API notað til prófana (m.a. með Postman). Gagnalíkanið var aðlagað að Supabase með UUID-auðkenndum notendum og Row Level Security (RLS) notað til að stýra aðgangi að gögnum á töflustigi.
 
-Supabase-útfærslan er algjörlega aðskilin frá Express + TypeScript lausninni sem er skilaverkefnið og kemur ekki í stað hennar. Lausnin er hugsuð sem tæknileg tilraun og framtíðarundirbúningur og er því ekki fullútfærð né hluti af lokaskilum.
+Supabase-útfærslan er algjörlega aðskilin frá Express + TypeScript lausninni sem er lokaverkefnið og kemur ekki í stað hennar. Lausnin er hugsuð sem tæknileg tilraun og framtíðarundirbúningur og er því hvorki fullútfærð né hluti af lokaskilum.
 
 Supabase project (aðgangsstýrt): https://supabase.com/dashboard/project/xtcoydpweprxzjeraudo
 

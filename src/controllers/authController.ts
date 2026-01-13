@@ -28,7 +28,7 @@ export const patchMeController = async (
         .json({ message: "No valid fields to update" });
     }
 
-    //ef email breyt - athuga unique
+    //ef email er breytt - athuga unique
     if (updates.email) {
       const emailCheck = await pool.query(
         "SELECT id FROM users WHERE email = $1 AND id != $2",

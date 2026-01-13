@@ -1,3 +1,4 @@
+//ath: aldur miðast við fæðingarár, fæðingardagur er ekki skráður í IS númeri
 export const ageFromIsNumber = (isNumber: string | null): number | null => {
   if (!isNumber) return null;
 

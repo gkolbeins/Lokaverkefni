@@ -22,7 +22,7 @@ app.use("/stallions", stallionRoutes);
 
 app.use("/paddocks", paddockRoutes);
 
-//til að testa database-inn
+//til að testa database-inn á meðan verið er að þróa verkefnið
 app.get("/db-test", async (request, response) => {
   try {
     const result = await pool.query("SELECT NOW()");

@@ -12,7 +12,6 @@ export const getHorsesByOwner = async (
 ) => {
   const values: any[] = [ownerId];
   const conditions: string[] = ["owner_id = $1"];
-
   let index = 2;
 
   if (options?.paddockId !== undefined) {
@@ -141,9 +140,9 @@ export const updateHorse = async (
   
   const values = Object.values(fields);
 
-  const SetClause = keys.map((key, index) => `${key} = $${index + 1}`).join(", ");
+  const setClause = keys.map((key, index) => `${key} = $${index + 1}`).join(", ");
 
-  const query = `UPDATE horses SET ${SetClause} WHERE id = $${keys.length + 1} RETURNING *`;
+  const query = `UPDATE horses SET ${setClause} WHERE id = $${keys.length + 1} RETURNING *`;
 
   const result = await pool.query(query, [...values, id]);
   return result.rows[0];

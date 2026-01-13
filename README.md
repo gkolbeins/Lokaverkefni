@@ -1,13 +1,22 @@
-> ATH að þetta yfirlit er unnið af gervigreind og yfirfarið af GH að mestu 29.11.2025 og fínpússað 2.12.2025!  
-> Gervigreindin var beðin að bera saman fyrirmynd af lokaverkefni sem lagt var fyrir og mína hugmynd að verkefni og setja réttar kröfur á verkefnið mitt.  
-> README lýsir aðeins virkni sem er raunverulega útfærð og prófuð.
+> ATH: Þetta README veitir yfirlit yfir virkni sem er raunverulega útfærð og prófuð í lokaverkefninu.
+> Við mótun verkefnisins var stuðst við gervigreind sem hjálpartæki til að bera saman fyrirmynd af lokaverkefni og þá hugmynd sem liggur að baki þessu kerfi.
+> Gervigreindin kom m.a. með tillögur að útfærslum og notkunartilvikum sem miðuðu að því að tryggja að verkefnið uppfyllti sett skilyrði lokaverkefnisins.
+> Allar lausnir, útfærslur og samþættingar hafa þó verið yfirfarnar, aðlagaðar og útfærðar af höfundi sjálfum.
+>
+> README hefur verið uppfært samhliða þróun verkefnisins.  
+> Helstu breytingar: 9.12.2025, 13.12.2025, 27.12.2025, 7.1.2026.  
+> Lokaútgáfa: 11.1.2026
 
-Á Figma, á slóðinni https://www.figma.com/design/nKf9PYlMcwSYV4gmYwXIrD/Hryssa---app---web-2.0?node-id=0-1&t=KTidrjFVxMZ1d2Hv-1 er tillaga að útliti á framenda sem ég er búin að vinna ásamt styttri verklýsingu.
+## Uppruni hugmyndar og tengd framendaverkefni
 
-Flutter app, sem ég bjó til samhliða náminu, er hægt að nota sem framenda: https://github.com/gkolbeins/hryssa_app
+Hugmyndin að Hryssa API varð til í tengslum við Flutter app sem byrjað var að hanna samhliða náminu, áður en farið var í lokaverkefnið. Appið fól í sér einfalt utanumhald um hryssur, graðhesta og girðingar og varð kveikjan að því viðfangsefni sem lokaverkefnið byggir á.
 
-ATH mögulegt er að þetta yfirlit taki breytingum til aðlögunar á meðan á vinnu verkefnisins stendur:
-- breytingar gerðar 9.12.2025, 13.12.2025, 27.12.2025, 7.1.2026 og lokaútgáfa 11.1.2026
+Í lokaverkefninu var bakendakerfið síðan hannað og útfært sjálfstætt, með áherslu á skýra API-hönnun, gagnalíkan, heimildir og prófanir, í samræmi við kröfur lokaverkefnis.
+
+Hugmynd að framenda og stutt verklýsing má finna á Figma: https://www.figma.com/design/nKf9PYlMcwSYV4gmYwXIrD/Hryssa---app---web-2.0
+
+Flutter appið, sem var þróað áður en lokaverkefnið hófst, er aðgengilegt hér: https://github.com/gkolbeins/hryssa_app
+
 
 # Hryssa API - Lokaverkefni á 3. önn
 
@@ -91,7 +100,7 @@ tests/
 - usecase_tests/
 
 README.md
-NOTES.md  
+NOTES.md – þróunarsaga verkefnisins, ákvarðanir og rökstuðningur  
 
 ## Gagnagrunnsskema
 
@@ -318,11 +327,11 @@ Dæmi:
 
 ## Aðföng, heimildir og aðstoð
 
-- Þetta verkefni er byggt á hugmynd sem er mitt eigið hugarfóstur. Ég hef þegar þróað nánast tilbúið Flutter-framenda sem fyrirhugað er að tengja við þetta API í framhaldinu.
+- Þetta verkefni er byggt á hugmynd sem er mitt eigið hugarfóstur, unnið í framhaldi af Flutter-framenda sem gæti verið hægt að tengja við þetta API í framhaldinu.
 - Verkefnið er að langmestu leyti unnið með stuðningi frá áður unnum verkefnum og glósum úr tímum.
 - Leit með Google hefur mikið verið notuð til að afla upplýsinga og finna ítarefni til aðstoðar við þróun og villuleit.
 - Gervigreind (aðallega ChatGPT) hefur verið notuð til villuleitar (virkar mjög vel til að finna innsláttarvillur, stafavíxl og annað sem augað er lengi að finna) og einnig til að fá útskýringar og aðstoð við að finna lausnir þegar ég hef strandað í þróunarferlinu (merkt sérstaklega).
 - Allar lausnir hafa þó verið útfærðar, aðlagaðar og samþættar af mér sjálfri til að virkni þeirra sé rétt og útfærsla rétt.
-- Ég hef einnig fengið ráðgjöf og yfirlestur frá félögum og samstarfsfólki með þekkingu á forritun, m.a. til að ræða lausnir og fá álit á tæknilegum atriðum og útfærslum til samræmis við raunheimanotkun.
+- Ég hef einnig fengið ráðgjöf og yfirlestur frá félögum og samstarfsfólki með þekkingu á forritun, m.a. til að ræða lausnir og fá álit á tæknilegum atriðum og rökréttum útfærslum til samræmis við raunheimanotkun.
 - Skjalið `NOTES.md` er notað til að halda utan um framvindu verkefnisins, stöðu einstakra skrefa og næstu verkefni. Það er lifandi vinnuskjal sem tekur stöðugum breytingum á meðan þróun stendur yfir.
 

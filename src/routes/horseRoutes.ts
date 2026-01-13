@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, Request } from "express";
 import { pool } from "../config/db";
 import { authenticateToken } from "../middleware/authenticateToken";
 import * as horseController from "../controllers/horseController";
@@ -10,7 +10,8 @@ router.get("/", authenticateToken, horseController.getAllHorses);
 
 router.get("/:id", authenticateToken, horseController.getHorseByIdController);
 
-router.post("/", authenticateToken, async (request: any, response) => {
+router.post("/", authenticateToken, async (request: Request & { user?: { id: number } }, response) => {
+
   if (!request.user) {
     return response.status(401).json({ message: "Unauthorized" });
   }
@@ -23,6 +24,19 @@ router.post("/", authenticateToken, async (request: any, response) => {
   }
 
   try {
+    if (is_number) {
+      const existingHorse = await pool.query(
+        `SELECT id FROM horses
+        WHERE owner_id = $1 AND is_number = $2`,
+        [ownerId, is_number]
+      );
+
+    if (existingHorse.rows.length > 0) {
+      return response.status(409).json({
+        message: "Horse with this IS number already exists",
+      });
+    }
+    }
     const result = await pool.query(
       `INSERT INTO horses (name, is_number, chip_id, owner_id, notes, arrival_date)
       VALUES ($1, $2, $3, $4, $5, $6)

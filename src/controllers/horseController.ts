@@ -76,6 +76,22 @@ export const patchHorse = async (
       });
     }
 
+    if (updates.is_number !== undefined) {
+  const existingHorse = await pool.query(
+    `SELECT id FROM horses
+     WHERE owner_id = $1
+       AND is_number = $2
+       AND id != $3`,
+    [userId, updates.is_number, horseId]
+  );
+
+  if (existingHorse.rows.length > 0) {
+    return response.status(409).json({
+      message: "Horse with this IS number already exists",
+    });
+  }
+}
+
     const updatedHorse = await updateHorse(horseId, updates);
     return response.status(200).json(updatedHorse);
   } catch (error) {

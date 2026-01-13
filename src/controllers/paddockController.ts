@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { createPaddock, getPaddocksByOwner } from "../services/paddockService";
-import { getStallionById } from "../services/stallionService";
 import { pool } from "../config/db";
 
 export const createPaddockController = async (
@@ -74,13 +73,13 @@ export const getPaddockHorsesController = async (
   );
 
   if (paddockResult.rows.length === 0) {
-    return response.status(404).json({ error: "Paddock not found" });
+    return response.status(404).json({ message: "Paddock not found" });
   }
 
   const paddock = paddockResult.rows[0];
 
   if (paddock.owner_id !== userId) {
-    return response.status(403).json({ error: "Forbidden" });
+    return response.status(403).json({ message: "Forbidden" });
   }
 
   const horsesResult = await pool.query(
@@ -110,13 +109,13 @@ export const getPaddockByIdController = async (
   );
 
   if (paddockResult.rows.length === 0) {
-    return response.status(404).json({ error: "Paddock not found" });
+    return response.status(404).json({ message: "Paddock not found" });
   }
 
   const paddock = paddockResult.rows[0];
 
   if (paddock.owner_id !== userId) {
-    return response.status(403).json({ error: "Forbidden" });
+    return response.status(403).json({ message: "Forbidden" });
   }
 
   //sækja stallion (ef til)
@@ -174,13 +173,13 @@ export const updatePaddockController = async (
   );
 
   if (paddockResult.rows.length === 0) {
-    return response.status(404).json({ error: "Paddock not found" });
+    return response.status(404).json({ message: "Paddock not found" });
   }
 
   const paddock = paddockResult.rows[0];
 
   if (paddock.owner_id !== userId) {
-    return response.status(403).json({ error: "Forbidden" });
+    return response.status(403).json({ message: "Forbidden" });
   }
 
   if (stallion_id !== undefined) {
@@ -190,13 +189,24 @@ export const updatePaddockController = async (
   );
 
   if (stallionRes.rows.length === 0) {
-    return response.status(400).json({ error: "Invalid stallion_id" });
+    return response.status(400).json({ message: "Invalid stallion_id" });
   }
 
   if (stallionRes.rows[0].owner_id !== userId) {
-    return response.status(403).json({ error: "Forbidden" });
+    return response.status(403).json({ message: "Forbidden" });
   }
   }
+
+  //aðeins einn stallion má vera í hverri paddock í einu
+  if (
+  stallion_id !== undefined &&
+  stallion_id !== null &&
+  paddock.stallion_id !== null
+) {
+  return response.status(409).json({
+    message: "Paddock already has a stallion",
+  });
+}
 
   const updateResult = await pool.query(
   `UPDATE paddocks
@@ -234,13 +244,13 @@ export const deletePaddockController = async (
   );
 
   if (paddockResult.rows.length === 0) {
-    return response.status(404).json({ error: "Paddock not found" });
+    return response.status(404).json({ message: "Paddock not found" });
   }
 
   const paddock = paddockResult.rows[0];
 
   if (paddock.owner_id !== userId) {
-    return response.status(403).json({ error: "Forbidden" });
+    return response.status(403).json({ message: "Forbidden" });
   }
 
   const horsesResult = await pool.query(
@@ -250,7 +260,7 @@ export const deletePaddockController = async (
 
   if (horsesResult.rows.length > 0) {
     return response.status(400).json({
-      error: "Cannot delete paddock with horses",
+      message: "Cannot delete paddock with horses",
     });
   }
 

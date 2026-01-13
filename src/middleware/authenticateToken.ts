@@ -21,7 +21,7 @@ export const authenticateToken = (
   const authHeader = request.headers["authorization"];
 
   if (!authHeader) {
-    return response.status(401).json({ message: "Authorfization header missing" });
+    return response.status(401).json({ message: "Authorization header missing" });
   }
 
   const token = authHeader.split(" ")[1];
@@ -30,7 +30,7 @@ export const authenticateToken = (
   }
 
   try {
-  const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
+  const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
 
   request.user = {
     id: decoded.userId,
