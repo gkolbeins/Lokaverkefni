@@ -1,6 +1,6 @@
-> ATH: Þetta README veitir yfirlit yfir virkni sem er raunverulega útfærð og prófuð í lokaverkefninu.
-> Við mótun verkefnisins var stuðst við gervigreind sem hjálpartæki til að bera saman fyrirmynd af lokaverkefni og þá hugmynd sem liggur að baki þessu kerfi.
-> Gervigreindin kom m.a. með tillögur að útfærslum og notkunartilvikum sem miðuðu að því að tryggja að verkefnið uppfyllti sett skilyrði lokaverkefnisins.
+> ATH: Þetta README veitir yfirlit yfir virkni sem er raunverulega útfærð og prófuð í lokaverkefninu.  
+> Við mótun verkefnisins var stuðst við gervigreind sem hjálpartæki til að bera saman fyrirmynd af lokaverkefni og þá hugmynd sem liggur að baki þessu kerfi.  
+> Gervigreindin kom m.a. með tillögur að útfærslum og notkunartilvikum sem miðuðu að því að tryggja að verkefnið uppfyllti sett skilyrði lokaverkefnisins.  
 > Allar lausnir, útfærslur og samþættingar hafa þó verið yfirfarnar, aðlagaðar og útfærðar af höfundi sjálfum.
 >
 > README hefur verið uppfært samhliða þróun verkefnisins.  
@@ -99,7 +99,7 @@ tests/
 - paddock/     
 - usecase_tests/
 
-README.md
+README.md     
 NOTES.md – þróunarsaga verkefnisins, ákvarðanir og rökstuðningur  
 
 ## Gagnagrunnsskema
