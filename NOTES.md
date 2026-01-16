@@ -297,6 +297,11 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Kóðatiltekt (fjarlægja ónotað) og schema.sql hreinsað
 - [x] Lokayfirferð fyrir skil
 
+### Athugasemd um input validation
+Í þessu verkefni var input validation útfærð handvirkt í controllers með skýrum lista yfir leyfilega reiti, stöðukóðum og prófunum sem staðfesta bæði virkni og villutilvik.
+Schema-based validation (t.d. með Zod) var skoðuð sem mögulegur kostur en ákveðið var að innleiða hana ekki í lokaverkefninu þar sem núverandi lausn er einföld, gagnsæ og fullprófuð.
+Í stærra eða áframhaldandi verkefni mætti íhuga að nota Zod eða sambærilegt tól til að aðskilja validation enn frekar frá viðskiptalógík og auka endurnýtanleika.
+
 ## Lokafrágangur
 
 Verkefnið er fullklárað í samræmi við skilgreind use cases.  
