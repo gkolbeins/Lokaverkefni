@@ -297,20 +297,19 @@ Verkfæri:  pgAdmin 4, Postman, Visual Studio Code
 - [x] Kóðatiltekt (fjarlægja ónotað) og schema.sql hreinsað
 - [x] Lokayfirferð fyrir skil
 
-### Athugasemd um input validation
-Í þessu verkefni var input validation útfærð handvirkt í controllers með skýrum lista yfir leyfilega reiti, stöðukóðum og prófunum sem staðfesta bæði virkni og villutilvik.
-Schema-based validation (t.d. með Zod) var skoðuð sem mögulegur kostur en ákveðið var að innleiða hana ekki í lokaverkefninu þar sem núverandi lausn er einföld, gagnsæ og fullprófuð.
-Í stærra eða áframhaldandi verkefni mætti íhuga að nota Zod eða sambærilegt tól til að aðskilja validation enn frekar frá viðskiptalógík og auka endurnýtanleika.
+### Athugasemdir í skrefi 5
+Inntaksstaðfesting (input validation) í verkefninu er útfærð handvirkt í controllers, með skýrum villuskilaboðum og ítarlegum prófunum sem staðfesta bæði rétta virkni og villutilvik.
+Notkun formlegra schema-lausna (t.d. Zod) var skoðuð en ákveðið var að halda sig við einfaldari lausn sem þótti nægjanleg fyrir umfang og notkun verkefnisins.
+Við uppfærslur á gögnum er aðeins leyft að breyta fyrirfram skilgreindum reitum og öll notandainntök eru sett inn með öruggum SQL parametrum, sem tryggir bæði öryggi og stjórn á gögnunum.
+Atriði sem oft eru notuð í stærri kerfum, eins og rate limiting, miðlæg villumeðhöndlun og sjálfvirk kóðasnið, voru tekin til skoðunar en skilin eftir utan þessa verkefnis og eru hugsuð sem möguleg áframhaldandi þróun.
 
 ## Lokafrágangur
-
 Verkefnið er fullklárað í samræmi við skilgreind use cases.  
 Allir endapunktar sem lýst er í README eru raunverulega útfærðir og prófaðir með bæði sjálfvirkum Vitest prófum og handvirkum Postman prófum.
 Skjalið NOTES.md endurspeglar raunverulegt þróunarferli verkefnisins og stöðu hvers skrefs fram að lokaskilum.
 Áhersla var lögð á skýra API hönnun, raunhæfa viðskiptalógík, skýrar heimildir og prófanir sem staðfesta bæði virkni og villur.
 
 ## Viðbót – Supabase proof-of-concept og framtíðarundirbúningur
-
 Að loknum lokafrágangi var sett upp aðskilin proof-of-concept útfærsla í Supabase til að kanna hvernig sama verkefni (hryssur, graðhestar og girðingar) gæti verið útfært í cloud-hýstri bakenda lausn. Markmiðið var fyrst og fremst að prófa mögulegan bakenda fyrir Flutter framenda í framtíðinni.
 
 Í þessari útfærslu var Supabase Auth notað í stað sérsmíðaðs JWT-kerfis og Supabase REST API notað til prófana (m.a. með Postman). Gagnalíkanið var aðlagað að Supabase með UUID-auðkenndum notendum og Row Level Security (RLS) notað til að stýra aðgangi að gögnum á töflustigi.
